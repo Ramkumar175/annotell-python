@@ -13,6 +13,12 @@ https://annotell.github.io/annotell-python/docs/
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.2] - 2021-02-02
+
+### Changed
+- Changed url for the `get_calibration_data` method. Does not affect
+usage of the method in any way.
+
 ## [0.4.1] - 2021-01-29
 
 ### Changed
