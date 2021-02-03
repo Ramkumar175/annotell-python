@@ -25,29 +25,3 @@ class CalibrationSpec:
             'externalId': self.external_id,
             'calibration': self.calibration.to_dict()
         }
-
-
-@dataclass
-class CalibrationNoContent:
-    id: int
-    external_id: str
-    created: datetime
-
-    @staticmethod
-    def from_json(js: dict):
-        return CalibrationNoContent(
-            int(js["id"]), js["externalId"], ts_to_dt(js["created"])
-        )
-
-
-@dataclass
-class CalibrationWithContent:
-    id: int
-    external_id: str
-    created: datetime
-    calibration: Mapping[str, dict]
-
-    @staticmethod
-    def from_json(js: dict):
-        return CalibrationWithContent(int(js["id"]), js["externalId"],
-                                      ts_to_dt(js["created"]), js["calibration"])

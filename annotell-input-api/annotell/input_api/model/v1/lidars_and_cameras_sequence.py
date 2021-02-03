@@ -9,7 +9,7 @@ from annotell.input_api.model.v1.sensor_specification import SensorSpecification
 class LidarsAndCamerasSequence:
     external_id: str
     frames: List[Frame]
-    calibration_id: int
+    calibration_id: str
     sensor_specification: Optional[SensorSpecification] = None
 
     def to_dict(self) -> dict:
