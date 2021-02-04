@@ -33,8 +33,10 @@ Next, we need to add metadata to the input. Similarly to [`Images`](input-api/in
 ```python
 scene_external_id = "Scene X collection 2020-06-16"
 calibration_id = 100
+source_specification = IAM.SourceSpecification(source_to_pretty_name=dict(RFC01="Front Camera"))
 metadata = IAM.CalibratedSceneMetaData(external_id=scene_external_id,
-                                       calibration_id=calibration_id)
+                                       calibration_id=calibration_id,
+                                       source_specification=source_specification)
 ```
 
 | Parameter            | Description                                                                                                                                                                                                                                |
