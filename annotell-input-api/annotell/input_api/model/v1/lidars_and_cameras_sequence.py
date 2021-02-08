@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import List, Optional, Union
+from typing import List, Union
 
 from annotell.input_api.model.v1.frame import Frame, ImageFrame, PointCloudFrame, VideoFrame
 from annotell.input_api.model.v1.sensor_specification import SensorSpecification
@@ -10,7 +10,7 @@ class LidarsAndCamerasSequence:
     external_id: str
     frames: List[Frame]
     calibration_id: str
-    sensor_specification: Optional[SensorSpecification] = None
+    sensor_specification: SensorSpecification
 
     def to_dict(self) -> dict:
         return dict(frames=[frame.to_dict() for frame in self.frames],
