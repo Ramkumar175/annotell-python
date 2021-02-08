@@ -15,7 +15,12 @@ client = IAC.InputApiClient()
 
 # Create calibration
 calibration_spec = create_calibration_spec("Collection 2020-06-16", ["lidar"], ["RFC01", "RFC02", "RFC03"])
-created_calibration = client.calibration.create_calibration_data(calibration_spec)
+created_calibration = client.calibration.create_calibration(calibration_spec)
+
+camera_settings = IAM.CameraSettings(width=1920, height=1080)
+sensor_specification = IAM.SensorSpecification(sensor_settings=dict(RFC01=camera_settings,
+                                                                    RFC02=camera_settings,
+                                                                    RFC03=camera_settings))
 
 lidar_and_camera_seq = IAM.LidarsAndCamerasSequence(
     external_id="input1",
@@ -33,6 +38,7 @@ lidar_and_camera_seq = IAM.LidarsAndCamerasSequence(
             ]),
     ],
     calibration_id=created_calibration.id,
+    sensor_specification=sensor_specification
 )
 
 
