@@ -134,5 +134,16 @@ If errors are detected by Annotell, inputs will be invalidated and a reason will
 
 ```python
 project = "project-identifier"
-client.input.get_inputs(project= project, include_invalidated= True)
+client.input.get_inputs(project=project, include_invalidated=True)
+```
+
+## Downloading Annotations
+
+Once annotations are available they can be downloaded by supplying a list of internal ids for the corresponding inputs. A dictonary is returned containing available annotations for each input. Several annotations occur if the project is setup in such a way that each input should be annotated with different annotation types, e.g. Lane Markings and Objects.
+
+```python
+client.annotation.get_annotations(internal_ids=[
+    'decf6479-d540-459f-b924-a12c2cecf3b5',
+    '5da4f44b-16cb-414a-8dbd-ff5e5afc309a'
+])
 ```
