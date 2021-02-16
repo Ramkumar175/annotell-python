@@ -1,4 +1,3 @@
-from annotell.apiclients.input_api_client import create_input_api_client
 from typing import Optional, List
 from tabulate import tabulate
 from .input_api_client import InputApiClient
