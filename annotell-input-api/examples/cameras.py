@@ -13,7 +13,7 @@ setup_logging(level="INFO")
 client = IAC.InputApiClient()
 
 # Create calibration
-calibration_spec = create_calibration_spec("Collection 2020-06-16", ["RFC01", "RFC02", "RFC03"])
+calibration_spec = create_calibration_spec("Collection 2020-06-16", [], ["RFC01", "RFC02", "RFC03"])
 created_calibration = client.calibration.create_calibration(calibration_spec)
 
 camera_settings = IAM.CameraSettings(width=1920, height=1080)
