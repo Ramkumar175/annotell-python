@@ -54,4 +54,4 @@ class InputApiClient:
         # self.images = ImageResource(client, file_client)
 
         self.lidar_and_image_sequence = LidarAndImageSequenceResource(client, file_client)
-        self.images = Cameras(client, file_client)
+        self.cameras = Cameras(client, file_client)

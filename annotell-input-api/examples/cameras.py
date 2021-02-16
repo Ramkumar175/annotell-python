@@ -37,6 +37,4 @@ project = "project-identifier"
 
 
 # Add input
-client.images.create(cameras,
-                     project=project,
-                     dryrun=False)
+client.cameras.create(cameras, project=project, dryrun=False)
