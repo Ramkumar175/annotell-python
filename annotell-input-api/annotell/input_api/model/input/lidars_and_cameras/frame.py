@@ -5,7 +5,7 @@ from annotell.input_api.model.input.resource.point_cloud import PointCloud
 
 
 @dataclass
-class FrameLC:
+class Frame:
     frame_id: str
     relative_timestamp: int
     point_clouds: List[PointCloud] = field(default_factory=list)
