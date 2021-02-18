@@ -8,10 +8,10 @@ camera_sensor_default = "CAM"
 
 @dataclass
 class VideoFrame(Resource):
-    video_timestamp: int
     filename: str
     resource_id: Optional[str] = None
     sensor_name: str = camera_sensor_default
+    video_timestamp: int = -1  # TODO: This is due to how dataclasses work, must be named :/
 
     def to_dict(self) -> dict:
         return filter_none({

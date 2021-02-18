@@ -5,7 +5,6 @@ import logging
 from annotell.input_api.file_resource_client import FileResourceClient
 from annotell.input_api.http_client import HttpClient
 import annotell.input_api.model.input as InputModel
-import annotell.input_api.model.input.resource as ResourceModel
 import annotell.input_api.model as Model
 from annotell.input_api.util import get_image_dimensions
 
@@ -48,6 +47,7 @@ class CreateableInputAPIResource(FileResourceClient):
                 )
 
             return response
+        return None
 
     @staticmethod
     def _resolve_request_url(resource_path: str,

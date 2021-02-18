@@ -4,7 +4,6 @@ from annotell.input_api.input_api_client import InputApiClient
 
 import annotell.input_api.model.calibration as CalibrationModel
 
-
 def create_calibration_spec(external_id, lidar_sources: List[str], camera_sources: List[str]):
     # Create lidar calibration
 

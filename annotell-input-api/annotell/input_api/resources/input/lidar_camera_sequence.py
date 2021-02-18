@@ -50,7 +50,7 @@ class LidarAndImageSequenceResource(CreateableInputAPIResource):
                                            dryrun=dryrun)
 
         if dryrun:
-            return
+            return None
 
         log.info(f"Created inputs for files with job_id={response.internal_id}")
         return response
