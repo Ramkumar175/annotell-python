@@ -1,7 +1,8 @@
 import logging
 from typing import Optional
 
-from annotell.input_api import model as IAM
+import annotell.input_api.model.input as InputModel
+from annotell.input_api.model.input.cameras import Cameras
 from annotell.input_api.resources.abstract import CreateableInputAPIResource
 
 log = logging.getLogger(__name__)
@@ -12,11 +13,11 @@ class Cameras(CreateableInputAPIResource):
     path = 'cameras'
 
     def create(self,
-               cameras: IAM.Cameras,
+               cameras: Cameras,
                project: Optional[str] = None,
                batch: Optional[str] = None,
                input_list_id: Optional[int] = None,
-               dryrun: bool = False) -> Optional[IAM.CreateInputJobResponse]:
+               dryrun: bool = False) -> Optional[InputModel.CreateInputJob]:
         """
         Upload files and create an input of type ``cameras``.
 

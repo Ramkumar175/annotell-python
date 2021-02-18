@@ -1,12 +1,14 @@
-from typing import List, Optional, Union, Dict
+from typing import List, Dict
 
-from annotell.input_api import model as IAM
+import annotell.input_api.model.annotation as AnnotationModel
 from annotell.input_api.resources.abstract import InputAPIResource
 
 
 class AnnotationResource(InputAPIResource):
-    def get_annotations(self, internal_ids: List[str]
-                             ) -> Dict[str, List[IAM.ExportAnnotation]]:
+    def get_annotations(
+        self,
+        internal_ids: List[str]
+    ) -> Dict[str, List[AnnotationModel.ExportAnnotation]]:
         """
         Returns the export ready annotations, either
         * All annotations connected to a specific request, if a request id is given
@@ -21,5 +23,7 @@ class AnnotationResource(InputAPIResource):
 
         annotations = dict()
         for k, v in json_resp.items():
-            annotations[k] = [IAM.ExportAnnotation.from_json(annotation) for annotation in v]
+            annotations[k] = [
+                AnnotationModel.ExportAnnotation.from_json(annotation) for annotation in v
+            ]
         return json_resp

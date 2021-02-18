@@ -7,7 +7,6 @@ class RequestCall:
 
 
 class SensorCalibration(RequestCall):
-
     def to_dict(self) -> Dict:
         raise NotImplementedError
 
