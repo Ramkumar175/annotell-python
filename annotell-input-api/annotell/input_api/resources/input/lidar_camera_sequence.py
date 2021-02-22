@@ -39,7 +39,6 @@ class LidarAndImageSequenceResource(CreateableInputAPIResource):
 
         self._set_sensor_settings(lidars_and_cameras_sequence)
 
-        # We need to set job-id from the response
         payload = lidars_and_cameras_sequence.to_dict()
 
         response = self.post_input_request(self.path, payload,
@@ -51,5 +50,5 @@ class LidarAndImageSequenceResource(CreateableInputAPIResource):
         if dryrun:
             return
 
-        log.info(f"Created inputs for files with job_id={response.internal_id}")
+        log.info(f"Created inputs for files with internal_id={response.internal_id}")
         return response

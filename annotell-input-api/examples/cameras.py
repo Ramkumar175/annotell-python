@@ -12,28 +12,36 @@ setup_logging(level="INFO")
 
 client = IAC.InputApiClient()
 
+sensor1 = "RFC01"
+sensor2 = "RFC02"
+sensor3 = "RFC03"
+
 # Create calibration
-calibration_spec = create_calibration_spec("Collection 2020-06-16", [], ["RFC01", "RFC02", "RFC03"])
+calibration_spec = create_calibration_spec("Collection 2020-06-16", [sensor1, sensor2, sensor3])
 created_calibration = client.calibration.create_calibration(calibration_spec)
 
 camera_settings = IAM.CameraSettings(width=1920, height=1080)
-sensor_specification = IAM.SensorSpecification(sensor_settings=dict(RFC01=camera_settings,
-                                                                    RFC02=camera_settings,
-                                                                    RFC03=camera_settings))
+
+sensor_settings = {
+    sensor1: camera_settings,
+    sensor2: camera_settings,
+    sensor3: camera_settings
+}
+sensor_specification = IAM.SensorSpecification(sensor_settings=sensor_settings)
 
 cameras = IAM.Cameras(
     external_id="input1",
-    image_frames=[
-        IAM.ImageFrame("~/Downloads/img_RFC01.jpg", sensor_name="RFC01"),
-        IAM.ImageFrame("~/Downloads/img_RFC01.jpg", sensor_name="RFC02"),
-        IAM.ImageFrame("~/Downloads/img_RFC01.jpg", sensor_name="RFC03")
+    images=[
+        IAM.ImageFrame("~/Downloads/img_RFC01.jpg", sensor_name=sensor1),
+        IAM.ImageFrame("~/Downloads/img_RFC01.jpg", sensor_name=sensor2),
+        IAM.ImageFrame("~/Downloads/img_RFC01.jpg", sensor_name=sensor3)
     ],
     sensor_specification=sensor_specification
 )
 
 
 # Project - Available via `client.list_projects()`
-project = "project-identifier"
+project = "Project-identifier"
 
 
 # Add input

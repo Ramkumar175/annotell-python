@@ -18,12 +18,3 @@ class LidarsAndCamerasSequence(CameraResource):
                     sensorSpecification=self.sensor_specification.to_dict(),
                     externalId=self.external_id,
                     calibrationId=self.calibration_id)
-
-    def get_local_resources(self) -> List[Union[PointCloudFrame, VideoFrame, ImageFrame]]:
-        resources = []
-        for frame in self.frames:
-            for resource in (frame.point_cloud_frames + frame.image_frames + frame.video_frames):
-                if resource.resource_id is None:
-                    resources.append(resource)
-
-        return resources
