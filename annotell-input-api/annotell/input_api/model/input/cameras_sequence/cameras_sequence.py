@@ -18,12 +18,3 @@ class CamerasSequence(CameraSensor):
         return dict(frames=[frame.to_dict() for frame in self.frames],
                     sensorSpecification=self.sensor_specification.to_dict(),
                     externalId=self.external_id)
-
-    def get_local_resources(self) -> List[Union[VideoFrame, Image]]:
-        resources = []
-        for frame in self.frames:
-            for resource in (frame.images + frame.video_frames):
-                if resource.resource_id is None:
-                    resources.append(resource)
-
-        return resource

@@ -17,11 +17,3 @@ class Cameras(CameraSensor):
         return dict(frame=self.frame.to_dict(),
                     sensorSpecification=self.sensor_specification.to_dict(),
                     externalId=self.external_id)
-
-    def get_local_resources(self) -> List[Image]:
-        resources = []
-        for resource in self.frame.images:
-            if resource.resource_id is None:
-                resources.append(resource)
-
-        return resources
