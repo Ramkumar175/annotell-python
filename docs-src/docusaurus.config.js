@@ -8,6 +8,9 @@ module.exports = {
   favicon: "img/favicon.ico",
   organizationName: "annotell", // Usually your GitHub org/user name.
   projectName: "annotell-python", // Usually your repo name.
+  themes: [
+    '@saucelabs/theme-github-codeblock'
+  ],
   themeConfig: {
     navbar: {
       logo: {
