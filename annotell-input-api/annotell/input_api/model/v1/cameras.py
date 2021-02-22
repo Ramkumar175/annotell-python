@@ -13,6 +13,6 @@ class Cameras(CameraResource):
     images: List[ImageFrame] = field(default_factory=list)
 
     def to_dict(self) -> dict:
-        return dict(imageFrames=[image_frame.to_dict() for image_frame in self.images],
+        return dict(images=[image_frame.to_dict() for image_frame in self.images],
                     sensorSpecification=self.sensor_specification.to_dict(),
                     externalId=self.external_id)
