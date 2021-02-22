@@ -26,14 +26,14 @@ class ProjectResource(InputAPIResource):
         :return List: List containing all batches
         """
         json_resp = self.client.get(f"v1/projects/{project}/batches")
-        return [InputModel.InputBatch.from_json(js) for js in json_resp]
+        return [InputModel.ProjectBatch.from_json(js) for js in json_resp]
 
-    def publish_batch(self, project: str, batch: str) -> InputModel.InputBatch:
+    def publish_batch(self, project: str, batch: str) -> InputModel.ProjectBatch:
         """
         Publish input batch, marking the input batch ready for annotation.
         After publishing, no more inputs can be added to the input batch
 
-        :return InputBatch: Updated input batch
+        :return ProjectBatch: Updated input batch
         """
         json_resp = self.client.post(f"v1/projects/{project}/batches/{batch}/publish")
-        return InputModel.InputBatch.from_json(json_resp)
+        return InputModel.ProjectBatch.from_json(json_resp)

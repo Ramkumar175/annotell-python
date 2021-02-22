@@ -5,7 +5,7 @@ from annotell.input_api.util import ts_to_dt
 from annotell.input_api.model.abstract.abstract_models import Response
 
 
-class InputBatchStatus(str, Enum):
+class ProjectBatchStatus(str, Enum):
     PENDING = 'pending'
     OPEN = 'open'
     READY = 'ready'
@@ -14,14 +14,14 @@ class InputBatchStatus(str, Enum):
 
 
 @dataclass
-class InputBatch(Response):
+class ProjectBatch(Response):
     external_id: str
     title: str
-    status: InputBatchStatus
+    status: ProjectBatchStatus
     created: datetime
     updated: datetime
 
     @staticmethod
     def from_json(js: dict):
-        return InputBatch(js["externalId"], js["title"], InputBatchStatus(js["status"]),
+        return ProjectBatch(js["externalId"], js["title"], ProjectBatchStatus(js["status"]),
                           ts_to_dt(js["created"]), ts_to_dt(js["created"]))
