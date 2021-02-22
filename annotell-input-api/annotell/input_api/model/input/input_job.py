@@ -4,10 +4,10 @@ from annotell.input_api.model.abstract.abstract_models import Response
 
 
 @dataclass
-class CreateInputJob(Response):
+class InputJobCreated(Response):
     internal_id: int
     files: Dict[str, str]
 
     @staticmethod
     def from_json(js: dict):
-        return CreateInputJob(js["internalId"], js["files"])
+        return InputJobCreated(js["internalId"], js["files"])

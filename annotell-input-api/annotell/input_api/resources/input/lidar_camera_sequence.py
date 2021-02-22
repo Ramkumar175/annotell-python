@@ -17,7 +17,7 @@ class LidarAndImageSequenceResource(CreateableInputAPIResource):
                project: Optional[str] = None,
                batch: Optional[str] = None,
                input_list_id: Optional[int] = None,
-               dryrun: bool = False) -> Optional[InputModel.CreateInputJob]:
+               dryrun: bool = False) -> Optional[InputModel.InputJobCreated]:
         """
         Upload files and create an input of type ``lidars_and_cameras_sequence``.
 
@@ -26,7 +26,7 @@ class LidarAndImageSequenceResource(CreateableInputAPIResource):
         :param batch: batch, defaults to latest open batch
         :param input_list_id: input list to add input to (alternative to project-batch)
         :param dryrun: If True the files/metadata will be validated but no input job will be created.
-        :returns CreateInputJobResponse: Class containing id of the created input job, or None if dryrun.
+        :returns InputJobCreated: Class containing id of the created input job, or None if dryrun.
 
         The files are uploaded to annotell GCS and an input_job is submitted to the inputEngine.
         In order to increase annotation tool performance the supplied pointcloud-file is converted
