@@ -1,17 +1,21 @@
 from annotell.input_api.model.input.resource.resource import Resource
 from typing import Optional
+from abc import ABC
 from dataclasses import dataclass
 from annotell.input_api.util import filter_none
 
 camera_sensor_default = "CAM"
 
+@dataclass
+class VideoTS(ABC):
+    video_timestamp: int
 
 @dataclass
-class VideoFrame(Resource):
+class VideoFrame(Resource, VideoTS):
     filename: str
     resource_id: Optional[str] = None
     sensor_name: str = camera_sensor_default
-    video_timestamp: int = -1  # TODO: This is due to how dataclasses work, must be named :/
+    video_timestamp: int
 
     def to_dict(self) -> dict:
         return filter_none({

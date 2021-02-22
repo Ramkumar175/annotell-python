@@ -1,12 +1,13 @@
 from pathlib import Path
 from abc import ABC
+from typing import Optional
 from dataclasses import dataclass
 
 
 @dataclass
 class Resource(ABC):
     filename: str
-    resource_id: int
+    resource_id: Optional[str]
     sensor_name: str
 
     def resolve_resource_id(self):
