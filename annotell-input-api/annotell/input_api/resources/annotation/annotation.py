@@ -8,7 +8,7 @@ class AnnotationResource(InputAPIResource):
     def get_annotations(
         self,
         internal_ids: List[str]
-    ) -> Dict[str, List[AnnotationModel.ExportAnnotation]]:
+    ) -> Dict[str, List[AnnotationModel.Annotation]]:
         """
         Returns the export ready annotations, either
         * All annotations connected to a specific request, if a request id is given
@@ -24,6 +24,6 @@ class AnnotationResource(InputAPIResource):
         annotations = dict()
         for k, v in json_resp.items():
             annotations[k] = [
-                AnnotationModel.ExportAnnotation.from_json(annotation) for annotation in v
+                AnnotationModel.Annotation.from_json(annotation) for annotation in v
             ]
         return json_resp
