@@ -4,5 +4,5 @@ from annotell.input_api.model.input.sensor_specification import SensorSpecificat
 
 
 @dataclass
-class CameraSensor(ABC):
+class CameraInput(ABC):
     sensor_specification: SensorSpecification

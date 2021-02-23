@@ -5,11 +5,11 @@ from annotell.input_api.model.input.sensor_specification import SensorSpecificat
 from annotell.input_api.model.input.cameras_sequence.frame import Frame
 from annotell.input_api.model.input.resource.image import Image
 from annotell.input_api.model.input.resource.video import VideoFrame
-from annotell.input_api.model.input.abstract.camera_sensor import CameraSensor
+from annotell.input_api.model.input.abstract.camera_input import CameraInput
 
 
 @dataclass
-class CamerasSequence(CameraSensor):
+class CamerasSequence(CameraInput):
     external_id: str
     frames: List[Frame]
     sensor_specification: SensorSpecification

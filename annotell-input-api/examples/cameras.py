@@ -6,7 +6,7 @@ import annotell.input_api.model.input.cameras as CamerasModel
 import annotell.input_api.model.input.resource as ResourceModel
 from annotell.input_api.logger import setup_logging
 
-from calibration import create_calibration_spec
+from calibration import create_sensor_calibration
 
 print("Creating Cameras Input...")
 
@@ -15,7 +15,7 @@ setup_logging(level="INFO")
 client = InputApiClient()
 
 # Create calibration
-calibration_spec = create_calibration_spec(
+calibration_spec = create_sensor_calibration(
     "Collection 2020-06-16", [], ["RFC01", "RFC02", "RFC03"])
 created_calibration = client.calibration.create_calibration(calibration_spec)
 

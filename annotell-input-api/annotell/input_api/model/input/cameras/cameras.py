@@ -4,11 +4,11 @@ from dataclasses import dataclass
 from annotell.input_api.model.input.resource.image import Image
 from annotell.input_api.model.input.sensor_specification import SensorSpecification
 from annotell.input_api.model.input.cameras.frame import Frame
-from annotell.input_api.model.input.abstract.camera_sensor import CameraSensor
+from annotell.input_api.model.input.abstract.camera_input import CameraInput
 
 
 @dataclass
-class Cameras(CameraSensor):
+class Cameras(CameraInput):
     external_id: str
     sensor_specification: SensorSpecification
     frame: Frame

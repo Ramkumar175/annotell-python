@@ -23,10 +23,10 @@ class CreateableInputAPIResource(FileResourceClient):
                            project: Optional[str],
                            batch: Optional[str],
                            input_list_id: Optional[int],
-                           dryrun: bool = False) -> Optional[InputModel.CreateInputJob]:
+                           dryrun: bool = False) -> Optional[InputModel.InputJobCreated]:
         """
         Send input to Input API. if not dryrun is true, only validation is performed
-        Otherwise, returns `CreateInputJob`
+        Otherwise, returns `InputJobCreated`
         """
         if input_list_id is not None:
             input_request['inputListId'] = input_list_id
@@ -36,7 +36,7 @@ class CreateableInputAPIResource(FileResourceClient):
         request_url = self._resolve_request_url(resource_path, project, batch)
         json_resp = self.client.post(request_url, json=input_request, dryrun=dryrun)
         if not dryrun:
-            response = InputModel.CreateInputJob.from_json(json_resp)
+            response = InputModel.InputJobCreated.from_json(json_resp)
 
             if (len(response.files) > 0):
                 self.file_resource_client.upload_files(response.files)
@@ -68,7 +68,7 @@ class CreateableInputAPIResource(FileResourceClient):
         return url
 
     @staticmethod
-    def _set_sensor_settings(cameras: InputModel.CameraSensor):
+    def _set_sensor_settings(cameras: InputModel.CameraInput):
         def _create_camera_settings(width_height_dict: dict):
             return InputModel.CameraSettings(width_height_dict['width'], width_height_dict['height'])
 

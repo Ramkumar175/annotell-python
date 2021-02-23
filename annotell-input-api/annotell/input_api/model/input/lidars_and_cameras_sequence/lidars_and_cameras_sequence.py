@@ -7,11 +7,11 @@ from annotell.input_api.model.input.resource.point_cloud import PointCloud
 from annotell.input_api.model.input.lidars_and_cameras_sequence.frame import Frame
 
 from annotell.input_api.model.input.sensor_specification import SensorSpecification
-from annotell.input_api.model.input.abstract.camera_sensor import CameraSensor
+from annotell.input_api.model.input.abstract.camera_input import CameraInput
 
 
 @dataclass
-class LidarsAndCamerasSequence(CameraSensor):
+class LidarsAndCamerasSequence(CameraInput):
     external_id: str
     frames: List[Frame]
     calibration_id: str

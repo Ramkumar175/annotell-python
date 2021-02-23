@@ -17,7 +17,7 @@ class SensorCalibration:
     def to_dict(self):
         return {
             'externalId': self.external_id,
-            'calibration': [(k, v.to_dict()) for (k, v) in self.calibration_dict.items()]
+            'calibration': [(k, v.to_dict()) for (k, v) in self.calibration.items()]
         }
 
 @dataclass

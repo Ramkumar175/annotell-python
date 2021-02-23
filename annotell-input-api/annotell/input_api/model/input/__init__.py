@@ -6,4 +6,4 @@ from annotell.input_api.model.input.invalidated_input import *
 from annotell.input_api.model.input.invalidated_reason_input import *
 from annotell.input_api.model.input.sensor_specification import *
 
-from annotell.input_api.model.input.abstract.camera_sensor import CameraSensor
+from annotell.input_api.model.input.abstract.camera_input import CameraInput

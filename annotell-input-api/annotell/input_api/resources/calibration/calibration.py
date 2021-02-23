@@ -41,13 +41,13 @@ class CalibrationResource(InputAPIResource):
 
     def create_calibration(
         self,
-        calibration_spec: CalibrationModel.SensorCalibration
+        sensor_calibration: CalibrationModel.SensorCalibration
     ) -> CalibrationModel.SensorCalibrationEntry:
         """
         Creates a new calibration, given the SensorCalibration
-        :param calibration_spec: A SensorCalibration instance containing everything to create a calibration.
+        :param sensor_calibration: A SensorCalibration instance containing everything to create a calibration.
         :return SensorCalibrationEntry: Class containing the calibration id, external id and time of creation.
         """
         json_resp = self.client.post(
-            "v1/calibrations", json=calibration_spec.to_dict())
+            "v1/calibrations", json=sensor_calibration.to_dict())
         return CalibrationModel.SensorCalibrationEntry.from_json(json_resp)
