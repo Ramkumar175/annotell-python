@@ -38,10 +38,9 @@ def create_calibration_spec(external_id, lidar_sources: List[str], camera_source
         **{lidar_source: unity_lidar_calibration() for lidar_source in lidar_sources},
         **{camera_source: unity_camera_calibration() for camera_source in camera_sources}
     }
-    calibration = CalibrationModel.Calibration(calibration_dict=calibration_dict)
     calibration_external_id = external_id
-    calibration_spec = CalibrationModel.CalibrationSpec(external_id=calibration_external_id,
-                                                        calibration=calibration)
+    calibration_spec = CalibrationModel.SensorCalibration(external_id=calibration_external_id,
+                                                        calibration=calibration_dict)
 
     return calibration_spec
 

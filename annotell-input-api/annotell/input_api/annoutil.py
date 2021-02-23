@@ -124,7 +124,7 @@ def view(input_internal_id):
 def calibration(id, external_id, raw):
     print()
     if id is not None:
-        list_of_calibrations = client.calibration.get_calibration(id=id)
+        list_of_calibrations = client.calibration.get_calibration(id)
         headers = ["id", "external_id", "created"]
         tab = _get_table(list_of_calibrations, headers, "CALIBRATION")
         print(tab)
@@ -132,12 +132,12 @@ def calibration(id, external_id, raw):
             print()
             [pprint(calib.calibration) for calib in list_of_calibrations]
     elif external_id is not None:
-        list_of_calibrations = client.calibration.get_calibration(external_id=external_id)
+        list_of_calibrations = client.calibration.get_calibrations(external_id=external_id)
         headers = ["id", "external_id", "created"]
         tab = _get_table(list_of_calibrations, headers, "CALIBRATION")
         print(tab)
     else:
-        list_of_calibrations = client.calibration.get_calibration()
+        list_of_calibrations = client.calibration.get_calibrations()
         headers = ["id", "external_id", "created"]
         tab = _get_table(list_of_calibrations, headers, "CALIBRATION")
         print(tab)

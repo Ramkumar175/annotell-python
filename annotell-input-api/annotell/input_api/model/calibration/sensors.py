@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Dict, Optional
-from ..abstract.abstract_models import RequestCall, SensorCalibration
+from annotell.input_api.model.abstract.abstract_models import RequestCall
 from enum import Enum
 
 
@@ -85,7 +85,7 @@ class CameraProperty(RequestCall):
 
 
 @dataclass
-class LidarCalibration(SensorCalibration):
+class LidarCalibration(RequestCall):
     position: Position
     rotation_quaternion: RotationQuaternion
 
@@ -97,7 +97,7 @@ class LidarCalibration(SensorCalibration):
 
 
 @dataclass
-class CameraCalibration(SensorCalibration):
+class CameraCalibration(RequestCall):
     position: Position
     rotation_quaternion: RotationQuaternion
     camera_matrix: CameraMatrix
