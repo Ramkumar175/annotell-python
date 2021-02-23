@@ -33,7 +33,6 @@ class Cameras(CreateableInputAPIResource):
 
         self._set_sensor_settings(cameras)
 
-        # We need to set job-id from the response
         payload = cameras.to_dict()
 
         response = self.post_input_request(self.path, payload,
