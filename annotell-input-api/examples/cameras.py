@@ -18,10 +18,6 @@ sensor1 = "RFC01"
 sensor2 = "RFC02"
 sensor3 = "RFC03"
 
-# Create calibration
-calibration_spec = create_sensor_calibration("Collection 2020-06-16", [sensor1, sensor2, sensor3])
-created_calibration = client.calibration.create_calibration(calibration_spec)
-
 camera_settings = InputModel.CameraSettings(width=1920, height=1080)
 
 sensor_settings = {
