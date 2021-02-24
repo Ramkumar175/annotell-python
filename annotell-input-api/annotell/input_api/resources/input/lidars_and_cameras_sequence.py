@@ -2,24 +2,24 @@ import logging
 from typing import Optional
 
 import annotell.input_api.model.input as InputModel
-from annotell.input_api.model.input.lidars_and_cameras_sequence import LidarsAndCamerasSequence
+import annotell.input_api.model.input.lidars_and_cameras_sequence as LCSModel
 from annotell.input_api.resources.abstract import CreateableInputAPIResource
 
 log = logging.getLogger(__name__)
 
 
-class LidarAndImageSequenceResource(CreateableInputAPIResource):
+class LidarsAndCamerasSequence(CreateableInputAPIResource):
 
     path = 'lidars-and-cameras-sequence'
 
     def create(self,
-               lidars_and_cameras_sequence: LidarsAndCamerasSequence,
+               lidars_and_cameras_sequence: LCSModel.LidarsAndCamerasSequence,
                project: Optional[str] = None,
                batch: Optional[str] = None,
                input_list_id: Optional[int] = None,
                dryrun: bool = False) -> Optional[InputModel.InputJobCreated]:
         """
-        Upload files and create an input of type ``lidars_and_cameras_sequence``.
+        Upload files and create an input of type ``LidarsAndCamerasSequence``.
 
         :param lidars_and_cameras_sequence: class containing 2D and 3D resources that constitute the input
         :param project: project to add input to

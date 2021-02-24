@@ -1,2 +1,2 @@
-from .lidar_and_cameras import *
+from .lidars_and_cameras import *
 from .frame import *

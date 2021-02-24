@@ -8,7 +8,7 @@ import annotell.input_api.model.input.lidars_and_cameras_sequence as LCS
 from annotell.input_api.logger import setup_logging
 
 
-print("Creating Lidar and Camera Sequence Input...")
+print("Creating Lidars And Cameras Sequence Input...")
 
 setup_logging(level="INFO")
 
@@ -25,19 +25,23 @@ sensor_specification = InputModel.SensorSpecification(sensor_settings=dict(RFC01
                                                                            RFC02=camera_settings,
                                                                            RFC03=camera_settings))
 
-lidar_and_camera_seq = LCS.LidarsAndCamerasSequence(
+lidars_and_cameras_seq = LCS.LidarsAndCamerasSequence(
     external_id="input1",
     frames=[
         LCS.Frame(
             frame_id="1",
             relative_timestamp=0,
             point_cloud_frames=[
-                ResourceModel.PointCloud("~/Downloads/lidar_RFL01.pcd", sensor_name="lidar"),
+                ResourceModel.PointCloud(
+                    "~/Downloads/lidar_RFL01.pcd", sensor_name="lidar"),
             ],
             image_frames=[
-                ResourceModel.Image("~/Downloads/img_RFC01.jpg", sensor_name="RFC01"),
-                ResourceModel.Image("~/Downloads/img_RFC01.jpg", sensor_name="RFC02"),
-                ResourceModel.Image("~/Downloads/img_RFC01.jpg", sensor_name="RFC03")
+                ResourceModel.Image(
+                    "~/Downloads/img_RFC01.jpg", sensor_name="RFC01"),
+                ResourceModel.Image(
+                    "~/Downloads/img_RFC01.jpg", sensor_name="RFC02"),
+                ResourceModel.Image(
+                    "~/Downloads/img_RFC01.jpg", sensor_name="RFC03")
             ]),
     ],
     calibration_id=created_calibration.id,
@@ -50,6 +54,6 @@ project = "<project-identifier>"
 
 
 # Add input
-client.lidar_and_image_sequence.create(lidar_and_camera_seq,
-                                       project=project,
-                                       dryrun=True)
+client.lidars_and_cameras_sequence.create(lidars_and_cameras_seq,
+                                          project=project,
+                                          dryrun=True)
