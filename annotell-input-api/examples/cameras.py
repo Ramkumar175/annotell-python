@@ -1,6 +1,5 @@
 from __future__ import absolute_import
 
-from calibration import create_sensor_calibration
 from annotell.input_api.input_api_client import InputApiClient
 import annotell.input_api.model.input.cameras as CamerasModel
 import annotell.input_api.model.input.resource as ResourceModel
