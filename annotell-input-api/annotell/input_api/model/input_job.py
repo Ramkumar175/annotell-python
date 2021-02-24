@@ -34,9 +34,5 @@ class CreateInputResponse:
     internal_id: int
 
     @staticmethod
-    def from_json(js: dict):
-        return CreateInputResponse(js["internalId"])
-
-    @staticmethod
     def from_input_job_response(resp: CreateInputJobResponse):
         return CreateInputResponse(resp.internal_id)
