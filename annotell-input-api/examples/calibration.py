@@ -4,35 +4,22 @@ from annotell.input_api.input_api_client import InputApiClient
 
 import annotell.input_api.model.calibration as CalibrationModel
 
-<<<<<<< HEAD
-
-def create_sensor_calibration(external_id, lidar_sources: List[str], camera_sources: List[str]):
-    # Create lidar calibration
-=======
-def create_calibration_spec(external_id, lidar_sources: List[str] = None, camera_sources: List[str] = None):
+def create_sensor_calibration(external_id, lidar_sources: List[str] = None, camera_sources: List[str] = None):
 
     if lidar_sources is None:
         lidar_sources = []
 
     if camera_sources is None:
         camera_sources = []
->>>>>>> 3c40d8d98966a9cf94c6d91c33123b5e62f6b1e3
 
     # Create lidar calibration
     def unity_lidar_calibration():
-<<<<<<< HEAD
         lidar_position = CalibrationModel.Position(x=0.0, y=0.0, z=0.0)
         lidar_rotation = CalibrationModel.RotationQuaternion(
             w=1.0, x=0.0, y=0.0, z=0.0)
         return CalibrationModel.LidarCalibration(position=lidar_position,
                                                  rotation_quaternion=lidar_rotation)
     # Create a camera calibration
-=======
-        lidar_position = Calibration.Position(x=0.0, y=0.0, z=0.0)
-        lidar_rotation = Calibration.RotationQuaternion(w=1.0, x=0.0, y=0.0, z=0.0)
-        return Calibration.LidarCalibrationExplicit(position=lidar_position,
-                                                    rotation_quaternion=lidar_rotation)
->>>>>>> 3c40d8d98966a9cf94c6d91c33123b5e62f6b1e3
 
     # Create a camera calibration
     def unity_camera_calibration():

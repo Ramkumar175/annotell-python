@@ -1,12 +1,12 @@
 from __future__ import absolute_import
 
+from calibration import create_sensor_calibration
 from annotell.input_api.input_api_client import InputApiClient
-import annotell.input_api.model.input as InputModel
 import annotell.input_api.model.input.cameras as CamerasModel
 import annotell.input_api.model.input.resource as ResourceModel
+import annotell.input_api.model.input as InputModel
 from annotell.input_api.logger import setup_logging
 
-from calibration import create_sensor_calibration
 
 print("Creating Cameras Input...")
 
@@ -22,14 +22,14 @@ sensor3 = "RFC03"
 calibration_spec = create_sensor_calibration("Collection 2020-06-16", [sensor1, sensor2, sensor3])
 created_calibration = client.calibration.create_calibration(calibration_spec)
 
-camera_settings = IAM.CameraSettings(width=1920, height=1080)
+camera_settings = InputModel.CameraSettings(width=1920, height=1080)
 
 sensor_settings = {
     sensor1: camera_settings,
     sensor2: camera_settings,
     sensor3: camera_settings
 }
-sensor_specification = IAM.SensorSpecification(sensor_settings=sensor_settings)
+sensor_specification = InputModel.SensorSpecification(sensor_settings=sensor_settings)
 
 cameras = CamerasModel.Cameras(
     external_id="input1",

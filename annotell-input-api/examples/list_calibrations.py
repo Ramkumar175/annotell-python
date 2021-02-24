@@ -6,5 +6,5 @@ if __name__ == "__main__":
 
     client = InputApiClient()
 
-    calibrations = client.calibration.get_calibration()
+    calibrations = client.calibration.get_calibrations()
     print(calibrations)

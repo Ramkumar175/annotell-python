@@ -1,12 +1,12 @@
 from __future__ import absolute_import
 
+from calibration import create_sensor_calibration
 import annotell.input_api.input_api_client as IAC
 import annotell.input_api.model.input as InputModel
 import annotell.input_api.model.input.resource as ResourceModel
 import annotell.input_api.model.input.lidars_and_cameras_sequence as LCS
 from annotell.input_api.logger import setup_logging
 
-from calibration import create_sensor_calibration
 
 print("Creating Lidar and Camera Sequence Input...")
 
