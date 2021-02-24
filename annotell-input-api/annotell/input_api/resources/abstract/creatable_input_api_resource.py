@@ -68,21 +68,32 @@ class CreateableInputAPIResource(FileResourceClient):
         return url
 
     @staticmethod
+<<<<<<< HEAD
     def _set_sensor_settings(cameras: InputModel.CameraInput):
+=======
+    def _set_sensor_settings(camera_resource: IAM.CameraResource):
+>>>>>>> 3c40d8d98966a9cf94c6d91c33123b5e62f6b1e3
         def _create_camera_settings(width_height_dict: dict):
             return InputModel.CameraSettings(width_height_dict['width'], width_height_dict['height'])
 
         def _create_sensor_settings():
-            first_frame = cameras.frames[0]
+            first_frame = camera_resource.frames[0]
             return {
                 image_frame.sensor_name: _create_camera_settings(get_image_dimensions(image_frame.filename)) for image_frame in first_frame.image_frames
             }
 
+<<<<<<< HEAD
         if cameras.sensor_specification is None:
             cameras.sensor_specification = InputModel.SensorSpecification(
                 sensor_settings=_create_sensor_settings())
         elif cameras.sensor_specification.sensor_settings is None:
             cameras.sensor_specification.sensor_settings = _create_sensor_settings()
+=======
+        if camera_resource.sensor_specification is None:
+            camera_resource.sensor_specification = IAM.SensorSpecification(sensor_settings=_create_sensor_settings())
+        elif camera_resource.sensor_specification.sensor_settings is None:
+            camera_resource.sensor_specification.sensor_settings = _create_sensor_settings()
+>>>>>>> 3c40d8d98966a9cf94c6d91c33123b5e62f6b1e3
 
     def get_upload_urls(self, files_to_upload: Model.FilesToUpload) -> Model.UploadUrls:
         """Get upload urls to cloud storage"""

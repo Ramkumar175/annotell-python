@@ -14,23 +14,30 @@ setup_logging(level="INFO")
 
 client = InputApiClient()
 
+sensor1 = "RFC01"
+sensor2 = "RFC02"
+sensor3 = "RFC03"
+
 # Create calibration
-calibration_spec = create_sensor_calibration(
-    "Collection 2020-06-16", [], ["RFC01", "RFC02", "RFC03"])
+calibration_spec = create_sensor_calibration("Collection 2020-06-16", [sensor1, sensor2, sensor3])
 created_calibration = client.calibration.create_calibration(calibration_spec)
 
-camera_settings = InputModel.CameraSettings(width=1920, height=1080)
-sensor_specification = InputModel.SensorSpecification(sensor_settings=dict(RFC01=camera_settings,
-                                                                           RFC02=camera_settings,
-                                                                           RFC03=camera_settings))
+camera_settings = IAM.CameraSettings(width=1920, height=1080)
+
+sensor_settings = {
+    sensor1: camera_settings,
+    sensor2: camera_settings,
+    sensor3: camera_settings
+}
+sensor_specification = IAM.SensorSpecification(sensor_settings=sensor_settings)
 
 cameras = CamerasModel.Cameras(
     external_id="input1",
     frame=CamerasModel.Frame(
         images=[
-            ResourceModel.Image("~/Downloads/img_RFC01.jpg", sensor_name="RFC01"),
-            ResourceModel.Image("~/Downloads/img_RFC01.jpg", sensor_name="RFC02"),
-            ResourceModel.Image("~/Downloads/img_RFC01.jpg", sensor_name="RFC03")
+            ResourceModel.Image("~/Downloads/img_RFC01.jpg", sensor_name=sensor1),
+            ResourceModel.Image("~/Downloads/img_RFC01.jpg", sensor_name=sensor2),
+            ResourceModel.Image("~/Downloads/img_RFC01.jpg", sensor_name=sensor3)
         ]
     ),
     sensor_specification=sensor_specification
@@ -38,8 +45,8 @@ cameras = CamerasModel.Cameras(
 
 
 # Project - Available via `client.list_projects()`
-project = "project-identifier"
+project = "Project-identifier"
 
 
 # Add input
-client.cameras.create(cameras, project=project, dryrun=False)
+client.cameras.create(cameras, project=project, dryrun=True)
