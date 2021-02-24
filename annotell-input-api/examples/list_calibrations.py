@@ -1,4 +1,3 @@
-from typing import List
 
 from annotell.input_api.input_api_client import InputApiClient
 

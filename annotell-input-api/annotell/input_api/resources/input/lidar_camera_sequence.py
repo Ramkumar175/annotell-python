@@ -1,7 +1,8 @@
 import logging
 from typing import Optional
 
-from annotell.input_api import model as IAM
+import annotell.input_api.model.input as InputModel
+from annotell.input_api.model.input.lidars_and_cameras_sequence import LidarsAndCamerasSequence
 from annotell.input_api.resources.abstract import CreateableInputAPIResource
 
 log = logging.getLogger(__name__)
@@ -12,11 +13,11 @@ class LidarAndImageSequenceResource(CreateableInputAPIResource):
     path = 'lidars-and-cameras-sequence'
 
     def create(self,
-               lidars_and_cameras_sequence: IAM.LidarsAndCamerasSequence,
+               lidars_and_cameras_sequence: LidarsAndCamerasSequence,
                project: Optional[str] = None,
                batch: Optional[str] = None,
                input_list_id: Optional[int] = None,
-               dryrun: bool = False) -> Optional[IAM.CreateInputJobResponse]:
+               dryrun: bool = False) -> Optional[InputModel.InputJobCreated]:
         """
         Upload files and create an input of type ``lidars_and_cameras_sequence``.
 
@@ -25,7 +26,7 @@ class LidarAndImageSequenceResource(CreateableInputAPIResource):
         :param batch: batch, defaults to latest open batch
         :param input_list_id: input list to add input to (alternative to project-batch)
         :param dryrun: If True the files/metadata will be validated but no input job will be created.
-        :returns CreateInputJobResponse: Class containing id of the created input job, or None if dryrun.
+        :returns InputJobCreated: Class containing id of the created input job, or None if dryrun.
 
         The files are uploaded to annotell GCS and an input_job is submitted to the inputEngine.
         In order to increase annotation tool performance the supplied pointcloud-file is converted
@@ -48,7 +49,7 @@ class LidarAndImageSequenceResource(CreateableInputAPIResource):
                                            dryrun=dryrun)
 
         if dryrun:
-            return
+            return None
 
         log.info(f"Created inputs for files with internal_id={response.internal_id}")
         return response

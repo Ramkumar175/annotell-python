@@ -1,7 +1,8 @@
 import logging
 from typing import Optional
 
-from annotell.input_api import model as IAM
+import annotell.input_api.model.input as InputModel
+import annotell.input_api.model.input.cameras as CamerasModel
 from annotell.input_api.resources.abstract import CreateableInputAPIResource
 
 log = logging.getLogger(__name__)
@@ -12,11 +13,11 @@ class Cameras(CreateableInputAPIResource):
     path = 'cameras'
 
     def create(self,
-               cameras: IAM.Cameras,
+               cameras: CamerasModel.Cameras,
                project: Optional[str] = None,
                batch: Optional[str] = None,
                input_list_id: Optional[int] = None,
-               dryrun: bool = False) -> Optional[IAM.CreateInputJobResponse]:
+               dryrun: bool = False) -> Optional[InputModel.InputJobCreated]:
         """
         Upload files and create an input of type ``cameras``.
 
@@ -25,7 +26,7 @@ class Cameras(CreateableInputAPIResource):
         :param batch: batch, defaults to latest open batch
         :param input_list_id: input list to add input to (alternative to project-batch)
         :param dryrun: If True the files/metadata will be validated but no input job will be created.
-        :returns CreateInputJobResponse: Class containing id of the created input job, or None if dryrun.
+        :returns InputJobCreated: Class containing id of the created input job, or None if dryrun.
 
         The files are uploaded to annotell GCS and an input will be created shortly after submission.
         """
@@ -41,7 +42,12 @@ class Cameras(CreateableInputAPIResource):
                                            dryrun=dryrun)
 
         if dryrun:
-            return
+            return None
 
+<<<<<<< HEAD
+        log.info(f"Created inputs for files with job_id={response.internal_id}")
+        return response
+=======
         log.info(f"Created inputs for files with internal_id={response.internal_id}")
         return response
+>>>>>>> 3c40d8d98966a9cf94c6d91c33123b5e62f6b1e3

@@ -1,4 +1,3 @@
-from annotell.input_api import model as IAM
 from annotell.input_api.input_api_client import InputApiClient
 
 print("Listing inputs...")

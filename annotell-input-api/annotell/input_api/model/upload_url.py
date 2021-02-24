@@ -4,13 +4,13 @@ from annotell.input_api.model.abstract.abstract_models import Response
 
 
 @dataclass
-class UploadUrlsResponse:
+class UploadUrls(Response):
     files_to_url: Dict[str, str]
     internal_id: int
 
     @staticmethod
     def from_json(js: dict):
-        return UploadUrlsResponse(
+        return UploadUrls(
             # property names does not match.
             files_to_url=js["files"],
             internal_id=js["jobId"]
