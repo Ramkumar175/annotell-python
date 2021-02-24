@@ -44,10 +44,5 @@ class Cameras(CreateableInputAPIResource):
         if dryrun:
             return None
 
-<<<<<<< HEAD
-        log.info(f"Created inputs for files with job_id={response.internal_id}")
-        return response
-=======
         log.info(f"Created inputs for files with internal_id={response.internal_id}")
         return response
->>>>>>> 3c40d8d98966a9cf94c6d91c33123b5e62f6b1e3
