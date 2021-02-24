@@ -16,7 +16,7 @@ class Cameras(CreateableInputAPIResource):
                project: Optional[str] = None,
                batch: Optional[str] = None,
                input_list_id: Optional[int] = None,
-               dryrun: bool = False) -> Optional[IAM.CreateInputJobResponse]:
+               dryrun: bool = False) -> Optional[IAM.CreateInputResponse]:
         """
         Upload files and create an input of type ``cameras``.
 
@@ -44,4 +44,4 @@ class Cameras(CreateableInputAPIResource):
             return
 
         log.info(f"Created inputs for files with internal_id={response.internal_id}")
-        return response
+        return IAM.CreateInputResponse.from_input_job_response(response)

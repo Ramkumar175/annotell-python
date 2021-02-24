@@ -6,7 +6,7 @@ from annotell.input_api.model.export_annotation import ExportAnnotation
 from annotell.input_api.model.files_to_upload import FilesToUpload
 from annotell.input_api.model.input import Input
 from annotell.input_api.model.input_batch import InputBatch
-from annotell.input_api.model.input_job import CreateInputJobResponse, InputJob
+from annotell.input_api.model.input_job import *
 from annotell.input_api.model.input_list import InputList
 from annotell.input_api.model.invalidated_input import \
     InvalidatedInputsResponse
