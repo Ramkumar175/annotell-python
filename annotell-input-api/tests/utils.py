@@ -1,6 +1,12 @@
 from typing import Optional
 import annotell.input_api.input_api_client as IAC
 
+ANNOTELL_ENV = "development"
+
+
+def get_annotell_env():
+    return ANNOTELL_ENV
+
 
 def create_input_api_client(env: Optional[str] = None, client_organization_id: int = None) -> IAC.InputApiClient:
     """

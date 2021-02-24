@@ -4,7 +4,7 @@ import pytest
 
 import annotell.input_api.model as IAM
 import examples.cameras as cameras_example
-from tests.utils import create_input_api_client
+from tests.utils import create_input_api_client, get_annotell_env
 
 
 class TestCameras:
@@ -13,13 +13,13 @@ class TestCameras:
         return [p for p in projects if p.external_id == "e8bcb29b-ba7a-4716-a582-429f4a807461"]
 
     def test_get_cameras_project(self):
-        client = create_input_api_client("development", 3)
+        client = create_input_api_client(get_annotell_env(), 3)
         projects = client.project.get_projects()
         project = self.filter_cameras_project(projects)
         assert len(project) == 1
 
     def test_validate_cameras_input(self):
-        client = create_input_api_client("development", 3)
+        client = create_input_api_client(get_annotell_env(), 3)
         projects = client.project.get_projects()
         project = self.filter_cameras_project(projects)[0].external_id
 
@@ -27,7 +27,7 @@ class TestCameras:
         assert resp is None
 
     def test_create_cameras_input(self):
-        client = create_input_api_client("development", 3)
+        client = create_input_api_client(get_annotell_env(), 3)
         projects = client.project.get_projects()
         project = self.filter_cameras_project(projects)[0].external_id
         resp = cameras_example.run(client=client, project=project, dryrun=False)
