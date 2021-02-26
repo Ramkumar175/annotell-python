@@ -4,7 +4,7 @@ import pytest
 
 import annotell.input_api.model as IAM
 import examples.cameras as cameras_example
-from tests.utils import create_input_api_client, get_annotell_env
+import annotell.input_api.input_api_client as IAC
 
 
 class TestCameras:
@@ -12,22 +12,19 @@ class TestCameras:
     def filter_cameras_project(projects: List[IAM.Project]):
         return [p for p in projects if p.external_id == "e8bcb29b-ba7a-4716-a582-429f4a807461"]
 
-    def test_get_cameras_project(self):
-        client = create_input_api_client(get_annotell_env(), 3)
+    def test_get_cameras_project(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
         project = self.filter_cameras_project(projects)
         assert len(project) == 1
 
-    def test_validate_cameras_input(self):
-        client = create_input_api_client(get_annotell_env(), 3)
+    def test_validate_cameras_input(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
         project = self.filter_cameras_project(projects)[0].external_id
 
         resp = cameras_example.run(client=client, project=project)
         assert resp is None
 
-    def test_create_cameras_input(self):
-        client = create_input_api_client(get_annotell_env(), 3)
+    def test_create_cameras_input(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
         project = self.filter_cameras_project(projects)[0].external_id
         resp = cameras_example.run(client=client, project=project, dryrun=False)

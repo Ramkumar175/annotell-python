@@ -16,7 +16,7 @@ class ImageResource(CreateableInputAPIResource):
                project: Optional[str] = None,
                batch: Optional[str] = None,
                input_list_id: Optional[int] = None,
-               dryrun: bool = False) -> Optional[IAM.CreateInputJobResponse]:
+               dryrun: bool = False) -> Optional[IAM._CreateInputJobResponse]:
         """
         Verifies the images and metadata given and then uploads images to Google Cloud Storage and
         creates an input job.
@@ -66,7 +66,7 @@ class ImageResource(CreateableInputAPIResource):
                                  project: Optional[str],
                                  batch: Optional[str],
                                  input_list_id: Optional[int],
-                                 dryrun: bool = False) -> Optional[IAM.CreateInputJobResponse]:
+                                 dryrun: bool = False) -> Optional[IAM._CreateInputJobResponse]:
         """
         Creates an input job for an image input
 

@@ -22,7 +22,7 @@ class CreateableInputAPIResource(FileResourceClient):
                            project: Optional[str],
                            batch: Optional[str],
                            input_list_id: Optional[int],
-                           dryrun: bool = False) -> Optional[IAM.CreateInputJobResponse]:
+                           dryrun: bool = False) -> Optional[IAM._CreateInputJobResponse]:
         """
         Send input to Input API. if not dryrun is true, only validation is performed
         Otherwise, returns `CreateInputJobResponse`
@@ -35,7 +35,7 @@ class CreateableInputAPIResource(FileResourceClient):
         request_url = self._resolve_request_url(resource_path, project, batch)
         json_resp = self.client.post(request_url, json=input_request, dryrun=dryrun)
         if not dryrun:
-            response = IAM.CreateInputJobResponse.from_json(json_resp)
+            response = IAM._CreateInputJobResponse.from_json(json_resp)
             
             if (len(response.files) > 0):
                 self.file_resource_client.upload_files(response.files)

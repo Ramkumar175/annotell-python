@@ -20,13 +20,13 @@ class InputJob:
 
 
 @dataclass
-class CreateInputJobResponse:
+class _CreateInputJobResponse:
     internal_id: int
     files: Dict[str, str]
 
     @staticmethod
     def from_json(js: dict):
-        return CreateInputJobResponse(js["internalId"], js["files"])
+        return _CreateInputJobResponse(js["internalId"], js["files"])
 
 
 @dataclass
@@ -34,5 +34,5 @@ class CreateInputResponse:
     internal_id: int
 
     @staticmethod
-    def from_input_job_response(resp: CreateInputJobResponse):
+    def from_input_job_response(resp: _CreateInputJobResponse):
         return CreateInputResponse(resp.internal_id)

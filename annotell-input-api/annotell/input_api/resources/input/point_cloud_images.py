@@ -15,7 +15,7 @@ class PointCloudWithImagesResource(CreateableInputAPIResource):
                                                project: Optional[str],
                                                batch: Optional[str],
                                                input_list_id: Optional[int],
-                                               dryrun: bool = False) -> Optional[IAM.CreateInputJobResponse]:
+                                               dryrun: bool = False) -> Optional[IAM._CreateInputJobResponse]:
         """Create point cloud with images"""
 
         js = dict(
@@ -32,7 +32,7 @@ class PointCloudWithImagesResource(CreateableInputAPIResource):
                project: Optional[str] = None,
                batch: Optional[str] = None,
                input_list_id: Optional[int] = None,
-               dryrun: bool = False) -> Optional[IAM.CreateInputJobResponse]:
+               dryrun: bool = False) -> Optional[IAM._CreateInputJobResponse]:
         """
         Upload files and create an input of type 'point_cloud_with_image'.
 

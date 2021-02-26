@@ -6,7 +6,7 @@ from annotell.input_api.logger import setup_logging
 from typing import Optional
 
 
-def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> Optional[IAM.CreateInputJobResponse]:
+def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> Optional[IAM._CreateInputJobResponse]:
     print("Creating Cameras Input...")
 
     sensor1 = "RFC01"
