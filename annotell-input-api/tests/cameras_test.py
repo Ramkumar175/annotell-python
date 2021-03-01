@@ -5,12 +5,13 @@ import pytest
 import annotell.input_api.model as IAM
 import examples.cameras as cameras_example
 import annotell.input_api.input_api_client as IAC
+from tests.utils import TestProjects
 
 
 class TestCameras:
     @staticmethod
     def filter_cameras_project(projects: List[IAM.Project]):
-        return [p for p in projects if p.external_id == "e8bcb29b-ba7a-4716-a582-429f4a807461"]
+        return [p for p in projects if p.external_id == TestProjects.CamerasProject]
 
     def test_get_cameras_project(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()

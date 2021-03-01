@@ -3,7 +3,7 @@ from typing import Optional, Any
 import annotell.input_api.input_api_client as IAC
 
 
-ORGANIZATION_ID = 3
+ORGANIZATION_ID = 1
 
 
 def pytest_addoption(parser):

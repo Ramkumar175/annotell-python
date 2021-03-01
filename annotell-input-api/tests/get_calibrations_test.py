@@ -9,5 +9,3 @@ class TestCalibration:
     def test_get_calibration(self, client: IAC.InputApiClient):
         calibrations = get_calibrations_example.run(client)
         assert isinstance(calibrations, list)
-
-        assert len(calibrations) >= 1
