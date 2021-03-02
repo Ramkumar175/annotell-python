@@ -2,26 +2,26 @@ import logging
 from typing import Optional
 
 import annotell.input_api.model.input as InputModel
-import annotell.input_api.model.input.cameras as CamerasModel
+import annotell.input_api.model.input.cameras_sequence as CamerasSeqModel
 from annotell.input_api.resources.abstract import CreateableInputAPIResource
 
 log = logging.getLogger(__name__)
 
 
-class Cameras(CreateableInputAPIResource):
+class CamerasSequence(CreateableInputAPIResource):
 
-    path = 'cameras'
+    path = "cameras-sequence"
 
     def create(self,
-               cameras: CamerasModel.Cameras,
+               cameras_sequence: CamerasSeqModel.CamerasSequence,
                project: Optional[str] = None,
                batch: Optional[str] = None,
                input_list_id: Optional[int] = None,
-               dryrun: bool = False) -> Optional[InputModel.CreateInputResponse]:
+               dryrun: bool = False) -> Optional[InputModel.InputJobCreated]:
         """
-        Upload files and create an input of type ``cameras``.
+        Upload files and create an input of type ``cameras-sequence``.
 
-        :param cameras: class containing 2D resources that constitute the input
+        :param cameras_sequence: class containing 2D resources that constitute the input
         :param project: project to add input to
         :param batch: batch, defaults to latest open batch
         :param input_list_id: input list to add input to (alternative to project-batch)
@@ -31,9 +31,9 @@ class Cameras(CreateableInputAPIResource):
         The files are uploaded to annotell GCS and an input will be created shortly after submission.
         """
 
-        self._set_sensor_settings(cameras)
+        self._set_sensor_settings(cameras_sequence)
 
-        payload = cameras.to_dict()
+        payload = cameras_sequence.to_dict()
 
         response = self.post_input_request(self.path, payload,
                                            project=project,
@@ -44,5 +44,6 @@ class Cameras(CreateableInputAPIResource):
         if dryrun:
             return None
 
-        log.info(f"Created inputs for files with internal_id={response.internal_id}")
-        return IAM.CreateInputResponse.from_input_job_response(response)
+        log.info(
+            f"Created inputs for files with internal_id={response.internal_id}")
+        return response

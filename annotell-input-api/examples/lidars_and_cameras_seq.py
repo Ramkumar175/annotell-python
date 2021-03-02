@@ -22,25 +22,28 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> IAM.Cr
                                                                         RFC02=camera_settings,
                                                                         RFC03=camera_settings))
 
-    lidar_and_camera_seq = IAM.LidarsAndCamerasSequence(
+    lidars_and_cameras_seq = LCS.LidarsAndCamerasSequence(
         external_id="input1",
         frames=[
-            IAM.Frame(
+            LCS.Frame(
                 frame_id="1",
                 relative_timestamp=0,
-                point_cloud_frames=[
-                    IAM.PointCloudFrame("~/Downloads/lidar_RFL01.pcd", sensor_name="lidar"),
+                point_clouds=[
+                    ResourceModel.PointCloud(
+                        "~/Downloads/lidar_RFL01.pcd", sensor_name="lidar"),
                 ],
-                image_frames=[
-                    IAM.ImageFrame("~/Downloads/img_RFC01.jpg", sensor_name=sensor1),
-                    IAM.ImageFrame("~/Downloads/img_RFC01.jpg", sensor_name=sensor2),
-                    IAM.ImageFrame("~/Downloads/img_RFC01.jpg", sensor_name=sensor3)
+                images=[
+                    ResourceModel.Image(
+                        "~/Downloads/img_RFC01.jpg", sensor_name="RFC01"),
+                    ResourceModel.Image(
+                        "~/Downloads/img_RFC01.jpg", sensor_name="RFC02"),
+                    ResourceModel.Image(
+                        "~/Downloads/img_RFC01.jpg", sensor_name="RFC03")
                 ]),
         ],
         calibration_id=created_calibration.id,
         sensor_specification=sensor_specification
     )
-
     # Add input
     return client.lidar_and_image_sequence.create(lidar_and_camera_seq,
                                                   project=project,
@@ -54,7 +57,3 @@ if __name__ == '__main__':
     # Project - Available via `client.project.get_projects()`
     project = "<project-identifier>"
     run(client, project)
-
-
-
-

@@ -1,7 +1,7 @@
 import logging
-from typing import List, Optional, Dict
+from typing import List, Optional
 
-from annotell.input_api import model as IAM
+import annotell.input_api.model.input as InputModel
 from annotell.input_api.util import filter_none
 from annotell.input_api.resources.abstract import InputAPIResource
 
@@ -13,7 +13,11 @@ class InputResource(InputAPIResource):
     Class exposing Annotell Inputs
     """
 
-    def invalidate_inputs(self, input_internal_ids: List[str], invalidated_reason: IAM.InvalidatedReasonInput):
+    def invalidate_inputs(
+        self,
+        input_internal_ids: List[str],
+        invalidated_reason: InputModel.InvalidatedReasonInput
+    ):
         """
         Invalidates inputs, and removes them from all input lists
 
@@ -23,9 +27,15 @@ class InputResource(InputAPIResource):
         """
         invalidated_json = dict(inputIds=input_internal_ids, invalidatedReason=invalidated_reason)
         resp_json = self.client.post("v1/inputs/invalidate", json=invalidated_json)
-        return IAM.InvalidatedInputsResponse.from_json(resp_json)
+        return InputModel.InvalidatedInputs.from_json(resp_json)
 
-    def get_inputs(self, project: str, batch: Optional[str] = None, include_invalidated: bool = False, external_ids: Optional[List[str]] = None) -> List[IAM.Input]:
+    def get_inputs(
+            self,
+            project: str,
+            batch: Optional[str] = None,
+            include_invalidated: bool = False,
+            external_ids: Optional[List[str]] = None
+    ) -> List[InputModel.Input]:
         """
         Gets inputs for project, with option to filter for invalidated inputs
 
@@ -43,4 +53,4 @@ class InputResource(InputAPIResource):
             "invalidated": include_invalidated,
             "externalIds": external_id_query_param
         }))
-        return [IAM.Input.from_json(js) for js in json_resp]
+        return [InputModel.Input.from_json(js) for js in json_resp]

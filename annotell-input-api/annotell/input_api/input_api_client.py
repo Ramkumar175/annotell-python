@@ -8,8 +8,9 @@ from annotell.input_api.http_client import HttpClient
 from annotell.input_api.resources.annotation.annotation import AnnotationResource
 from annotell.input_api.resources.calibration.calibration import CalibrationResource
 from annotell.input_api.resources.input.input import InputResource
-from annotell.input_api.resources.input.lidar_camera_sequence import LidarAndImageSequenceResource
+from annotell.input_api.resources.input.lidars_and_cameras_sequence import LidarsAndCamerasSequence
 from annotell.input_api.resources.input.cameras import Cameras
+from annotell.input_api.resources.input.cameras_sequence import CamerasSequence
 from annotell.input_api.resources.project.project import ProjectResource
 
 DEFAULT_HOST = "https://input.annotell.com"
@@ -48,10 +49,6 @@ class InputApiClient:
         self.annotation = AnnotationResource(client)
         self.input = InputResource(client)
 
-        # Only expose v1 inputs
-        # self.point_cloud = PointCloudResource(client, file_client)
-        # self.point_cloud_with_images = PointCloudWithImagesResource(client, file_client)
-        # self.images = ImageResource(client, file_client)
-
-        self.lidar_and_image_sequence = LidarAndImageSequenceResource(client, file_client)
+        self.lidars_and_cameras_sequence = LidarsAndCamerasSequence(client, file_client)
         self.cameras = Cameras(client, file_client)
+        self.cameras_sequence = CamerasSequence(client, file_client)

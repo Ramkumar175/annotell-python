@@ -2,7 +2,7 @@
 import logging
 from typing import List, Optional, Union
 
-from annotell.input_api import model as IAM
+import annotell.input_api.model.calibration as CalibrationModel
 from annotell.input_api.resources.abstract import InputAPIResource
 
 log = logging.getLogger(__name__)
@@ -10,35 +10,44 @@ log = logging.getLogger(__name__)
 
 class CalibrationResource(InputAPIResource):
 
-    def get_calibration(self, id: Optional[int] = None, external_id: Optional[str] = None
-                             ) -> Union[List[IAM.CalibrationNoContent], List[IAM.CalibrationWithContent]]:
+    def get_calibration(self, id: str) -> CalibrationModel.SensorCalibrationEntry:
         """
-        Queries the Input API for either:
-        * A list containing a specific calibration (if only the id is given)
-        * A list of calibrations connected to an external_id (if only the external_id is given)
-        * A list of calibrations connected to the users organization.
-        Note that both id and external_id cannot be given at the same time.
+        Queries the Input API for a specific calibration for the given id
 
         :param id: The id of the calibration to get
-        :param external_id: The external id of the calibration(s) to get
-        :return List: A list of CalibrationNoContent if an id or external id was given, or a list of
-        CalibrationWithContent otherwise.
+        :return CalibrationModel.SensorCalibrationEntry: The calibration entry 
         """
+
         json_resp = self.client.get('v1/calibrations', params={
-            "id": id,
+            "id": id
+        })
+        return CalibrationModel.SensorCalibrationEntry.from_json(json_resp)
+
+    def get_calibrations(self, external_id: Optional[str] = None
+                         ) -> List[CalibrationModel.SensorCalibrationEntry]:
+        """
+        Queries the Input API for a list of calibrations available, filtered on external_id
+        if provided. 
+
+        :param external_id: The external_id to filter on.
+        :return List[CalibrationModel.SensorCalibrationEntry]: A list of calibration entries
+        """
+
+        json_resp = self.client.get('v1/calibrations', params={
             "externalId": external_id
         })
 
-        if id is None and external_id is None:
-            return [IAM.CalibrationNoContent.from_json(js) for js in json_resp]
-        else:
-            return [IAM.CalibrationWithContent.from_json(js) for js in json_resp]
+        return [CalibrationModel.SensorCalibrationEntry.from_json(js) for js in json_resp]
 
-    def create_calibration(self, calibration_spec: IAM.CalibrationSpec) -> IAM.CalibrationNoContent:
+    def create_calibration(
+        self,
+        sensor_calibration: CalibrationModel.SensorCalibration
+    ) -> CalibrationModel.SensorCalibrationEntry:
         """
-        Creates a new calibration, given the CalibrationSpec
-        :param calibration_spec: A CalibrationSpec instance containing everything to create a calibration.
-        :return CalibrationNoContent: Class containing the calibration id, external id and time of creation.
+        Creates a new calibration, given the SensorCalibration
+        :param sensor_calibration: A SensorCalibration instance containing everything to create a calibration.
+        :return SensorCalibrationEntry: Class containing the calibration id, external id and time of creation.
         """
-        json_resp = self.client.post("v1/calibrations", json=calibration_spec.to_dict())
-        return IAM.CalibrationNoContent.from_json(json_resp)
+        json_resp = self.client.post(
+            "v1/calibrations", json=sensor_calibration.to_dict())
+        return CalibrationModel.SensorCalibrationEntry.from_json(json_resp)
