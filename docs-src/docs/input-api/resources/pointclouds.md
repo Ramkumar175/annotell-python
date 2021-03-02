@@ -1,7 +1,7 @@
 ---
 title: Pointclouds
 ---
-The Input API allows uploading of annotation project related data such as images and point clouds. Annotell uses a potree format internally to represent and present point clouds, this means that uploaded point cloud data needs to be converted into this format before it can be used as input in the system. We currently support automatic conversion of three formats: **pcd**, **csv** and **las**. The converter does not however exhaustively support all possible versions of these formats, see below for details of each format. Support for more formats and version can be added fairly easily.
+The Input API allows uploading of annotation project related data such as images and point clouds. Annotell uses a potree format internally to represent and present point clouds, this means that uploaded point cloud data needs to be converted into this format before it can be used as input in the system. We currently support automatic conversion of three formats: **pcd**, **csv** and **las**. The converter does not however exhaustively support all possible versions of these formats, see below for details of each format.
 
 It might also be worth noticing that timestamp, color, and other auxillary data is currently discarded in the conversion. Timestamps because our potree version does not support timestamps, and color because it is currently not used in the system.
 
