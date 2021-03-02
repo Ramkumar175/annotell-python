@@ -8,6 +8,7 @@ from annotell.input_api.http_client import HttpClient
 from annotell.input_api.resources.annotation.annotation import AnnotationResource
 from annotell.input_api.resources.calibration.calibration import CalibrationResource
 from annotell.input_api.resources.input.input import InputResource
+from annotell.input_api.resources.input.lidars_and_cameras import LidarsAndCameras
 from annotell.input_api.resources.input.lidars_and_cameras_sequence import LidarsAndCamerasSequence
 from annotell.input_api.resources.input.cameras import Cameras
 from annotell.input_api.resources.input.cameras_sequence import CamerasSequence
@@ -49,6 +50,7 @@ class InputApiClient:
         self.annotation = AnnotationResource(client)
         self.input = InputResource(client)
 
+        self.lidar_and_cameras = LidarsAndCameras(client, file_client)
         self.lidars_and_cameras_sequence = LidarsAndCamerasSequence(client, file_client)
         self.cameras = Cameras(client, file_client)
         self.cameras_sequence = CamerasSequence(client, file_client)
