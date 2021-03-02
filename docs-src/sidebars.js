@@ -20,6 +20,11 @@ module.exports = {
       "input-api/calibration",
       "input-api/error_handling",
       "input-api/FAQ",
+      {
+        "Supported File Formats": [
+          "input-api/resources/pointclouds"
+        ]
+      }
     ],
   },
 };
