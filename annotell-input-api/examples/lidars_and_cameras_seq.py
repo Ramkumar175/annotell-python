@@ -31,11 +31,11 @@ lidars_and_cameras_seq = LCS.LidarsAndCamerasSequence(
         LCS.Frame(
             frame_id="1",
             relative_timestamp=0,
-            point_cloud_frames=[
+            point_clouds=[
                 ResourceModel.PointCloud(
                     "~/Downloads/lidar_RFL01.pcd", sensor_name="lidar"),
             ],
-            image_frames=[
+            images=[
                 ResourceModel.Image(
                     "~/Downloads/img_RFC01.jpg", sensor_name="RFC01"),
                 ResourceModel.Image(
