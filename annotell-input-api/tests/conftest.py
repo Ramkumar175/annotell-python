@@ -32,8 +32,8 @@ def client(env: str, organization_id: int) -> IAC.InputApiClient:
         auth_host = "http://annotell.org:8001"
         host = "http://annotell.org:8010"
     elif env == "staging":
-        auth_host = "http://user.staging.annotell.com"
-        host = "http://input.staging.annotell.com"
+        auth_host = "https://user.staging.annotell.com"
+        host = "https://input.staging.annotell.com"
     else:
         raise RuntimeError(f"ENV: {env} is not supported")
     return IAC.InputApiClient(auth=None, auth_host=auth_host, host=host, client_organization_id=organization_id)
