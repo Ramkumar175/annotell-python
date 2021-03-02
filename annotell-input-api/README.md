@@ -13,6 +13,9 @@ https://annotell.github.io/annotell-python/docs/
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.4] - 2021-03-02
+- Remove unused dependency on annotell-cloud-storage
+
 ## [0.4.3] - 2021-02-16
 - Fixed import bug in annoutil CLI tool.
 
