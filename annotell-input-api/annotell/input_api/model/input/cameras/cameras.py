@@ -13,3 +13,6 @@ class Cameras(CameraInput):
         return dict(frame=self.frame.to_dict(),
                     sensorSpecification=self.sensor_specification.to_dict(),
                     externalId=self.external_id)
+
+    def get_first_camera_frame(self) -> CameraFrame:
+        return self.frame

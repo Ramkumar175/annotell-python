@@ -2,10 +2,11 @@ from dataclasses import dataclass, field
 from typing import List
 
 from annotell.input_api.model.input.resource.image import Image
+from annotell.input_api.model.input.abstract.camera_frame import CameraFrame
 
 
 @dataclass
-class Frame:
+class Frame(CameraFrame):
     images: List[Image] = field(default_factory=list)
 
     def to_dict(self) -> dict:
