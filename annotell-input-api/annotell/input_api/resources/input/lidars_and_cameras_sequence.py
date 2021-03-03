@@ -2,7 +2,6 @@ import logging
 from typing import Optional
 
 import annotell.input_api.model.input as InputModel
-import annotell.input_api.model.input.lidars_and_cameras_sequence as LCSModel
 from annotell.input_api.resources.abstract import CreateableInputAPIResource
 
 log = logging.getLogger(__name__)
@@ -13,7 +12,7 @@ class LidarsAndCamerasSequence(CreateableInputAPIResource):
     path = 'lidars-and-cameras-sequence'
 
     def create(self,
-               lidars_and_cameras_sequence: LCSModel.LidarsAndCamerasSequence,
+               lidars_and_cameras_sequence: InputModel.LidarsAndCamerasSequence,
                project: Optional[str] = None,
                batch: Optional[str] = None,
                input_list_id: Optional[int] = None,

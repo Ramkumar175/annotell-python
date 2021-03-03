@@ -1,11 +1,9 @@
+import logging
 from typing import Optional
 
-import logging
-
+import annotell.input_api.model as IAM
 from annotell.input_api.file_resource_client import FileResourceClient
 from annotell.input_api.http_client import HttpClient
-import annotell.input_api.model.input as InputModel
-import annotell.input_api.model as Model
 from annotell.input_api.util import get_image_dimensions
 
 log = logging.getLogger(__name__)
@@ -23,7 +21,7 @@ class CreateableInputAPIResource(FileResourceClient):
                            project: Optional[str],
                            batch: Optional[str],
                            input_list_id: Optional[int],
-                           dryrun: bool = False) -> Optional[InputModel.InputJobCreated]:
+                           dryrun: bool = False) -> Optional[IAM.InputJobCreated]:
         """
         Send input to Input API. if not dryrun is true, only validation is performed
         Otherwise, returns `InputJobCreated`
@@ -36,7 +34,7 @@ class CreateableInputAPIResource(FileResourceClient):
         request_url = self._resolve_request_url(resource_path, project, batch)
         json_resp = self.client.post(request_url, json=input_request, dryrun=dryrun)
         if not dryrun:
-            response = InputModel.InputJobCreated.from_json(json_resp)
+            response = IAM.InputJobCreated.from_json(json_resp)
 
             if (len(response.files) > 0):
                 self.file_resource_client.upload_files(response.files)
@@ -67,23 +65,23 @@ class CreateableInputAPIResource(FileResourceClient):
         return url
 
     @staticmethod
-    def _set_sensor_settings(cameras: InputModel.CameraInput):
+    def _set_sensor_settings(camera: IAM.CameraInput):
         def _create_camera_settings(width_height_dict: dict):
-            return InputModel.CameraSettings(width_height_dict['width'], width_height_dict['height'])
+            return IAM.CameraSettings(width_height_dict['width'], width_height_dict['height'])
 
         def _create_sensor_settings():
-            first_frame = camera_resource.frames[0]
+            first_frame = camera.frames[0]
             return {
                 image_frame.sensor_name: _create_camera_settings(get_image_dimensions(image_frame.filename)) for image_frame in first_frame.image_frames
             }
 
-        if cameras.sensor_specification is None:
-            cameras.sensor_specification = InputModel.SensorSpecification(
+        if camera.sensor_specification is None:
+            camera.sensor_specification = IAM.SensorSpecification(
                 sensor_settings=_create_sensor_settings())
-        elif cameras.sensor_specification.sensor_settings is None:
-            cameras.sensor_specification.sensor_settings = _create_sensor_settings()
+        elif camera.sensor_specification.sensor_settings is None:
+            camera.sensor_specification.sensor_settings = _create_sensor_settings()
 
-    def get_upload_urls(self, files_to_upload: Model.FilesToUpload) -> Model.UploadUrls:
+    def get_upload_urls(self, files_to_upload: IAM.FilesToUpload) -> IAM.UploadUrls:
         """Get upload urls to cloud storage"""
         json_resp = self.client.get("v1/inputs/upload-urls", json=files_to_upload.to_dict())
-        return Model.UploadUrls.from_json(json_resp)
+        return IAM.UploadUrls.from_json(json_resp)

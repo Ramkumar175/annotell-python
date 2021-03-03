@@ -1,13 +1,7 @@
-from dataclasses import dataclass
-from typing import List, Union
-
-from annotell.input_api.model.input.resource.image import Image
-from annotell.input_api.model.input.resource.video import VideoFrame
-from annotell.input_api.model.input.resource.point_cloud import PointCloud
+from typing import List
+from annotell.input_api.model.input.abstract import *
 from annotell.input_api.model.input.lidars_and_cameras_sequence.frame import Frame
-
 from annotell.input_api.model.input.sensor_specification import SensorSpecification
-from annotell.input_api.model.input.abstract.camera_input import CameraInput
 
 
 @dataclass

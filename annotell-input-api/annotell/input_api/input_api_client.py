@@ -7,10 +7,10 @@ from annotell.input_api.file_resource_client import FileResourceClient
 from annotell.input_api.http_client import HttpClient
 from annotell.input_api.resources.annotation.annotation import AnnotationResource
 from annotell.input_api.resources.calibration.calibration import CalibrationResource
-from annotell.input_api.resources.input.input import InputResource
-from annotell.input_api.resources.input.lidars_and_cameras_sequence import LidarsAndCamerasSequence
 from annotell.input_api.resources.input.cameras import Cameras
 from annotell.input_api.resources.input.cameras_sequence import CamerasSequence
+from annotell.input_api.resources.input.input import InputResource
+from annotell.input_api.resources.input.lidars_and_cameras_sequence import LidarsAndCamerasSequence
 from annotell.input_api.resources.project.project import ProjectResource
 
 DEFAULT_HOST = "https://input.annotell.com"

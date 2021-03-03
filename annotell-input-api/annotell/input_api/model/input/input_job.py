@@ -17,5 +17,5 @@ class CreateInputResponse:
     internal_id: int
 
     @staticmethod
-    def from_input_job_response(resp: _CreateInputJobResponse):
-        return CreateInputResponse(resp.internal_id)
+    def from_input_job_response(input_job: InputJobCreated):
+        return CreateInputResponse(input_job.internal_id)

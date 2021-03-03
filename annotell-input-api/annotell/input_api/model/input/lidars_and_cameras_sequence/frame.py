@@ -1,8 +1,7 @@
+from dataclasses import field
 from typing import List
-from dataclasses import dataclass, field
-from annotell.input_api.model.input.resource.image import Image
-from annotell.input_api.model.input.resource.video import VideoFrame
-from annotell.input_api.model.input.resource.point_cloud import PointCloud
+
+from annotell.input_api.model.input.resource import *
 
 
 @dataclass

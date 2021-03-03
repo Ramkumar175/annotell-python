@@ -30,11 +30,11 @@ class InputResource(InputAPIResource):
         return InputModel.InvalidatedInputs.from_json(resp_json)
 
     def get_inputs(
-            self,
-            project: str,
-            batch: Optional[str] = None,
-            include_invalidated: bool = False,
-            external_ids: Optional[List[str]] = None
+        self,
+        project: str,
+        batch: Optional[str] = None,
+        include_invalidated: bool = False,
+        external_ids: Optional[List[str]] = None
     ) -> List[InputModel.Input]:
         """
         Gets inputs for project, with option to filter for invalidated inputs
