@@ -35,15 +35,15 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
                 relative_timestamp=0,
                 point_clouds=[
                     LCSM.PointCloud(
-                        "~/Downloads/pointcloud_RFL01.pcd", sensor_name=lidar_sensor1),
+                        "./examples/resources/pointcloud_RFL01.pcd", sensor_name=lidar_sensor1),
                 ],
                 images=[
                     LCSM.Image(
-                        "~/Downloads/img_RFC01.jpg", sensor_name=cam_sensor1),
+                        "./examples/resources/img_RFC01.jpg", sensor_name=cam_sensor1),
                     LCSM.Image(
-                        "~/Downloads/img_RFC01.jpg", sensor_name=cam_sensor2),
+                        "./examples/resources/img_RFC01.jpg", sensor_name=cam_sensor2),
                     LCSM.Image(
-                        "~/Downloads/img_RFC01.jpg", sensor_name=cam_sensor3)
+                        "./examples/resources/img_RFC01.jpg", sensor_name=cam_sensor3)
                 ]),
         ],
         calibration_id=created_calibration.id,

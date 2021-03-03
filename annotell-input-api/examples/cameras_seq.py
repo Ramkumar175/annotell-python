@@ -33,9 +33,9 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
                 relative_timestamp=0,
                 images=[
                     InputModel.Image(
-                        filename="~/Downloads/img_RFC01.jpg", sensor_name=sensor1),
+                        "./examples/resources/img_RFC01.jpg", sensor_name=sensor1),
                     InputModel.Image(
-                        filename="~/Downloads/img_RFC01.jpg", sensor_name=sensor2),
+                        "./examples/resources/img_RFC01.jpg", sensor_name=sensor2),
                 ]
             ),
             CamerasSeqModel.Frame(
@@ -43,9 +43,9 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
                 relative_timestamp=500,
                 images=[
                     InputModel.Image(
-                        filename="~/Downloads/img_RFC02.jpg", sensor_name=sensor1),
+                        "./examples/resources/img_RFC02.jpg", sensor_name=sensor1),
                     InputModel.Image(
-                        filename="~/Downloads/img_RFC02.jpg", sensor_name=sensor2),
+                        "./examples/resources/img_RFC02.jpg", sensor_name=sensor2),
                 ]
             )
         ],
