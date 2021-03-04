@@ -88,10 +88,8 @@ class CreateableInputAPIResource(FileResourceClient):
                     _get_camera_settings(get_image_dimensions(image.filename)) for image in camera_frame.images
              }
         if len(camera_frame.video_frames) != 0:
-            video_settings = {
-                video_frame.sensor_name:
-                    _get_camera_settings(get_image_dimensions(video_frame.filename)) for video_frame in camera_frame.video_frames
-            }
+            # TODO: Support this for VIDEO
+            pass
 
         return {**image_settings, **video_settings}
 
