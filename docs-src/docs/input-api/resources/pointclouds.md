@@ -12,7 +12,7 @@ The currently supported format includes the following header:
 VERSION .7
 FIELDS x y z intensity
 SIZE 4 4 4 4
-TYPE F F F F
+TYPE F F F U
 COUNT 1 1 1 1
 WIDTH <w>
 HEIGHT <h>

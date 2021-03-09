@@ -41,7 +41,7 @@ while (( "$#" )); do
   esac
 done
 
-cd $ANNO_DIR/python/annotell-python/docs-src
+cd ./docs-src
 
 yarn
 yarn build
@@ -50,7 +50,7 @@ if [ $BUILD_ONLY -eq 1 ]; then
   exit 0
 fi
 
-echo "Updating $ANNO_DIR/python/annotell-python/docs"
+echo "Updating annotell-python/docs"
 rm -r ../docs
 mv ./build ../docs
 
