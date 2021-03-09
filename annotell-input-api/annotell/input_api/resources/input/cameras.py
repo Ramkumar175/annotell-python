@@ -2,7 +2,6 @@ import logging
 from typing import Optional
 
 import annotell.input_api.model.input as InputModel
-import annotell.input_api.model.input.cameras as CamerasModel
 from annotell.input_api.resources.abstract import CreateableInputAPIResource
 
 log = logging.getLogger(__name__)
@@ -13,11 +12,11 @@ class Cameras(CreateableInputAPIResource):
     path = 'cameras'
 
     def create(self,
-               cameras: CamerasModel.Cameras,
+               cameras: InputModel.Cameras,
                project: Optional[str] = None,
                batch: Optional[str] = None,
                input_list_id: Optional[int] = None,
-               dryrun: bool = False) -> Optional[InputModel.InputJobCreated]:
+               dryrun: bool = False) -> Optional[InputModel.CreateInputResponse]:
         """
         Upload files and create an input of type ``cameras``.
 
@@ -45,4 +44,4 @@ class Cameras(CreateableInputAPIResource):
             return None
 
         log.info(f"Created inputs for files with internal_id={response.internal_id}")
-        return response
+        return InputModel.CreateInputResponse.from_input_job_response(response)
