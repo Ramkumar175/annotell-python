@@ -1,5 +1,5 @@
 import logging
-from typing import Optional
+from typing import Optional, Dict
 
 import annotell.input_api.model as IAM
 from annotell.input_api.file_resource_client import FileResourceClient
@@ -64,22 +64,34 @@ class CreateableInputAPIResource(FileResourceClient):
 
         return url
 
-    @staticmethod
-    def _set_sensor_settings(camera: IAM.CameraInput):
-        def _create_camera_settings(width_height_dict: dict):
-            return IAM.CameraSettings(width_height_dict['width'], width_height_dict['height'])
-
+    def _set_sensor_settings(self, camera: IAM.CameraInput):
         def _create_sensor_settings():
-            first_frame = camera.frames[0]
-            return {
-                image_frame.sensor_name: _create_camera_settings(get_image_dimensions(image_frame.filename)) for image_frame in first_frame.image_frames
-            }
+            first_camera_frame = camera.get_first_camera_frame()
+            return self._get_camera_dimensions(first_camera_frame)
 
         if camera.sensor_specification is None:
             camera.sensor_specification = IAM.SensorSpecification(
                 sensor_settings=_create_sensor_settings())
         elif camera.sensor_specification.sensor_settings is None:
             camera.sensor_specification.sensor_settings = _create_sensor_settings()
+
+    @staticmethod
+    def _get_camera_dimensions(camera_frame: IAM.CameraFrame) -> Dict[str, IAM.CameraSettings]:
+        def _get_camera_settings(width_height_dict: dict) -> IAM.CameraSettings:
+            return IAM.CameraSettings(width_height_dict['width'], width_height_dict['height'])
+
+        image_settings = {}
+        video_settings = {}
+        if len(camera_frame.images) != 0:
+            image_settings = {
+                image.sensor_name:
+                    _get_camera_settings(get_image_dimensions(image.filename)) for image in camera_frame.images
+             }
+        if len(camera_frame.video_frames) != 0:
+            # TODO: Support this for VIDEO
+            pass
+
+        return {**image_settings, **video_settings}
 
     def get_upload_urls(self, files_to_upload: IAM.FilesToUpload) -> IAM.UploadUrls:
         """Get upload urls to cloud storage"""
