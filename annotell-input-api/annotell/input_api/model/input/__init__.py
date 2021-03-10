@@ -8,6 +8,6 @@ from .invalidated_input import *
 from .invalidated_reason_input import *
 from .lidars_and_cameras import *
 from .lidars_and_cameras_sequence import *
-from .resource import *
+from .resources import *
 from .sensor_specification import *
 

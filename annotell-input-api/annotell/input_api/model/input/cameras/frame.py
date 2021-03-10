@@ -1,7 +1,7 @@
 from dataclasses import dataclass, field
 from typing import List
 
-from annotell.input_api.model.input.resource.image import Image
+from annotell.input_api.model.input.resources.image import Image
 from annotell.input_api.model.input.abstract.camera_frame import CameraFrame
 
 

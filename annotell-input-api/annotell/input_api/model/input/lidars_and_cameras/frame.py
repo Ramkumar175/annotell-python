@@ -1,7 +1,7 @@
 from typing import List
 from dataclasses import dataclass, field
-from annotell.input_api.model.input.resource.image import Image
-from annotell.input_api.model.input.resource.point_cloud import PointCloud
+from annotell.input_api.model.input.resources.image import Image
+from annotell.input_api.model.input.resources.point_cloud import PointCloud
 
 
 @dataclass
