@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Optional
 
 from annotell.input_api.util import filter_none
-from annotell.input_api.model.input.resource.resource import Resource
+from annotell.input_api.model.input.resources.resource import Resource
 
 camera_sensor_default = "CAM"
 

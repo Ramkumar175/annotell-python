@@ -2,7 +2,7 @@ from abc import ABC
 from dataclasses import dataclass, field
 from typing import List
 
-from annotell.input_api.model.input.resource import Image, VideoFrame
+from annotell.input_api.model.input.resources import Image, VideoFrame
 
 
 @dataclass

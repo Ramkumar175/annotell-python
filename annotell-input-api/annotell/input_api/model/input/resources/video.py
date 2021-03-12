@@ -1,4 +1,4 @@
-from annotell.input_api.model.input.resource.resource import Resource
+from annotell.input_api.model.input.resources.resource import Resource
 from typing import Optional
 from abc import ABC
 from dataclasses import dataclass

@@ -17,7 +17,7 @@ class LidarsAndCameras(CreateableInputAPIResource):
                project: Optional[str] = None,
                batch: Optional[str] = None,
                input_list_id: Optional[int] = None,
-               dryrun: bool = False) -> Optional[InputModel.InputJobCreated]:
+               dryrun: bool = False) -> Optional[InputModel.CreateInputResponse]:
         """
         Upload files and create an input of type ``LidarsAndCameras``.
 
@@ -53,4 +53,4 @@ class LidarsAndCameras(CreateableInputAPIResource):
 
         log.info(
             f"Created inputs for files with internal_id={response.internal_id}")
-        return response
+        return InputModel.CreateInputResponse.from_input_job_response(response)
