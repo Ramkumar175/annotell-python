@@ -5,6 +5,8 @@ import annotell.input_api.model.input as InputModel
 import annotell.input_api.model.input.lidars_and_cameras_sequence as LCSM
 import annotell.input_api.model.input.resources as ResourceModel
 from annotell.input_api.logger import setup_logging
+from annotell.input_api.model.ego import EgoVehiclePose
+from annotell.input_api.model.calibration import Position, RotationQuaternion
 
 from examples.calibration import create_sensor_calibration
 
@@ -35,13 +37,41 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
                 frame_id="1",
                 relative_timestamp=0,
                 point_clouds=[
-                    ResourceModel.PointCloud("./examples/resources/point_cloud_RFL01.las", sensor_name=lidar_sensor1),
+                    ResourceModel.PointCloud(
+                        "./examples/resources/point_cloud_RFL01.las", sensor_name=lidar_sensor1),
                 ],
                 images=[
-                    ResourceModel.Image("./examples/resources/img_RFC01.jpg", sensor_name=cam_sensor1),
-                    ResourceModel.Image("./examples/resources/img_RFC01.jpg", sensor_name=cam_sensor2),
-                    ResourceModel.Image("./examples/resources/img_RFC01.jpg", sensor_name=cam_sensor3)
-                ]),
+                    ResourceModel.Image(
+                        "./examples/resources/img_RFC01.jpg", sensor_name=cam_sensor1),
+                    ResourceModel.Image(
+                        "./examples/resources/img_RFC01.jpg", sensor_name=cam_sensor2),
+                    ResourceModel.Image(
+                        "./examples/resources/img_RFC01.jpg", sensor_name=cam_sensor3)
+                ],
+                ego_vehicle_pose=EgoVehiclePose(
+                    position=Position(x=1.0, y=1.0, z=1.0),
+                    rotation=RotationQuaternion(w=0.01, x=1.01, y=1.01, z=1.01)
+                )
+            ),
+            LCSM.Frame(
+                frame_id="2",
+                relative_timestamp=500,
+                point_clouds=[
+                    ResourceModel.PointCloud(
+                        "./examples/resources/point_cloud_RFL02.las", sensor_name=lidar_sensor1),
+                ],
+                images=[
+                    ResourceModel.Image(
+                        "./examples/resources/img_RFC02.jpg", sensor_name=cam_sensor1),
+                    ResourceModel.Image(
+                        "./examples/resources/img_RFC02.jpg", sensor_name=cam_sensor2),
+                    ResourceModel.Image(
+                        "./examples/resources/img_RFC02.jpg", sensor_name=cam_sensor3)
+                ],
+                ego_vehicle_pose=EgoVehiclePose(
+                    position=Position(x=2.0, y=2.0, z=2.0),
+                    rotation=RotationQuaternion(w=0.01, x=2.01, y=2.01, z=2.01)
+                ))
         ],
         calibration_id=created_calibration.id,
         sensor_specification=sensor_specification
@@ -58,4 +88,4 @@ if __name__ == '__main__':
 
     # Project - Available via `client.project.get_projects()`
     project = "<project-identifier>"
-    run(client, project)
+    run(client, project, dryrun=True)
