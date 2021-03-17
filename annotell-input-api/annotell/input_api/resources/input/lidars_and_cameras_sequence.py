@@ -9,7 +9,7 @@ log = logging.getLogger(__name__)
 
 class LidarsAndCamerasSequence(CreateableInputAPIResource):
 
-    path = 'lidars-and-cameras-sequence'
+    path = 'lidars-and-cameras-sequence-v1'
 
     def create(self,
                lidars_and_cameras_sequence: InputModel.LidarsAndCamerasSequence,
@@ -51,4 +51,4 @@ class LidarsAndCamerasSequence(CreateableInputAPIResource):
             return None
 
         log.info(f"Created inputs for files with internal_id={response.internal_id}")
-        return response
+        return InputModel.CreateInputResponse.from_input_job_response(response)
