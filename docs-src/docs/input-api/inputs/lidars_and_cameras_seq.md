@@ -131,3 +131,41 @@ client.lidar_and_image_sequence.create(lidar_and_camera_seq,
 :::tip Use dryrun to validate input
 Setting `dryrun` parameter to true in the method call, will validate the input using the Input API but not create any inputs.
 :::
+
+
+## Providing Ego Vehicle Motion Information
+Ego vehicle motion (i.e. the position and rotation of the ego vehicle) is optional information that can be provided when creating `LidarsAndCamerasSeq` inputs. This information can enable a massive reduction in the time it takes to annotate static objects. Ego vehicle motion information is provided by passing a `EgoVehicleMotion` object to **each** `Frame` in the input.
+
+
+```python
+lidar_and_camera_seq = IAM.LidarsAndCamerasSequence(
+    external_id="input1",
+    frames=[
+        IAM.Frame(
+            frame_id="1",
+            relative_timestamp=0,
+            point_cloud_frames=[...],
+            image_frames=[...],
+            ego_vehicle_pose=IAM.EgoVehiclePose(
+                position=IAM.Position(x=1.0, y=1.0, z=1.0),
+                rotation=IAM.RotationQuaternion(w=0.01, x=1.01, y=1.01, z=1.01)
+            )
+        ),
+        IAM.Frame(
+            frame_id="2",
+            relative_timestamp=500,
+            point_cloud_frames=[...],
+            image_frames=[...],
+            ego_vehicle_pose=IAM.EgoVehiclePose(
+                position=IAM.Position(x=2.0, y=2.0, z=2.0),
+                rotation=IAM.RotationQuaternion(w=0.01, x=2.01, y=2.01, z=2.01)
+            )
+        )
+    ],
+    calibration_id=calibration.id,
+)
+```
+
+:::note Coordinate Systems
+Note that both `position` and `rotation` for ego vehicle pose are with respect to the *local* coordinate system.
+:::
