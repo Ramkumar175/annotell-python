@@ -65,27 +65,15 @@ An **input** specifies how these different resources belong together using metad
 
 Inputs can be created via Annotell's Input API, which has support for several different types of input types.
 
-:::caution Version `0.x.x` vs `1.x.x`
-We are currently transitioning to version `1.0.0`, which will bring with it changes to naming and 
-behavior of the different input types. During the transition period we will support both versions of inputs, please 
-refer to [A Note on Version 1 and Version 0](./input-api/version_transition)
-:::
 
-### Version 0.x.x
-| Type                     | Description                                                                         |
-| -------------------------|-------------------------------------------------------------------------------------|
-| **Images**               | A single frame consisting of images from 1-8 cameras                                |
-| **PointCloud**           | A single frame consisting of a single lidar point cloud                             |
-| **PointCloudWithImages** | A single frame consisting of a single lidar point cloud and images from 1-8 cameras |
-
-### Version 1.x.x 
+### Input Types
 | Type                           | Description                                                                           |
 | -------------------------------|---------------------------------------------------------------------------------------|
-| **Cameras** 🚧                 | A single frame consisting of images from 1-8 cameras                                  |
+| **Cameras**                    | A single frame consisting of images from 1-8 cameras                                  |
 | **Lidars** 🚧                  | A single frame consisting of 1-3 lidar point clouds                                   |
-| **LidarsAndCameras** 🚧        | A single frame consisting of 1-3 lidar point clouds and images from 1-8 cameras       |
+| **LidarsAndCameras**           | A single frame consisting of 1-3 lidar point clouds and images from 1-8 cameras       |
 | **CamerasSeq** 🚧              | Sequence of frames, each frame consisting of images from 1-8 cameras                  |
-| **LidarsSeq** 🚧               | Sequence of frames, each frame consisting of 1-3 lidar point clouds                   |
+| **LidarsSeq**                  | Sequence of frames, each frame consisting of 1-3 lidar point clouds                   |
 | **LidarsAndCamerasSeq**        | Sequence of frames, consisting of 1-3 lidar point clouds and images from 1-8 cameras  |
 
 

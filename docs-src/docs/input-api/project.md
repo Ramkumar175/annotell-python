@@ -60,4 +60,4 @@ Returns all batches for the project
 projects = client.project.publish_batch("project_external_id", "batch_external_id")
 ```
 
-Publishes the input batch. Published batches are not open for new inputs.
+Publishes the input batch. Published batches are not open for new inputs. A project with *multiple* open batches will require you to specify which open batch to target when creating inputs, whereas a project with a single open batch will allow you omit batch when creating inputs.

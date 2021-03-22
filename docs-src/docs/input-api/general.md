@@ -5,7 +5,7 @@ title: General
 ## Creating Inputs
 
 :::note
-For detailed information about different input modalities, check [images](inputs/images), [point cloud with images](inputs/point_cloud_with_images) or [LidarsAndCamerasSeq](inputs/lidars_and_cameras_seq).
+For detailed information about different input modalities, check [Cameras](inputs/cameras), [LidarsAndCameras](inputs/lidars_and_cameras) or [LidarsAndCamerasSeq](inputs/lidars_and_cameras_seq).
 :::
 
 :::tip Annotell Users
@@ -32,15 +32,15 @@ organization # root for projects
 There are 3 ways in order to create inputs
 
 - Adding inputs to latest open batch for a project
-- Adding inputs to specified batchfor a project
+- Adding inputs to specified batch for a project
 - Adding inputs to an input list (deprecated)
 
-The following examples all use an input of type `IMAGES`, however the interface applies to all input types.
+The following examples all use an input of type `Cameras`, however the interface applies to all input types.
 
 ### Adding inputs to latest open batch for a project
 
 ```python
-client.create_inputs_images(
+client.cameras.create(
     ...,
     project="project-a")
 ```
@@ -50,7 +50,7 @@ Will add inputs to `project-a` `batch-2` because it's the latest open batch.
 ### Adding inputs to specified batchfor a project
 
 ```python
-client.create_inputs_images(
+client.cameras.create(
     ...,
     project="project-a",
     batch="batch-3")
@@ -61,7 +61,7 @@ Will add inputs to `project-a` `batch-3`.
 ### Adding inputs to an input list (deprecated)
 
 ```python
-client.create_inputs_images(
+client.cameras.create(
     ...,
     input_list_id=500)
 ```
@@ -105,9 +105,9 @@ Inputs can be retrieved via the API by specifying project. Additional filter par
 
 | Property    | Description                                                |
 | ----------- | ---------------------------------------------------------- |
-| internal_id | ID used to identify the input within the Annotell Platform |
+| input_uuid  | ID used to identify the input within the Annotell Platform |
 | external_id | External ID supplied during input creation                 |
-| batch_id    | Which batch does the input belong to                       |
+| batch       | Which batch does the input belong to                       |
 | input_type  | Type of input (see [Input Types](../key_concepts.md))      |
 | status      | Input status (see [Input Statuses](#input-status))         |
 
@@ -139,10 +139,10 @@ client.input.get_inputs(project=project, include_invalidated=True)
 
 ## Downloading Annotations
 
-Once annotations are available they can be downloaded by supplying a list of internal ids for the corresponding inputs. A dictonary is returned containing available annotations for each input. Several annotations occur if the project is setup in such a way that each input should be annotated with different annotation types, e.g. Lane Markings and Objects.
+Once annotations are available they can be downloaded by supplying a list of `input_uuid`s for the corresponding inputs. A dictonary is returned containing available annotations for each input. Several annotations occur if the project is setup in such a way that each input should be annotated with different annotation types, e.g. Lane Markings and Objects.
 
 ```python
-client.annotation.get_annotations(internal_ids=[
+client.annotation.get_annotations(input_uuids=[
     'decf6479-d540-459f-b924-a12c2cecf3b5',
     '5da4f44b-16cb-414a-8dbd-ff5e5afc309a'
 ])
