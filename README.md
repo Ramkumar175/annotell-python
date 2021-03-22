@@ -1,4 +1,4 @@
-# Annotell Public Python API Clients
+# Annotell Public Python APIs
 
-Annotell Public Python API Clients
+The following APIs are in alpha status. 
 

@@ -1,6 +1,8 @@
+from annotell.apiclients.input_api_client import create_input_api_client
 from typing import Optional, List
 from tabulate import tabulate
 from .input_api_client import InputApiClient
+from annotell.input_api.util import get_view_links
 from pprint import pprint
 
 import click
@@ -57,19 +59,19 @@ def cli():
 def projects(project, get_batches):
     print()
     if project and get_batches:
-        list_of_input_batches = client.get_project_batches(project)
-        headers = ["external_id", "title", "status", "created", "updated"]
+        list_of_input_batches = client.project.get_project_batches(project)
+        headers = ["created", "project", "batch", "title", "status", "updated"]
         tab = _get_table(list_of_input_batches, headers, "BATCHES")
         print(tab)
     elif project:
-        list_of_projects = client.get_projects()
+        list_of_projects = client.project.get_projects()
         target_project = [p for p in list_of_projects if p.external_id == project]
-        headers = ["created", "title", "description", "status", "external_id"]
+        headers = ["created", "project", "title", "description", "status"]
         tab = _get_table(target_project, headers, "PROJECTS")
         print(tab)
     else:
-        list_of_projects = client.get_projects()
-        headers = ["created", "title", "description", "status", "external_id"]
+        list_of_projects = client.project.get_projects()
+        headers = ["created", "project", "title", "description", "status"]
         tab = _get_table(list_of_projects, headers, "PROJECTS")
         print(tab)
 
@@ -83,19 +85,19 @@ def projects(project, get_batches):
 def inputs(project, batch, external_ids, include_invalidated, view):
     print()
     if view:
-        inputs = client.get_inputs(project, batch, external_ids=external_ids, include_invalidated=include_invalidated)
-        view_dict = client.get_view_links([input.internal_id for input in inputs])
+        inputs = client.input.get_inputs(project, batch, external_ids=external_ids, include_invalidated=include_invalidated)
+        view_dict = get_view_links([input.uuid for input in inputs])
         body = []
-        headers = ["internal_id", "view_link"]
-        for internal_id, link in view_dict.items():
+        headers = ["uuid", "view_link"]
+        for uuid, link in view_dict.items():
             body.append([
-                internal_id, link
+                uuid, link
             ])
         tab = _tabulate(body, headers, title="VIEW LINKS FOR INPUTS")
         print(tab)
     else:
-        inputs = client.get_inputs(project, batch, include_invalidated=include_invalidated)
-        headers = ["internal_id",
+        inputs = client.input.get_inputs(project, batch, include_invalidated=include_invalidated)
+        headers = ["uuid",
                    "external_id",
                    "batch",
                    "input_type",
@@ -106,12 +108,12 @@ def inputs(project, batch, external_ids, include_invalidated, view):
 
 
 @click.command()
-@click.argument('input_internal_id', nargs=1, required=True, type=str)
-def view(input_internal_id):
+@click.argument('input_uuid', nargs=1, required=True, type=str)
+def view(input_uuid):
     print()
-    view_dict = client.get_view_links([input_internal_id])
-    body = [[input_internal_id, view_dict[input_internal_id]]]
-    headers = ["internal_id", "view_link"]
+    view_dict = get_view_links([input_uuid])
+    body = [[input_uuid, view_dict[input_uuid]]]
+    headers = ["uuid", "view_link"]
     tab = _tabulate(body, headers, title="VIEW LINK")
     print(tab)
 
@@ -122,7 +124,7 @@ def view(input_internal_id):
 def calibration(id, external_id, raw):
     print()
     if id is not None:
-        list_of_calibrations = client.get_calibration_data(id=id)
+        list_of_calibrations = client.calibration.get_calibration(id)
         headers = ["id", "external_id", "created"]
         tab = _get_table(list_of_calibrations, headers, "CALIBRATION")
         print(tab)
@@ -130,12 +132,12 @@ def calibration(id, external_id, raw):
             print()
             [pprint(calib.calibration) for calib in list_of_calibrations]
     elif external_id is not None:
-        list_of_calibrations = client.get_calibration_data(external_id=external_id)
+        list_of_calibrations = client.calibration.get_calibrations(external_id=external_id)
         headers = ["id", "external_id", "created"]
         tab = _get_table(list_of_calibrations, headers, "CALIBRATION")
         print(tab)
     else:
-        list_of_calibrations = client.get_calibration_data()
+        list_of_calibrations = client.calibration.get_calibrations()
         headers = ["id", "external_id", "created"]
         tab = _get_table(list_of_calibrations, headers, "CALIBRATION")
         print(tab)

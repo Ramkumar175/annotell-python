@@ -18,10 +18,6 @@ for item in resp.items():
 
 ## Change log
 
-### 2.3.0
-- Use annotell-auth>=1.6
-- Remove metadata queries
-
 ### 2.2.0
 - Use annotell-auth>=1.5 with fault tolerant auth request session
 

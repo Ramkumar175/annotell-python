@@ -5,9 +5,10 @@ from collections.abc import Mapping
 from datetime import datetime
 from pathlib import Path
 from PIL import Image as PILImage
+from typing import List, Dict
+
 import dateutil.parser
 from urllib3.util import Url, parse_url
-
 
 GCS_SCHEME = "gs"
 
@@ -33,6 +34,7 @@ def get_content_type(filename: str) -> str:
     else:
         content_type = mimetypes.guess_type(filename)[0]
         content_type = content_type if content_type is not None else 'application/octet-stream'
+
     return content_type
 
 
@@ -47,3 +49,16 @@ def get_image_dimensions(image_path: str) -> dict:
     with PILImage.open(fi) as im:
         width, height = im.size
         return {"width": width, "height": height}
+
+def get_view_links(input_uuids: List[str]) -> Dict[str, str]:
+        """
+        For each given input uuid returns an URL where the input can be viewed in the web app.
+
+        :param input_uuids: List with input uuids
+        :return Dict: Dictionary mapping each uuid with an URL to view the input.
+        """
+        view_dict = dict()
+        for input_uuid in input_uuids:
+            view_dict[input_uuid] = f"https://app.annotell.com/input-view/{input_uuid}"
+
+        return view_dict
