@@ -15,7 +15,7 @@ class TestLidarsAndCamerasSeq:
 
     @staticmethod
     def filter_lidar_and_cameras_seq_project(projects: List[IAM.Project]):
-        return [p for p in projects if p.external_id == TestProjects.LidarsAndCamerasSequenceProject]
+        return [p for p in projects if p.project == TestProjects.LidarsAndCamerasSequenceProject]
 
     def test_get_lidars_and_cameras_seq_project(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
@@ -24,15 +24,15 @@ class TestLidarsAndCamerasSeq:
 
     def test_validate_lidars_and_cameras_seq_input(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
-        project = self.filter_lidar_and_cameras_seq_project(projects)[0].external_id
+        project = self.filter_lidar_and_cameras_seq_project(projects)[0].project
         resp = lidars_cameras_seq_example.run(client=client, project=project)
         assert resp is None
     
     def test_create_lidars_and_cameras_seq_input(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
-        project = self.filter_lidar_and_cameras_seq_project(projects)[0].external_id
+        project = self.filter_lidar_and_cameras_seq_project(projects)[0].project
         resp = lidars_cameras_seq_example.run(client=client, project=project, dryrun=False)
-        assert isinstance(resp.internal_id, str)
+        assert isinstance(resp.input_uuid, str)
 
         with pytest.raises(AttributeError):
             resp.files
@@ -40,16 +40,16 @@ class TestLidarsAndCamerasSeq:
     # Frames include ego-motion 
     def test_validate_lidars_and_cameras_seq_full_input(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
-        project = self.filter_lidar_and_cameras_seq_project(projects)[0].external_id
+        project = self.filter_lidar_and_cameras_seq_project(projects)[0].project
         resp = lidars_cameras_seq_full_example.run(client=client, project=project)
         assert resp is None
     
     # Frames include ego-motion 
     def test_create_lidars_and_cameras_seq_full_input(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
-        project = self.filter_lidar_and_cameras_seq_project(projects)[0].external_id
+        project = self.filter_lidar_and_cameras_seq_project(projects)[0].project
         resp = lidars_cameras_seq_full_example.run(client=client, project=project, dryrun=False)
-        assert isinstance(resp.internal_id, str)
+        assert isinstance(resp.input_uuid, str)
 
         with pytest.raises(AttributeError):
             resp.files

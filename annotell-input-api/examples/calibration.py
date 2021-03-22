@@ -20,8 +20,6 @@ def create_sensor_calibration(external_id, lidar_sources: List[str] = None, came
         return CalibrationModel.LidarCalibration(position=lidar_position,
                                                  rotation_quaternion=lidar_rotation)
     # Create a camera calibration
-
-    # Create a camera calibration
     def unity_camera_calibration():
         camera_camera_type = CalibrationModel.CameraType.PINHOLE
         camera_position = CalibrationModel.Position(

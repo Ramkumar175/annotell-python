@@ -39,7 +39,7 @@ class CreateableInputAPIResource(FileResourceClient):
             if (len(response.files) > 0):
                 self.file_resource_client.upload_files(response.files)
                 self.client.post(
-                    f"v1/inputs/input-jobs/{response.internal_id}/commit",
+                    f"v1/inputs/input-jobs/{response.input_uuid}/commit",
                     json=False,
                     discard_response=True
                 )

@@ -15,7 +15,8 @@ class ProjectBatchStatus(str, Enum):
 
 @dataclass
 class ProjectBatch(Response):
-    external_id: str
+    project: str
+    batch: str
     title: str
     status: ProjectBatchStatus
     created: datetime
@@ -23,5 +24,11 @@ class ProjectBatch(Response):
 
     @staticmethod
     def from_json(js: dict):
-        return ProjectBatch(js["externalId"], js["title"], ProjectBatchStatus(js["status"]),
-                          ts_to_dt(js["created"]), ts_to_dt(js["created"]))
+        return ProjectBatch(
+            project=js["project"],
+            batch=js["batch"],
+            title=js["title"],
+            status=ProjectBatchStatus(js["status"]),
+            created=ts_to_dt(js["created"]),
+            updated=ts_to_dt(js["updated"])
+        )

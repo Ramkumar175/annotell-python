@@ -16,9 +16,9 @@ class InputStatus(str, Enum):
 
 @dataclass
 class Input(Response):
-    internal_id: str
+    uuid: str
     external_id: str
-    batch_id: str
+    batch: str
     input_type: str
     status: InputStatus
     error_message: Optional[str]

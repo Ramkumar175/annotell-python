@@ -9,11 +9,11 @@ class TestInput:
 
     @staticmethod
     def filter_projects(projects: List[IAM.Project]):
-        return [p for p in projects if p.external_id == TestProjects.CamerasProject]
+        return [p for p in projects if p.project == TestProjects.CamerasProject]
 
     def test_get_inputs(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
-        project = self.filter_projects(projects)[0].external_id
+        project = self.filter_projects(projects)[0].project
         inputs = get_inputs_example.run(client=client, project=project)
         assert isinstance(inputs, list)
 

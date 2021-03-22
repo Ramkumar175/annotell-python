@@ -15,19 +15,17 @@ class InputResource(InputAPIResource):
 
     def invalidate_inputs(
         self,
-        input_internal_ids: List[str],
+        input_uuids: List[str],
         invalidated_reason: InputModel.InvalidatedReasonInput
-    ):
+    ) -> None:
         """
         Invalidates inputs, and removes them from all input lists
 
-        :param input_internal_ids: The input internal ids to invalidate
+        :param input_uuids: The input uuids to invalidate
         :param invalidated_reason: An Enum describing why inputs were invalidated
-        :return InvalidatedInputsResponse: Class containing what inputs were invalidated
         """
-        invalidated_json = dict(inputIds=input_internal_ids, invalidatedReason=invalidated_reason)
-        resp_json = self.client.post("v1/inputs/invalidate", json=invalidated_json)
-        return InputModel.InvalidatedInputs.from_json(resp_json)
+        invalidated_json = dict(inputIds=input_uuids, invalidatedReason=invalidated_reason)
+        self.client.post("v1/inputs/invalidate", json=invalidated_json)
 
     def get_inputs(
         self,

@@ -11,7 +11,7 @@ from tests.utils import TestProjects
 class TestCameras:
     @staticmethod
     def filter_cameras_project(projects: List[IAM.Project]):
-        return [p for p in projects if p.external_id == TestProjects.CamerasProject]
+        return [p for p in projects if p.project == TestProjects.CamerasProject]
 
     def test_get_cameras_project(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
@@ -20,16 +20,16 @@ class TestCameras:
 
     def test_validate_cameras_input(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
-        project = self.filter_cameras_project(projects)[0].external_id
+        project = self.filter_cameras_project(projects)[0].project
 
         resp = cameras_example.run(client=client, project=project)
         assert resp is None
 
     def test_create_cameras_input(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
-        project = self.filter_cameras_project(projects)[0].external_id
+        project = self.filter_cameras_project(projects)[0].project
         resp = cameras_example.run(client=client, project=project, dryrun=False)
-        assert isinstance(resp.internal_id, str)
+        assert isinstance(resp.input_uuid, str)
 
         with pytest.raises(AttributeError):
             resp.files

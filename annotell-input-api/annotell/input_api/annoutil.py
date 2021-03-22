@@ -60,18 +60,18 @@ def projects(project, get_batches):
     print()
     if project and get_batches:
         list_of_input_batches = client.project.get_project_batches(project)
-        headers = ["external_id", "title", "status", "created", "updated"]
+        headers = ["created", "project", "batch", "title", "status", "updated"]
         tab = _get_table(list_of_input_batches, headers, "BATCHES")
         print(tab)
     elif project:
         list_of_projects = client.project.get_projects()
         target_project = [p for p in list_of_projects if p.external_id == project]
-        headers = ["created", "title", "description", "status", "external_id"]
+        headers = ["created", "project", "title", "description", "status"]
         tab = _get_table(target_project, headers, "PROJECTS")
         print(tab)
     else:
         list_of_projects = client.project.get_projects()
-        headers = ["created", "title", "description", "status", "external_id"]
+        headers = ["created", "project", "title", "description", "status"]
         tab = _get_table(list_of_projects, headers, "PROJECTS")
         print(tab)
 
@@ -86,18 +86,18 @@ def inputs(project, batch, external_ids, include_invalidated, view):
     print()
     if view:
         inputs = client.input.get_inputs(project, batch, external_ids=external_ids, include_invalidated=include_invalidated)
-        view_dict = get_view_links([input.internal_id for input in inputs])
+        view_dict = get_view_links([input.uuid for input in inputs])
         body = []
-        headers = ["internal_id", "view_link"]
-        for internal_id, link in view_dict.items():
+        headers = ["uuid", "view_link"]
+        for uuid, link in view_dict.items():
             body.append([
-                internal_id, link
+                uuid, link
             ])
         tab = _tabulate(body, headers, title="VIEW LINKS FOR INPUTS")
         print(tab)
     else:
         inputs = client.input.get_inputs(project, batch, include_invalidated=include_invalidated)
-        headers = ["internal_id",
+        headers = ["uuid",
                    "external_id",
                    "batch",
                    "input_type",
@@ -108,12 +108,12 @@ def inputs(project, batch, external_ids, include_invalidated, view):
 
 
 @click.command()
-@click.argument('input_internal_id', nargs=1, required=True, type=str)
-def view(input_internal_id):
+@click.argument('input_uuid', nargs=1, required=True, type=str)
+def view(input_uuid):
     print()
-    view_dict = get_view_links([input_internal_id])
-    body = [[input_internal_id, view_dict[input_internal_id]]]
-    headers = ["internal_id", "view_link"]
+    view_dict = get_view_links([input_uuid])
+    body = [[input_uuid, view_dict[input_uuid]]]
+    headers = ["uuid", "view_link"]
     tab = _tabulate(body, headers, title="VIEW LINK")
     print(tab)
 

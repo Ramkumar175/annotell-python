@@ -45,5 +45,5 @@ class CamerasSequence(CreateableInputAPIResource):
             return None
 
         log.info(
-            f"Created inputs for files with internal_id={response.internal_id}")
+            f"Created inputs for files with uuid={response.input_uuid}")
         return InputModel.CreateInputResponse.from_input_job_response(response)

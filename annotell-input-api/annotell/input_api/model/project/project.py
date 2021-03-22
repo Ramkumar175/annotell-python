@@ -11,9 +11,14 @@ class Project(Response):
     title: str
     description: str
     status: str
-    external_id: str
+    project: str
 
     @ staticmethod
     def from_json(js: dict):
-        return Project(ts_to_dt(js["created"]), js["title"],
-                       js["description"], js["status"], js["externalId"])
+        return Project(
+            created=ts_to_dt(js["created"]),
+            title=js["title"],
+            description=js["description"],
+            status=js["status"],
+            project=js["project"]
+        )

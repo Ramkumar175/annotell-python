@@ -50,15 +50,15 @@ def get_image_dimensions(image_path: str) -> dict:
         width, height = im.size
         return {"width": width, "height": height}
 
-def get_view_links(internal_ids: List[str]) -> Dict[str, str]:
+def get_view_links(input_uuids: List[str]) -> Dict[str, str]:
         """
-        For each given internal id returns an URL where the input can be viewed in the web app.
+        For each given input uuid returns an URL where the input can be viewed in the web app.
 
-        :param internal_ids: List with internal ids
-        :return Dict: Dictionary mapping each internal id with an URL to view the input.
+        :param input_uuids: List with input uuids
+        :return Dict: Dictionary mapping each uuid with an URL to view the input.
         """
         view_dict = dict()
-        for internal_id in internal_ids:
-            view_dict[internal_id] = f"https://app.annotell.com/input-view/{internal_id}"
+        for input_uuid in input_uuids:
+            view_dict[input_uuid] = f"https://app.annotell.com/input-view/{input_uuid}"
 
         return view_dict
