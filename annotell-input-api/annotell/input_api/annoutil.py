@@ -8,15 +8,6 @@ from pprint import pprint
 import click
 import os
 
-env = os.getenv("ANNOTELL_CLIENT_ORGANIZATION_ID", None)
-if env:
-    org_id = int(env)
-    print("<" * 25,  f" Acting on behalf of organization {org_id}", 25 * ">")
-else:
-    org_id = None
-
-client = InputApiClient(auth=None, client_organization_id=org_id)
-
 
 def _tabulate(body, headers, title=None):
     tab = tabulate(
@@ -49,14 +40,17 @@ def _get_table(sequence, headers, title=None):
 
 
 @click.group()
-def cli():
+@click.pass_context
+def cli(ctx):
     """A CLI wrapper for Annotell utilities"""
 
 
 @click.command()
 @click.argument('project', nargs=1, default=None, required=False, type=str)
 @click.option('--get-batches', is_flag=True)
-def projects(project, get_batches):
+@click.pass_obj
+def projects(obj, project, get_batches):
+    client = obj['client']
     print()
     if project and get_batches:
         list_of_input_batches = client.project.get_project_batches(project)
@@ -65,7 +59,7 @@ def projects(project, get_batches):
         print(tab)
     elif project:
         list_of_projects = client.project.get_projects()
-        target_project = [p for p in list_of_projects if p.external_id == project]
+        target_project = [p for p in list_of_projects if p.project == project]
         headers = ["created", "project", "title", "description", "status"]
         tab = _get_table(target_project, headers, "PROJECTS")
         print(tab)
@@ -82,7 +76,9 @@ def projects(project, get_batches):
 @click.option('--external-ids', required=False, multiple=True)
 @click.option('--include-invalidated', required=False, is_flag=True)
 @click.option("--view", is_flag=True)
-def inputs(project, batch, external_ids, include_invalidated, view):
+@click.pass_obj
+def inputs(obj, project, batch, external_ids, include_invalidated, view):
+    client = obj['client']
     print()
     if view:
         inputs = client.input.get_inputs(project, batch, external_ids=external_ids, include_invalidated=include_invalidated)
@@ -109,7 +105,9 @@ def inputs(project, batch, external_ids, include_invalidated, view):
 
 @click.command()
 @click.argument('input_uuid', nargs=1, required=True, type=str)
-def view(input_uuid):
+@click.pass_obj
+def view(obj, input_uuid):
+    client = obj['client']
     print()
     view_dict = get_view_links([input_uuid])
     body = [[input_uuid, view_dict[input_uuid]]]
@@ -118,19 +116,21 @@ def view(input_uuid):
     print(tab)
 
 @click.command()
-@click.option('--id', nargs=1, default=None, required=False, type=int)
+@click.option('--id', nargs=1, default=None, required=False, type=str)
 @click.option("--external-id", nargs=1, required=False, type=str)
 @click.option('--raw', is_flag=True)
-def calibration(id, external_id, raw):
+@click.pass_obj
+def calibration(obj, id, external_id, raw):
+    client = obj['client']
     print()
     if id is not None:
-        list_of_calibrations = client.calibration.get_calibration(id)
+        calibration_entry = client.calibration.get_calibration(id)
         headers = ["id", "external_id", "created"]
-        tab = _get_table(list_of_calibrations, headers, "CALIBRATION")
+        tab = _get_table([calibration_entry], headers, "CALIBRATION")
         print(tab)
         if raw:
             print()
-            [pprint(calib.calibration) for calib in list_of_calibrations]
+            pprint(calibration_entry.calibration)
     elif external_id is not None:
         list_of_calibrations = client.calibration.get_calibrations(external_id=external_id)
         headers = ["id", "external_id", "created"]
@@ -150,4 +150,16 @@ cli.add_command(view)
 
 
 def main():
-    cli(prog_name="annoutil")
+    env = os.getenv("ANNOTELL_CLIENT_ORGANIZATION_ID", None)
+    if env:
+        org_id = int(env)
+        print("<" * 25,  f" Acting on behalf of organization {org_id}", 25 * ">")
+    else:
+        org_id = None
+
+    client = InputApiClient(
+        auth=None,
+        client_organization_id=org_id
+    )
+
+    cli(obj={'client': client}, prog_name="annoutil")
