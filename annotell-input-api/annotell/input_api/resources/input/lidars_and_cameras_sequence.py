@@ -9,7 +9,7 @@ log = logging.getLogger(__name__)
 
 class LidarsAndCamerasSequence(CreateableInputAPIResource):
 
-    path = 'lidars-and-cameras-sequence-v1'
+    path = 'lidars-and-cameras-sequence'
 
     def create(self,
                lidars_and_cameras_sequence: InputModel.LidarsAndCamerasSequence,
