@@ -19,7 +19,7 @@ class ProjectResource(InputAPIResource):
         json_resp = self.client.get("v1/projects")
         return [ProjectModel.Project.from_json(js) for js in json_resp]
 
-    def get_project_batches(self, project: str) -> List[ProjectModel.Project]:
+    def get_project_batches(self, project: str) -> List[ProjectModel.ProjectBatch]:
         """
         Returns all `batches` for the `project`.
 
