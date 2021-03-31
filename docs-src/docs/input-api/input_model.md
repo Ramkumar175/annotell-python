@@ -159,4 +159,4 @@ frames = [frame_1, frame_2, frame_3]
 
 The `frame_id` is expressed as a string and is used to produce a unique identifier for each frame in the list of frames. The `frame_id` is used as a top-level key in the produced annotations, indicating which parts of the complete annotation belong to this specific frame.
 
-A common use case is to have the `frame_id` correspond to the `relative_timestamp`.
+A common use case is to have the `frame_id` correspond to the `relative_timestamp` for each frame.
