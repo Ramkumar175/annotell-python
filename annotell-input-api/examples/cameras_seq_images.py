@@ -6,12 +6,9 @@ import annotell.input_api.model.input as InputModel
 from annotell.input_api.logger import setup_logging
 
 
-print("Creating Cameras Sequence Input...")
-
-setup_logging(level="INFO")
-
-
 def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
+    print("Creating Cameras Sequence Input...")
+
     sensor1 = "RFC01"
     sensor2 = "RFC02"
 
@@ -26,16 +23,18 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
         sensor_settings=sensor_settings)
 
     cameras_sequence = CamerasSeqModel.CamerasSequence(
-        external_id="camera_sequence_example_input",
+        external_id="camera_sequence_images_example_input",
         frames=[
             CamerasSeqModel.Frame(
                 frame_id="1",
                 relative_timestamp=0,
                 images=[
                     InputModel.Image(
-                        "./examples/resources/img_RFC01.jpg", sensor_name=sensor1),
+                        "./examples/resources/img_RFC01.jpg",
+                        sensor_name=sensor1),
                     InputModel.Image(
-                        "./examples/resources/img_RFC01.jpg", sensor_name=sensor2),
+                        "./examples/resources/img_RFC01.jpg",
+                        sensor_name=sensor2),
                 ]
             ),
             CamerasSeqModel.Frame(
@@ -43,9 +42,11 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
                 relative_timestamp=500,
                 images=[
                     InputModel.Image(
-                        "./examples/resources/img_RFC02.jpg", sensor_name=sensor1),
+                        "./examples/resources/img_RFC02.jpg",
+                        sensor_name=sensor1),
                     InputModel.Image(
-                        "./examples/resources/img_RFC02.jpg", sensor_name=sensor2),
+                        "./examples/resources/img_RFC02.jpg",
+                        sensor_name=sensor2),
                 ]
             )
         ],
@@ -59,8 +60,10 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
 
 
 if __name__ == '__main__':
+    setup_logging(level="INFO")
     # Project - Available via `client.list_projects()`
     project = "<project-identifier>"
 
     client = IAC.InputApiClient()
+    run(client, project)
 

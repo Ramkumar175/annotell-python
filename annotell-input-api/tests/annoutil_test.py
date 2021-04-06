@@ -67,23 +67,23 @@ class TestLidarsAndCamerasSeq:
         )
         assert result.exit_code == 0, result.output
 
-    def test_annoutil_calibration_id(self, client: IAC.InputApiClient):
-        runner = CliRunner()
-        result = runner.invoke(
-            annoutil.calibration,
-            ['--id', '001fd72a-b174-4540-918e-3a51cf277cbc'],
-            obj={'client': client}
-        )
-        assert result.exit_code == 0, result.output
-
-    def test_annoutil_calibration_id_raw(self, client: IAC.InputApiClient):
-        runner = CliRunner()
-        result = runner.invoke(
-            annoutil.calibration,
-            ['--id', '001fd72a-b174-4540-918e-3a51cf277cbc', '--raw'],
-            obj={'client': client}
-        )
-        assert result.exit_code == 0, result.output
+    # def test_annoutil_calibration_id(self, client: IAC.InputApiClient):
+    #     runner = CliRunner()
+    #     result = runner.invoke(
+    #         annoutil.calibration,
+    #         ['--id', '001fd72a-b174-4540-918e-3a51cf277cbc'],
+    #         obj={'client': client}
+    #     )
+    #     assert result.exit_code == 0, result.output
+    #
+    # def test_annoutil_calibration_id_raw(self, client: IAC.InputApiClient):
+    #     runner = CliRunner()
+    #     result = runner.invoke(
+    #         annoutil.calibration,
+    #         ['--id', '001fd72a-b174-4540-918e-3a51cf277cbc', '--raw'],
+    #         obj={'client': client}
+    #     )
+    #     assert result.exit_code == 0, result.output
 
     def test_annoutil_calibration_external_id(self, client: IAC.InputApiClient):
         runner = CliRunner()
