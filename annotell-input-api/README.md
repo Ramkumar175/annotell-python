@@ -4,14 +4,22 @@ Python 3 library providing access to Annotell Input API
 
 To install with pip run `pip install annotell-input-api`
 
-# Documentation
+# Documentation & Getting Started Guide
 
-All available documentation for the Annotell Input API Client can be found here:
-https://annotell.github.io/annotell-python/docs/
-
+Documentation about how to use the library can found [here](https://annotell.github.io/annotell-python/)
 # Changelog
 
 All notable changes to this project will be documented in this file.
+
+
+## [1.0.1] - 2021-04-06
+- Use backport of `dataclasses` to support python 3.6. 
+
+## [1.0.0] - 2021-03-23
+- New major release of client. Reworked to be more internally consistent between input types, and use of project and batch identifiers across methods. See [docs](https://annotell.github.io/annotell-python/) for more info.
+- `client.lidar_and_cameras.create` replaces `client.create_inputs_point_cloud_with_images`
+- `client.cameras.create` replaces `client.upload_and_create_images_input_job`
+- `client.annotations.get_annotations` replaces `client.download_annotations`
 
 ## [0.4.4] - 2021-03-02
 - Remove unused dependency on annotell-cloud-storage
