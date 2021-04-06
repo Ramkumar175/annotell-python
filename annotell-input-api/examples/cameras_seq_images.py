@@ -31,10 +31,10 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
                 relative_timestamp=0,
                 images=[
                     InputModel.Image(
-                        "./examples/resources/img_RFC01.jpg",
+                        filename="./examples/resources/img_RFC01.jpg",
                         sensor_name=sensor1),
                     InputModel.Image(
-                        "./examples/resources/img_RFC01.jpg",
+                        filename="./examples/resources/img_RFC01.jpg",
                         sensor_name=sensor2),
                 ]
             ),
@@ -43,10 +43,10 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
                 relative_timestamp=500,
                 images=[
                     InputModel.Image(
-                        "./examples/resources/img_RFC02.jpg",
+                        filename="./examples/resources/img_RFC02.jpg",
                         sensor_name=sensor1),
                     InputModel.Image(
-                        "./examples/resources/img_RFC02.jpg",
+                        filename="./examples/resources/img_RFC02.jpg",
                         sensor_name=sensor2),
                 ]
             )
