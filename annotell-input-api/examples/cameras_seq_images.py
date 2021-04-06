@@ -24,6 +24,7 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
 
     cameras_sequence = CamerasSeqModel.CamerasSequence(
         external_id="camera_sequence_images_example_input",
+        start_timestamp=1617698705,
         frames=[
             CamerasSeqModel.Frame(
                 frame_id="1",
