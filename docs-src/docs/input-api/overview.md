@@ -1,18 +1,20 @@
 ---
-title: Structure
+title: Overview
 ---
 
 ## Different types of inputs
 An Input represents a grouping of sensor data (e.g. camera images, lidar pointclouds) that should be annotated together. Any information necessary to express the relationship between the sensors and their captured data is also present, be it camera resolution, sensor name or the frequency at which the data was recorded at.
 
-There are different input types depending on what kind of sensor(s) are used to represent the contents of the input. For example, if you want to create an input only consisting of data from camera sensors then you would use the input type `Cameras`. Similarly, if you want to create an input consisting of lidar sensors and camera sensors then you would use the input type `LidarsAndCameras`. Additionally, inputs can either be **sequential** or **non-sequential**.
+There are different input types depending on what kind of sensor(s) are used to represent the contents of the input. For example, if we want to create an input only consisting of data from camera sensors then we would use the input type `Cameras`. Similarly, if we want to create an input consisting of lidar sensors and camera sensors then we would use the input type `LidarsAndCameras`. Additionally, inputs can either be **sequential** or **non-sequential**.
 
 ### Sequential vs non-sequential
 Sequential inputs represent a *sequence* of sensor data, whereas non-sequential inputs only contain a single snapshot of sensor data. The sequential relationship is expressed via a sequence of **Frames**, where each **Frame** object contains information related to what kind of sensor data constitues the frame (e.g. which image and/or point cloud is a part of the Frame) as well as a *relative timestamp* that captures where in time (relative to the other frames) the Frame is located.
 
 Non-sequential inputs only express a single snapshot of sensor data. As such, these kinds of inputs only contain a single Frame object and do not require any relative timestamp information.
 
-Sequential input types are easily identified by the suffix `Seq` present in their name. The following input types are currently supported:
+Sequential input types are easily identified by the suffix `Seq` present in their name.
+
+The following input types are currently supported
 * `Cameras`
 * `LidarsAndCameras`
 * `CamerasSeq`
@@ -41,7 +43,7 @@ class InputSeq():
     calibration_id: Optional[str] # Required if using lidar sensors
 ```
 
-The fields contain all of information required to create the input.
+The fields contain all of the information required to create the input.
 
 ### External Id
 Whenever an input is uploaded it automatically gets an unique UUID, this is used as the primary identifier by Annotell and by all of our internal systems. However, in order to make communication around specific inputs easier we also allow for clients to include any kind of identifier to the input via the external id.
@@ -160,3 +162,67 @@ frames = [frame_1, frame_2, frame_3]
 The `frame_id` is expressed as a string and is used to produce a unique identifier for each frame in the list of frames. The `frame_id` is used as a top-level key in the produced annotations, indicating which parts of the complete annotation belong to this specific frame.
 
 A common use case is to have the `frame_id` correspond to the `relative_timestamp` for each frame.
+
+## Video or sequence of images for sequential inputs?
+
+The sequential input types `CamerasSeq` and `LidarsAndCamerasSeq` provide two different ways of providing sequential camera resources, either as a set of individual images or as videofiles where each camera frame is represented as a timestamp in a videofile. 
+
+As an example, let's say we want to create an input of type `CamerasSeq` consisting of 2 frames, each with camera data from two different sensors `R` and `L`. 
+
+If we have individual images for each frame and sensor, this would correspond to the following list of frames
+
+```python
+frames = [
+    Frame(
+        frame_id="1",
+        relative_timestamp=0,
+        images=[
+            Image("img_L_1.jpg", sensor_name='L'),
+            Image("img_R_1.jpg", sensor_name='R')
+        ]),
+    Frame(
+        frame_id="2",
+        relative_timestamp=500,
+        images=[
+            Image("img_L_2.jpg", sensor_name='L'),
+            Image("img_R_2.jpg", sensor_name='R')
+        ])
+]
+
+cameras_sequence = CamerasSequence(
+        ...,
+        frames=frames,
+    )
+```
+
+If we instead had two video recordings from each sensor then it could correspond to the following list of frames
+
+```python
+frames = [
+    Frame(
+        frame_id="1",
+        relative_timestamp=0,
+        video_frames=[
+            VideoFrame("video_L.mp4", sensor_name='L', video_timestamp=250),
+            VideoFrame("video_R.mp4", sensor_name='R', video_timestamp=400)
+        ]),
+    Frame(
+        frame_id="2",
+        relative_timestamp=500,
+        video_frames=[
+            VideoFrame("video_L.mp4", sensor_name='L', video_timestamp=500),
+            VideoFrame("video_R.mp4", sensor_name='R', video_timestamp=800)
+        ])
+]
+
+cameras_sequence = CamerasSequence(
+        ...,
+        frames=frames,
+    )
+```
+
+Notice how we for each video frame need to specify the timestamp in the video file corresponding to the camera frame that we want to include in the input.
+
+The choice of which approach to use is up to the client. Long sequences should preferrably be encoded as videos, since this will result in smaller amounts of egress required, resulting in annotations being produced faster. However, this requires care with respect to image quality since most video encodings can degrade quality depending on the chosen compression, codec and bitrate.
+
+If image quality if of central importance and sequnces are not large then it's recommended to supply individual camera images instead of videos.

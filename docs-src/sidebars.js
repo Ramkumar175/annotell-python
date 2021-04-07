@@ -5,17 +5,14 @@ module.exports = {
     "Input API": [
       "input-api/project",
       {"Inputs": [
-        "input-api/general",
-        "input-api/input_model",
+        "input-api/overview",
         {"Input Types": [
           "input-api/inputs/cameras",
-          "input-api/inputs/cameras",
-          "input-api/inputs/lidars",
           "input-api/inputs/lidars_and_cameras",
           "input-api/inputs/cameras_seq",
-          "input-api/inputs/lidars_seq",
           "input-api/inputs/lidars_and_cameras_seq"
         ]},
+        "input-api/usage",
       ]},
       "input-api/calibration",
       "input-api/error_handling",

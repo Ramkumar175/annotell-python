@@ -1,5 +1,5 @@
 ---
-title: General
+title: Working with Inputs
 ---
 
 ## Creating Inputs
@@ -146,4 +146,14 @@ client.annotation.get_annotations(input_uuids=[
     'decf6479-d540-459f-b924-a12c2cecf3b5',
     '5da4f44b-16cb-414a-8dbd-ff5e5afc309a'
 ])
+```
+
+A common use case is downloading all completed annotations a project. This can be performed by first fetching all of the inputs added to the project and then filtering to only include inputs with status `"created"` (see [Input Statuses](#input-status)).
+
+```python
+project = "project-identifier"
+inputs = client.input.get_inputs(project=project)
+input_ids = [input.uuid for input in inputs if input.status == "created"]
+annotations = input_api.annotation.get_annotations(input_uuids=input_ids)
+
 ```
