@@ -35,7 +35,7 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
                         sensor_name=sensor1,
                         video_timestamp=0),
                     InputModel.VideoFrame(
-                        filename="./examples/resources/video_RFC01.mp4",
+                        filename="./examples/resources/video_RFC02.mp4",
                         sensor_name=sensor2,
                         video_timestamp=0),
                 ]
@@ -49,7 +49,7 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
                         sensor_name=sensor1,
                         video_timestamp=100),
                     InputModel.VideoFrame(
-                        filename="./examples/resources/video_RFC01.mp4",
+                        filename="./examples/resources/video_RFC02.mp4",
                         sensor_name=sensor2,
                         video_timestamp=100),
                 ]

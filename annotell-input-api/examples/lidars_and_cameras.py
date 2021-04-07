@@ -41,8 +41,7 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
             ],
             images=[
                 ResourceModel.Image("./examples/resources/img_RFC01.jpg", sensor_name=cam_sensor1),
-                ResourceModel.Image("./examples/resources/img_RFC01.jpg", sensor_name=cam_sensor2),
-                ResourceModel.Image("./examples/resources/img_RFC01.jpg", sensor_name=cam_sensor3)
+                ResourceModel.Image("./examples/resources/img_RFC02.jpg", sensor_name=cam_sensor2)
             ]),
         calibration_id=created_calibration.id,
         sensor_specification=sensor_specification
