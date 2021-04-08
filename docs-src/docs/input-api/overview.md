@@ -46,7 +46,7 @@ class InputSeq():
 The fields contain all of the information required to create the input.
 
 ### External Id
-Whenever an input is uploaded it automatically gets an unique UUID, this is used as the primary identifier by Annotell and by all of our internal systems. However, in order to make communication around specific inputs easier we also allow for clients to include any kind of identifier to the input via the external id.
+Whenever an input is uploaded it automatically gets an UUID, this is used as the primary identifier by Annotell and by all of our internal systems. However, in order to make communication around specific inputs easier we also allow for clients to include any kind of identifier to the input via the external id.
 
 ### Sensor Specification
 The sensor specification contains information related to the different camera and/or lidar sensors used for capturing the data present on the input. The sensor specification only requires information regarding the width and height of the different camera sensors used in the input.
