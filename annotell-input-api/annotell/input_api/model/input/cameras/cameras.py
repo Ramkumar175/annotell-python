@@ -1,3 +1,5 @@
+from dataclasses import dataclass
+
 from annotell.input_api.model.input.abstract import *
 from annotell.input_api.model.input.cameras.frame import Frame
 from annotell.input_api.model.input.sensor_specification import SensorSpecification

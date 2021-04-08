@@ -44,9 +44,7 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
                     ResourceModel.Image(
                         "./examples/resources/img_RFC01.jpg", sensor_name=cam_sensor1),
                     ResourceModel.Image(
-                        "./examples/resources/img_RFC01.jpg", sensor_name=cam_sensor2),
-                    ResourceModel.Image(
-                        "./examples/resources/img_RFC01.jpg", sensor_name=cam_sensor3)
+                        "./examples/resources/img_RFC02.jpg", sensor_name=cam_sensor2)
                 ],
                 ego_vehicle_pose=EgoVehiclePose(
                     position=Position(x=1.0, y=1.0, z=1.0),
@@ -62,11 +60,9 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
                 ],
                 images=[
                     ResourceModel.Image(
-                        "./examples/resources/img_RFC02.jpg", sensor_name=cam_sensor1),
+                        "./examples/resources/img_RFC11.jpg", sensor_name=cam_sensor1),
                     ResourceModel.Image(
-                        "./examples/resources/img_RFC02.jpg", sensor_name=cam_sensor2),
-                    ResourceModel.Image(
-                        "./examples/resources/img_RFC02.jpg", sensor_name=cam_sensor3)
+                        "./examples/resources/img_RFC12.jpg", sensor_name=cam_sensor2)
                 ],
                 ego_vehicle_pose=EgoVehiclePose(
                     position=Position(x=2.0, y=2.0, z=2.0),

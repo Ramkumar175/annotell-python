@@ -1,3 +1,5 @@
+from dataclasses import dataclass
+
 from typing import List
 from annotell.input_api.model.input.abstract import *
 from annotell.input_api.model.input.lidars_and_cameras_sequence.frame import Frame

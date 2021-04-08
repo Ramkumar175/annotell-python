@@ -11,6 +11,10 @@ Documentation about how to use the library can found [here](https://annotell.git
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.2] - 2021-04-06
+
+### Changed
+- Clarified examples with different images/videos for different sensors and frames.
 
 ## [1.0.1] - 2021-04-06
 - Use backport of `dataclasses` to support python 3.6. 

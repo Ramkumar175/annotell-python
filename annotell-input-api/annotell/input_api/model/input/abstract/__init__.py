@@ -1,3 +1,3 @@
-from .camera_input import *
-from .camera_frame import *
-from .sequence_frame import *
+from .camera_input import CameraInput
+from .camera_frame import CameraFrame
+from .sequence_frame import SequenceFrame

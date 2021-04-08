@@ -39,9 +39,18 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
                 ],
                 images=[
                     ResourceModel.Image("./examples/resources/img_RFC01.jpg", sensor_name=cam_sensor1),
-                    ResourceModel.Image("./examples/resources/img_RFC01.jpg", sensor_name=cam_sensor2),
-                    ResourceModel.Image("./examples/resources/img_RFC01.jpg", sensor_name=cam_sensor3)
+                    ResourceModel.Image("./examples/resources/img_RFC02.jpg", sensor_name=cam_sensor2)
                 ]),
+            LCSM.Frame(
+                frame_id="2",
+                relative_timestamp=0,
+                point_clouds=[
+                    ResourceModel.PointCloud("./examples/resources/point_cloud_RFL02.las", sensor_name=lidar_sensor1),
+                ],
+                images=[
+                    ResourceModel.Image("./examples/resources/img_RFC11.jpg", sensor_name=cam_sensor1),
+                    ResourceModel.Image("./examples/resources/img_RFC12.jpg", sensor_name=cam_sensor2)
+                ])
         ],
         calibration_id=created_calibration.id,
         sensor_specification=sensor_specification
