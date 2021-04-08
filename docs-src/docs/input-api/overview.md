@@ -161,7 +161,7 @@ frames = [frame_1, frame_2, frame_3]
 
 The `frame_id` is expressed as a string and is used to produce a unique identifier for each frame in the list of frames. The `frame_id` is used as a top-level key in the produced annotations, indicating which parts of the complete annotation belong to this specific frame.
 
-A common use case is to have the `frame_id` correspond to the `relative_timestamp` for each frame.
+A common use case is to use uuids for each `frame_id`, or a combination of `external_id` and `frame_index`. For example, if the `external_id` of the input is `shanghai_20200101` then the `frame_id` could be encoded as `shanghai_20200101:0` for the first frame, `shanghai_20200101:1` for the second frame and so on.
 
 ## Video or sequence of images for sequential inputs?
 
