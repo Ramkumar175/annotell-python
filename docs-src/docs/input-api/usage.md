@@ -1,11 +1,11 @@
 ---
-title: General
+title: Working with Inputs
 ---
 
 ## Creating Inputs
 
 :::note
-For detailed information about different input modalities, check [Cameras](inputs/cameras), [LidarsAndCameras](inputs/lidars_and_cameras) or [LidarsAndCamerasSeq](inputs/lidars_and_cameras_seq).
+For detailed information about different input modalities, check the Input Types section.
 :::
 
 :::tip Annotell Users
@@ -146,4 +146,10 @@ client.annotation.get_annotations(input_uuids=[
     'decf6479-d540-459f-b924-a12c2cecf3b5',
     '5da4f44b-16cb-414a-8dbd-ff5e5afc309a'
 ])
+```
+
+A common use case is downloading all completed annotations a project. This can be performed by first fetching all of the inputs added to the project and then filtering to only include inputs with status `"created"` (see [Input Statuses](#input-status)).
+
+```python reference
+https://github.com/annotell/annotell-python/blob/f2b941373b1dff4297d7705ef0f2587eadbca7b3/annotell-input-api/examples/download_annotations.py#L10-L12
 ```
