@@ -6,7 +6,7 @@ A `CamerasSeq` input consists of a sequence of camera images, where each frame c
 
 
 ```python reference
-https://github.com/annotell/annotell-python/blob/master/annotell-input-api/examples/cameras_seq.py
+https://github.com/annotell/annotell-python/blob/master/annotell-input-api/examples/cameras_seq_images.py
 ```
 
 :::tip Use dryrun to validate input
