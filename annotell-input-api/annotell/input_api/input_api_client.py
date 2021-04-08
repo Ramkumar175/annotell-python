@@ -38,19 +38,19 @@ class InputApiClient:
         :param max_upload_retry_wait_time:  Max with time before retrying an upload to GCS.
         """
 
-        client = HttpClient(auth=auth,
+        self._client = HttpClient(auth=auth,
                             host=host,
                             auth_host=auth_host,
                             client_organization_id=client_organization_id)
-        file_client = FileResourceClient(max_upload_retry_attempts=max_upload_retry_attempts,
+        self._file_client = FileResourceClient(max_upload_retry_attempts=max_upload_retry_attempts,
                                          max_upload_retry_wait_time=max_upload_retry_wait_time)
 
-        self.calibration = CalibrationResource(client)
-        self.project = ProjectResource(client)
-        self.annotation = AnnotationResource(client)
-        self.input = InputResource(client)
+        self.calibration = CalibrationResource(self._client)
+        self.project = ProjectResource(self._client)
+        self.annotation = AnnotationResource(self._client)
+        self.input = InputResource(self._client)
 
-        self.lidar_and_cameras = LidarsAndCameras(client, file_client)
-        self.lidars_and_cameras_sequence = LidarsAndCamerasSequence(client, file_client)
-        self.cameras = Cameras(client, file_client)
-        self.cameras_sequence = CamerasSequence(client, file_client)
+        self.lidar_and_cameras = LidarsAndCameras(self._client, self._file_client)
+        self.lidars_and_cameras_sequence = LidarsAndCamerasSequence(self._client, self._file_client)
+        self.cameras = Cameras(self._client, self._file_client)
+        self.cameras_sequence = CamerasSequence(self._client, self._file_client)
