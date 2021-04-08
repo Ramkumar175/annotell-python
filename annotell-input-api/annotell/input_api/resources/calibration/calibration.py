@@ -18,7 +18,7 @@ class CalibrationResource(InputAPIResource):
         :return CalibrationModel.SensorCalibrationEntry: The calibration entry 
         """
 
-        json_resp = self.client.get('v1/calibrations', params={
+        json_resp = self._client.get('v1/calibrations', params={
             "id": id
         })
         return CalibrationModel.SensorCalibrationEntry.from_json(json_resp)
@@ -33,7 +33,7 @@ class CalibrationResource(InputAPIResource):
         :return List[CalibrationModel.SensorCalibrationEntry]: A list of calibration entries
         """
 
-        json_resp = self.client.get('v1/calibrations', params={
+        json_resp = self._client.get('v1/calibrations', params={
             "externalId": external_id
         })
 
@@ -48,6 +48,6 @@ class CalibrationResource(InputAPIResource):
         :param sensor_calibration: A SensorCalibration instance containing everything to create a calibration.
         :return SensorCalibrationEntry: Class containing the calibration id, external id and time of creation.
         """
-        json_resp = self.client.post(
+        json_resp = self._client.post(
             "v1/calibrations", json=sensor_calibration.to_dict())
         return CalibrationModel.SensorCalibrationEntry.from_json(json_resp)

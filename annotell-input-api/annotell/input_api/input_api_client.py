@@ -39,11 +39,11 @@ class InputApiClient:
         """
 
         self._client = HttpClient(auth=auth,
-                            host=host,
-                            auth_host=auth_host,
-                            client_organization_id=client_organization_id)
+                                  host=host,
+                                  auth_host=auth_host,
+                                  client_organization_id=client_organization_id)
         self._file_client = FileResourceClient(max_upload_retry_attempts=max_upload_retry_attempts,
-                                         max_upload_retry_wait_time=max_upload_retry_wait_time)
+                                               max_upload_retry_wait_time=max_upload_retry_wait_time)
 
         self.calibration = CalibrationResource(self._client)
         self.project = ProjectResource(self._client)

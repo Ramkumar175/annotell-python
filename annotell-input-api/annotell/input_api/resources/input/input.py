@@ -25,7 +25,7 @@ class InputResource(InputAPIResource):
         :param invalidated_reason: An Enum describing why inputs were invalidated
         """
         invalidated_json = dict(inputIds=input_uuids, invalidatedReason=invalidated_reason)
-        self.client.post("v1/inputs/actions/invalidate", json=invalidated_json)
+        self._client.post("v1/inputs/actions/invalidate", json=invalidated_json)
 
     def get_inputs(
         self,
@@ -45,7 +45,7 @@ class InputResource(InputAPIResource):
         """
 
         external_id_query_param = ",".join(external_ids) if external_ids else None
-        json_resp = self.client.get("v1/inputs", params=filter_none({
+        json_resp = self._client.get("v1/inputs", params=filter_none({
             "project": project,
             "batch": batch,
             "invalidated": include_invalidated,

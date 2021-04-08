@@ -20,7 +20,7 @@ class AnnotationResource(InputAPIResource):
         :return Dict: A dictionary containing the ready annotations
         """
         external_id_query_param = ",".join(input_uuids) if input_uuids else None
-        json_resp = self.client.get("v1/annotations", params=filter_none({
+        json_resp = self._client.get("v1/annotations", params=filter_none({
             "inputs": external_id_query_param
         }))
 
