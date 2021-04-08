@@ -5,7 +5,7 @@ title: Working with Inputs
 ## Creating Inputs
 
 :::note
-For detailed information about different input modalities, check [Cameras](inputs/cameras), [LidarsAndCameras](inputs/lidars_and_cameras) or [LidarsAndCamerasSeq](inputs/lidars_and_cameras_seq).
+For detailed information about different input modalities, check the Input Types section.
 :::
 
 :::tip Annotell Users
