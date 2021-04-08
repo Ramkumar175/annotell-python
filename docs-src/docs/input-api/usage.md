@@ -150,10 +150,6 @@ client.annotation.get_annotations(input_uuids=[
 
 A common use case is downloading all completed annotations a project. This can be performed by first fetching all of the inputs added to the project and then filtering to only include inputs with status `"created"` (see [Input Statuses](#input-status)).
 
-```python
-project = "project-identifier"
-inputs = client.input.get_inputs(project=project)
-input_ids = [input.uuid for input in inputs if input.status == "created"]
-annotations = input_api.annotation.get_annotations(input_uuids=input_ids)
-
+```python reference
+https://github.com/annotell/annotell-python/blob/f2b941373b1dff4297d7705ef0f2587eadbca7b3/annotell-input-api/examples/download_annotations.py#L10-L12
 ```
