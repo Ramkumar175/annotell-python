@@ -38,7 +38,7 @@ if __name__ == '__main__':
     setup_logging(level="INFO")
     client = IAC.InputApiClient()
 
-    # Project - Available via `client.list_projects()`
+    # Project - Available via `client.project.get_projects()`
     project = "Project-identifier"
     run(client, project)
 

@@ -67,7 +67,7 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
 if __name__ == '__main__':
     setup_logging(level="INFO")
 
-    # Project - Available via `client.list_projects()`
+    # Project - Available via `client.project.get_projects()`
     project = "<project-identifier>"
 
     client = IAC.InputApiClient()
