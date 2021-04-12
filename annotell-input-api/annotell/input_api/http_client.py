@@ -101,7 +101,8 @@ class HttpClient:
 
         resp = self.session.post(f"{self.host}/{endpoint}", data, filter_none(json), **kwargs)
         if discard_response:
-            return
+            self._raise_on_error(resp)
+            return None
         else:
             return self._unwrap_enveloped_json(self._raise_on_error(resp).json())
 
