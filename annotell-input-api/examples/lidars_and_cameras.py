@@ -34,8 +34,6 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
     lidars_and_cameras = LC.LidarsAndCameras(
         external_id="input1",
         frame=LC.Frame(
-            frame_id="1",
-            relative_timestamp=0,
             point_clouds=[
                 ResourceModel.PointCloud("./examples/resources/point_cloud_RFL01.las", sensor_name=lidar_sensor1)
             ],

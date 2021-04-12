@@ -23,4 +23,4 @@ class LidarsAndCameras(CameraInput):
                     calibrationId=self.calibration_id)
 
     def get_first_camera_frame(self) -> CameraFrame:
-        return frame
+        return self.frame
