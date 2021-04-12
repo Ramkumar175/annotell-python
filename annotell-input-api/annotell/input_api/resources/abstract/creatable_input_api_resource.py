@@ -13,10 +13,10 @@ class CreateableInputAPIResource(FileResourceClient):
 
     def __init__(self, client: HttpClient, file_resource_client: FileResourceClient):
         super().__init__()
-        self.client = client
-        self.file_resource_client = file_resource_client
+        self._client = client
+        self._file_resource_client = file_resource_client
 
-    def post_input_request(self, resource_path: str,
+    def _post_input_request(self, resource_path: str,
                            input_request: dict,
                            project: Optional[str],
                            batch: Optional[str],
@@ -32,13 +32,13 @@ class CreateableInputAPIResource(FileResourceClient):
         log.debug("POST:ing to %s input %s", resource_path, input_request)
 
         request_url = self._resolve_request_url(resource_path, project, batch)
-        json_resp = self.client.post(request_url, json=input_request, dryrun=dryrun)
+        json_resp = self._client.post(request_url, json=input_request, dryrun=dryrun)
         if not dryrun:
             response = IAM.InputJobCreated.from_json(json_resp)
 
             if (len(response.files) > 0):
-                self.file_resource_client.upload_files(response.files)
-                self.client.post(
+                self._file_resource_client.upload_files(response.files)
+                self._client.post(
                     f"v1/inputs/input-jobs/{response.input_uuid}/commit",
                     json=False,
                     discard_response=True
@@ -95,5 +95,5 @@ class CreateableInputAPIResource(FileResourceClient):
 
     def get_upload_urls(self, files_to_upload: IAM.FilesToUpload) -> IAM.UploadUrls:
         """Get upload urls to cloud storage"""
-        json_resp = self.client.get("v1/inputs/upload-urls", json=files_to_upload.to_dict())
+        json_resp = self._client.get("v1/inputs/upload-urls", json=files_to_upload.to_dict())
         return IAM.UploadUrls.from_json(json_resp)

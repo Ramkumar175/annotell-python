@@ -41,11 +41,11 @@ class LidarsAndCamerasSequence(CreateableInputAPIResource):
 
         payload = lidars_and_cameras_sequence.to_dict()
 
-        response = self.post_input_request(self.path, payload,
-                                           project=project,
-                                           batch=batch,
-                                           input_list_id=input_list_id,
-                                           dryrun=dryrun)
+        response = self._post_input_request(self.path, payload,
+                                            project=project,
+                                            batch=batch,
+                                            input_list_id=input_list_id,
+                                            dryrun=dryrun)
 
         if dryrun:
             return None

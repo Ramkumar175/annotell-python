@@ -6,4 +6,4 @@ class InputAPIResource(FileResourceClient):
 
     def __init__(self, client: HttpClient):
         super().__init__()
-        self.client = client
+        self._client = client

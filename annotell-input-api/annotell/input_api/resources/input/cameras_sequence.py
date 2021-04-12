@@ -9,7 +9,6 @@ log = logging.getLogger(__name__)
 
 
 class CamerasSequence(CreateableInputAPIResource):
-
     path = "cameras-sequence"
 
     def create(self,
@@ -35,11 +34,11 @@ class CamerasSequence(CreateableInputAPIResource):
 
         payload = cameras_sequence.to_dict()
 
-        response = self.post_input_request(self.path, payload,
-                                           project=project,
-                                           batch=batch,
-                                           input_list_id=input_list_id,
-                                           dryrun=dryrun)
+        response = self._post_input_request(self.path, payload,
+                                            project=project,
+                                            batch=batch,
+                                            input_list_id=input_list_id,
+                                            dryrun=dryrun)
 
         if dryrun:
             return None
