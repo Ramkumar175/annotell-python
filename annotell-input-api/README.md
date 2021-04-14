@@ -20,10 +20,6 @@ All notable changes to this project will be documented in this file.
 - Removed unnecessary parameters `frame_id` and `relative_timestamp` from `lidars_and_cameras`
 - Added check so that `input_list_id` and `project` is not used simultaneously when creating inputs
 - Bugfix where annoutil didn't work due to missing import
-
-## [1.0.2] - 2021-04-06
-
-### Changed
 - Clarified examples with different images/videos for different sensors and frames.
 
 ## [1.0.1] - 2021-04-06
