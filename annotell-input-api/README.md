@@ -11,6 +11,16 @@ Documentation about how to use the library can found [here](https://annotell.git
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.3] - 2021-04-14
+
+### Changed 
+- Added an example for download_annotations
+- Made client and file_client internal
+- Fixed bug where client sometimes didn't raise exception when http calls return error codes
+- Removed unnecessary parameters `frame_id` and `relative_timestamp` from `lidars_and_cameras`
+- Added check so that `input_list_id` and `project` is not used simultaneously when creating inputs
+- Bugfix where annoutil didn't work due to missing import
+
 ## [1.0.2] - 2021-04-06
 
 ### Changed
