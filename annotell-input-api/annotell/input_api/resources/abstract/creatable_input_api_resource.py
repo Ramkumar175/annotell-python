@@ -26,6 +26,10 @@ class CreateableInputAPIResource(FileResourceClient):
         Send input to Input API. if not dryrun is true, only validation is performed
         Otherwise, returns `InputJobCreated`
         """
+        if input_list_id and project:
+            error_message = "Supplying `input_list_id` and `project` is not allowed."
+            raise Exception(error_message)
+
         if input_list_id is not None:
             input_request['inputListId'] = input_list_id
 
