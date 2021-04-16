@@ -83,7 +83,7 @@ Once an input has been created, it might be preprocessed before being made avail
 | failed                          | Conversion of input failed                                                                                              |
 | invalidated:broken-input        | Input was invalidated since it did not load                                                                             |
 | invalidated:duplicate           | Input was invalidated due to being uploaded several times                                                               |
-| invalidated:incorrectly-created | Input was invalidated because it was incorrectly created1                                                               |
+| invalidated:incorrectly-created | Input was invalidated because it was incorrectly created                                                                |
 
 ## List Inputs
 
@@ -102,14 +102,16 @@ Inputs can be retrieved via the API by specifying project. Additional filter par
 | include_invalidated | Filters inputs based on their status, defaults to `False` |
 
 ### Response
+The response is a list of `Input` objects containing the following properties
 
-| Property    | Description                                                |
-| ----------- | ---------------------------------------------------------- |
-| input_uuid  | ID used to identify the input within the Annotell Platform |
-| external_id | External ID supplied during input creation                 |
-| batch       | Which batch does the input belong to                       |
-| input_type  | Type of input (see [Input Types](../key_concepts.md))      |
-| status      | Input status (see [Input Statuses](#input-status))         |
+| Property      | Description                                                         |
+| --------------|---------------------------------------------------------------------|
+| uuid          | ID used to identify the input within the Annotell Platform          |
+| external_id   | External ID supplied during input creation                          |
+| batch         | Which batch does the input belong to                                |
+| input_type    | Type of input (see [Input Types](../key_concepts.md))               |
+| status        | Input status (see [Input Statuses](#input-status))                  |
+| error_message | If there is an error during input creation the error message will be included, otherwise it's `None` |
 
 ## Invalidate Inputs
 
