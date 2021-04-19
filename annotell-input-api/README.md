@@ -11,6 +11,12 @@ Documentation about how to use the library can found [here](https://annotell.git
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.4] - TBD
+
+### Changed
+- Made SensorSpecification Optional for all input types
+- Removed sensor_settings from SensorSpecification
+
 ## [1.0.3] - 2021-04-14
 
 ### Changed 
