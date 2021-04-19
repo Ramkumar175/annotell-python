@@ -1,15 +1,12 @@
-from dataclasses import field
+from dataclasses import dataclass, field
 from typing import List
 
-from annotell.input_api.model.input.resources import *
-from annotell.input_api.model.input.abstract.camera_frame import CameraFrame
+from annotell.input_api.model.input.resources import VideoFrame, Image
 from annotell.input_api.model.input.abstract.sequence_frame import SequenceFrame
 
 
 @dataclass
-class Frame(CameraFrame, SequenceFrame):
-    frame_id: str
-    relative_timestamp: int
+class Frame(SequenceFrame):
     images: List[Image] = field(default_factory=list)
     video_frames: List[VideoFrame] = field(default_factory=list)
 

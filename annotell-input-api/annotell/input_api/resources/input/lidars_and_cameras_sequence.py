@@ -37,8 +37,6 @@ class LidarsAndCamerasSequence(CreateableInputAPIResource):
         conversion was successful please see the method `get_input_jobs_status`.
         """
 
-        self._set_sensor_settings(lidars_and_cameras_sequence)
-
         payload = lidars_and_cameras_sequence.to_dict()
 
         response = self._post_input_request(self.path, payload,

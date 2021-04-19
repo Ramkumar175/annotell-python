@@ -12,16 +12,6 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
     sensor1 = "RFC01"
     sensor2 = "RFC02"
 
-    camera_settings = InputModel.CameraSettings(width=1920, height=1080)
-
-    sensor_settings = {
-        sensor1: camera_settings,
-        sensor2: camera_settings,
-    }
-
-    sensor_specification = InputModel.SensorSpecification(
-        sensor_settings=sensor_settings)
-
     cameras_sequence = CamerasSeqModel.CamerasSequence(
         external_id="camera_sequence_images_example_input",
         start_timestamp=1617698705,
@@ -50,8 +40,7 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
                         sensor_name=sensor2),
                 ]
             )
-        ],
-        sensor_specification=sensor_specification
+        ]
     )
 
     # Add input

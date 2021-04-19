@@ -1,19 +1,17 @@
-from dataclasses import field
-from typing import List
+from dataclasses import field, dataclass
+from typing import List, Optional
 
 from annotell.input_api.model.input.resources import *
-from annotell.input_api.model.input.abstract.camera_frame import CameraFrame
 from annotell.input_api.model.input.abstract.sequence_frame import SequenceFrame
 from annotell.input_api.model.ego import EgoVehiclePose
 
+
 @dataclass
-class Frame(CameraFrame, SequenceFrame):
-    frame_id: str
-    relative_timestamp: int
+class Frame(SequenceFrame):
     point_clouds: List[PointCloud] = field(default_factory=list)
+    ego_vehicle_pose: Optional[EgoVehiclePose] = None
     images: List[Image] = field(default_factory=list)
     video_frames: List[VideoFrame] = field(default_factory=list)
-    ego_vehicle_pose: Optional[EgoVehiclePose] = None
 
     def to_dict(self) -> dict:
         return dict(

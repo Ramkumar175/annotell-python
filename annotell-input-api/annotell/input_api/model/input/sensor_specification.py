@@ -18,7 +18,6 @@ class CameraSettings:
 
 @dataclass
 class SensorSpecification:
-    sensor_settings: Mapping[str, CameraSettings]
     sensor_to_pretty_name: Optional[Dict[str, str]] = None
     sensor_order: Optional[List[str]] = None
 
@@ -26,5 +25,4 @@ class SensorSpecification:
         return filter_none({
             "sensorToPrettyName": self.sensor_to_pretty_name,
             "sensorOrder": self.sensor_order,
-            "sensorSettings": {key: camera_setting.to_dict() for (key, camera_setting) in self.sensor_settings.items()} if self.sensor_settings else None
         })

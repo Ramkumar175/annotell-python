@@ -1,23 +1,21 @@
 from dataclasses import dataclass
+from typing import List, Optional
 
-from typing import List
-from annotell.input_api.model.input.abstract import *
 from annotell.input_api.model.input.lidars_and_cameras_sequence.frame import Frame
 from annotell.input_api.model.input.sensor_specification import SensorSpecification
 
 
 @dataclass
-class LidarsAndCamerasSequence(CameraInput):
+class LidarsAndCamerasSequence:
     external_id: str
     frames: List[Frame]
     calibration_id: str
-    sensor_specification: SensorSpecification
+    start_timestamp: Optional[int] = None
+    sensor_specification: Optional[SensorSpecification] = None
 
     def to_dict(self) -> dict:
         return dict(frames=[frame.to_dict() for frame in self.frames],
-                    sensorSpecification=self.sensor_specification.to_dict(),
+                    sensorSpecification=self.sensor_specification.to_dict() if self.sensor_specification is not None else None,
+                    startTs=self.start_timestamp,
                     externalId=self.external_id,
                     calibrationId=self.calibration_id)
-
-    def get_first_camera_frame(self) -> CameraFrame:
-        return self.frames[0]

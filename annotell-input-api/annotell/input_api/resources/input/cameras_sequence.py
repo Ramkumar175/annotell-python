@@ -30,8 +30,6 @@ class CamerasSequence(CreateableInputAPIResource):
         The files are uploaded to annotell GCS and an input will be created shortly after submission.
         """
 
-        self._set_sensor_settings(cameras_sequence)
-
         payload = cameras_sequence.to_dict()
 
         response = self._post_input_request(self.path, payload,
