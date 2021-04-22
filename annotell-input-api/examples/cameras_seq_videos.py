@@ -11,6 +11,11 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
 
     sensor1 = "RFC01"
     sensor2 = "RFC02"
+    metadata = {
+        "location-lat": 27.986065,
+        "location-long": 86.922623,
+        "vehicle_id": "abg"
+    }
 
     camera_settings = InputModel.CameraSettings(width=1920, height=1080)
 
@@ -52,10 +57,12 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
                         filename="./examples/resources/video_RFC02.mp4",
                         sensor_name=sensor2,
                         video_timestamp=100),
-                ]
+                ],
+                metadata={'dut_status': 'active'}
             )
         ],
-        sensor_specification=sensor_specification
+        sensor_specification=sensor_specification,
+        metadata=metadata
     )
 
     # Add input

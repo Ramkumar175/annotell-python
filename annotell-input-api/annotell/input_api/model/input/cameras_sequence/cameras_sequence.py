@@ -1,4 +1,4 @@
-from typing import Optional, List, Mapping, Any
+from typing import Optional, List, Mapping, Union
 from dataclasses import field, dataclass
 
 from annotell.input_api.model.input.abstract import CameraInput, CameraFrame
@@ -12,7 +12,7 @@ class CamerasSequence(CameraInput):
     frames: List[Frame]
     sensor_specification: SensorSpecification
     start_timestamp: Optional[int] = None
-    metadata: Mapping[str, Any] = field(default_factory=dict)
+    metadata: Mapping[str, Union[int, float, str, bool]] = field(default_factory=dict)
 
     def to_dict(self) -> dict:
         return dict(frames=[frame.to_dict() for frame in self.frames],

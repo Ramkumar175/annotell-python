@@ -1,5 +1,5 @@
 from dataclasses import field, dataclass
-from typing import List, Union, Any, Mapping
+from typing import List, Union, Union, Mapping
 
 from annotell.input_api.model.input.resources.image import Image
 from annotell.input_api.model.input.resources.point_cloud import PointCloud
@@ -15,7 +15,7 @@ class LidarsAndCameras(CameraInput):
     frame: Frame
     calibration_id: str
     sensor_specification: SensorSpecification
-    metadata: Mapping[str, Any] = field(default_factory=dict)
+    metadata: Mapping[str, Union[int, float, str, bool]] = field(default_factory=dict)
 
     def to_dict(self) -> dict:
         return dict(frame=self.frame.to_dict(),

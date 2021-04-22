@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 
-from typing import List, Mapping, Any
+from typing import List, Mapping, Union
 from annotell.input_api.model.input.abstract import CameraInput, CameraFrame
 from annotell.input_api.model.input.lidars_and_cameras_sequence.frame import Frame
 from annotell.input_api.model.input.sensor_specification import SensorSpecification
@@ -12,7 +12,7 @@ class LidarsAndCamerasSequence(CameraInput):
     frames: List[Frame]
     calibration_id: str
     sensor_specification: SensorSpecification
-    metadata: Mapping[str, Any] = field(default_factory=dict)
+    metadata: Mapping[str, Union[int, float, str]] = field(default_factory=dict)
 
     def to_dict(self) -> dict:
         return dict(frames=[frame.to_dict() for frame in self.frames],

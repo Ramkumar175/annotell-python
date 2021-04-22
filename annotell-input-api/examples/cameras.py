@@ -12,6 +12,11 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> Option
 
     sensor1 = "RFC01"
     sensor2 = "RFC02"
+    metadata = {
+        "location-lat": 27.986065,
+        "location-long": 86.922623,
+        "vehicle_id": "abg"
+    }
 
     camera_settings = InputModel.CameraSettings(width=1920, height=1080)
     sensor_settings = {
@@ -27,7 +32,8 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> Option
                 InputModel.Image("./examples/resources/img_RFC02.jpg", sensor_name=sensor2),
             ]
         ),
-        sensor_specification=sensor_specification
+        sensor_specification=sensor_specification,
+        metadata=metadata
     )
 
     # Add input

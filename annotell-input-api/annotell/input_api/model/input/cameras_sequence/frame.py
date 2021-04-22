@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import List, Mapping, Any
+from typing import List, Mapping, Union
 
 from annotell.input_api.model.input.resources import Image, VideoFrame
 from annotell.input_api.model.input.abstract.camera_frame import CameraFrame
@@ -12,7 +12,7 @@ class Frame(CameraFrame, SequenceFrame):
     relative_timestamp: int
     images: List[Image] = field(default_factory=list)
     video_frames: List[VideoFrame] = field(default_factory=list)
-    metadata: Mapping[str, Any] = field(default_factory=dict)
+    metadata: Mapping[str, Union[int, float, str, bool]] = field(default_factory=dict)
 
     def to_dict(self) -> dict:
         return dict(

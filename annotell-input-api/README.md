@@ -11,6 +11,11 @@ Documentation about how to use the library can found [here](https://annotell.git
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.x] - 2021-xx-xx
+
+### Added
+- Added support for providing metadata in the form of a flat KV-pair both on an input-level for all input types, as well as on a frame-level for all sequential input types.
+
 ## [1.0.2] - 2021-04-06
 
 ### Changed

@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import Mapping, Any
+from typing import Mapping, Union
 
 from annotell.input_api.model.input.abstract import CameraInput, CameraFrame
 from annotell.input_api.model.input.cameras.frame import Frame
@@ -10,7 +10,7 @@ class Cameras(CameraInput):
     external_id: str
     sensor_specification: SensorSpecification
     frame: Frame
-    metadata: Mapping[str, Any] = field(default_factory=dict)
+    metadata: Mapping[str, Union[int, float, str, bool]] = field(default_factory=dict)
 
     def to_dict(self) -> dict:
         return dict(frame=self.frame.to_dict(),
