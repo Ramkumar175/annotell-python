@@ -11,6 +11,11 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
 
     sensor1 = "RFC01"
     sensor2 = "RFC02"
+    metadata = {
+        "location-lat": 27.986065,
+        "location-long": 86.922623,
+        "vehicle_id": "abg"
+    }
 
     camera_settings = InputModel.CameraSettings(width=1920, height=1080)
 
@@ -35,7 +40,8 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
                     InputModel.Image(
                         filename="./examples/resources/img_RFC02.jpg",
                         sensor_name=sensor2),
-                ]
+                ],
+                metadata={'dut_status': 'active'}
             ),
             CamerasSeqModel.Frame(
                 frame_id="2",
@@ -47,10 +53,12 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
                     InputModel.Image(
                         filename="./examples/resources/img_RFC12.jpg",
                         sensor_name=sensor2),
-                ]
+                ],
+                metadata={'dut_status': 'active'}
             )
         ],
-        sensor_specification=sensor_specification
+        sensor_specification=sensor_specification,
+        metadata=metadata
     )
 
     # Add input

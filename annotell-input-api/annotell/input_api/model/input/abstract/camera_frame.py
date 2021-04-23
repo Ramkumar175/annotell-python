@@ -9,5 +9,3 @@ from annotell.input_api.model.input.resources import Image, VideoFrame
 class CameraFrame(ABC):
     images: List[Image] = field(default_factory=list)
     video_frames: List[VideoFrame] = field(default_factory=list)
-
-
