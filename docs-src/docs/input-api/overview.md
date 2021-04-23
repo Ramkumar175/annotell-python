@@ -20,7 +20,7 @@ The following input types are currently supported
 * `CamerasSeq`
 * `LidarAndCamerasSeq` 
 
-## Required Fields
+## Input Fields
 All non-sequential inputs have the following structure
 
 ```python
@@ -30,6 +30,7 @@ class Input():
     frame: Frame
     sensor_specification: SensorSpecification
     calibration_id: Optional[str] # Required if using lidar sensors
+    metadata: Mapping[str, Union[int, float, str, bool]] = field(default_factory=dict)
 ```
 
 Sequential inputs are similarly represented, except that they instead contain a list of Frames
@@ -41,6 +42,7 @@ class InputSeq():
     frames: List[Frame]
     sensor_specification: SensorSpecification
     calibration_id: Optional[str] # Required if using lidar sensors
+    metadata: Mapping[str, Union[int, float, str, bool]] = field(default_factory=dict)
 ```
 
 The fields contain all of the information required to create the input.
@@ -97,6 +99,11 @@ When including calibration id make sure that all of the sensors present on the i
 
 Inputs without a lidar sensor do not require a calibration.
 
+### Metadata
+Metadata can be added to inputs via the `metadata` field. It consists of _flat_ key-value pairs, which means that nested data structures are not allowed. Metadata can be used to include additional information about an input. 
+
+Metadata is not used during the process of producing annotations, i.e. annotators do not have access to the metadata.
+
 ### Frame (non-sequential inputs)
 The Frame object specifies the binary data to be annotated (.jpg, .png, .las etc) as well as which sensor the data originated from. 
 
@@ -137,7 +144,7 @@ lidars_and_cameras = LidarsAndCameras(
 ```
 
 ### Frames (sequential inputs)
-Sequential inputs deal with a list of Frame objects instead of a single Frame object. In addition, Frame objects associated with sequential inputs have two additional parameters not present in their non-sequential Frame counterparts: `frame_id` and `relative_timestamp`.
+Sequential inputs deal with a list of Frame objects instead of a single Frame object. In addition, Frame objects associated with sequential inputs have three additional parameters not present in their non-sequential Frame counterparts: `frame_id`, `relative_timestamp` and `metadata`.
 
 The sequential relationship is expressed via the ordering of the Frame objects in the `frames` list
 
@@ -162,6 +169,8 @@ frames = [frame_1, frame_2, frame_3]
 The `frame_id` is expressed as a string and is used to produce a unique identifier for each frame in the list of frames. The `frame_id` is used as a top-level key in the produced annotations, indicating which parts of the complete annotation belong to this specific frame.
 
 A common use case is to use uuids for each `frame_id`, or a combination of `external_id` and `frame_index`. For example, if the `external_id` of the input is `shanghai_20200101` then the `frame_id` could be encoded as `shanghai_20200101:0` for the first frame, `shanghai_20200101:1` for the second frame and so on.
+
+Similarly to the metadata capability available on an input-level, it's also possible to provide metadata on a _frame_ level as well. It behaves the same way, i.e. consists of _flat_ key-value pairs and is not exposed to annotators during the production of annotators.
 
 ## Video or sequence of images for sequential inputs?
 
