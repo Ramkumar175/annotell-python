@@ -11,13 +11,11 @@ class CamerasSequence(CameraInput):
     external_id: str
     frames: List[Frame]
     sensor_specification: SensorSpecification
-    start_timestamp: Optional[int] = None
     metadata: Mapping[str, Union[int, float, str, bool]] = field(default_factory=dict)
 
     def to_dict(self) -> dict:
         return dict(frames=[frame.to_dict() for frame in self.frames],
                     sensorSpecification=self.sensor_specification.to_dict(),
-                    startTs=self.start_timestamp,
                     externalId=self.external_id,
                     metadata=self.metadata)
 

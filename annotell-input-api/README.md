@@ -11,15 +11,18 @@ Documentation about how to use the library can found [here](https://annotell.git
 
 All notable changes to this project will be documented in this file.
 
-## [1.0.x] - 2021-xx-xx
-
+## [1.0.3] - 2021-04-14
 ### Added
+- Added an example for download_annotations
+- Added check so that `input_list_id` and `project` is not used simultaneously when creating inputs
 - Added support for providing metadata in the form of a flat KV-pair both on an input-level for all input types, as well as on a frame-level for all sequential input types.
-
-## [1.0.2] - 2021-04-06
-
-### Changed
+### Changed 
+- Made client and file_client internal
+- Fixed bug where client sometimes didn't raise exception when http calls return error codes
+- Bugfix where annoutil didn't work due to missing import
 - Clarified examples with different images/videos for different sensors and frames.
+### Removed
+- Removed unnecessary parameters `frame_id` and `relative_timestamp` from `lidars_and_cameras`
 
 ## [1.0.1] - 2021-04-06
 - Use backport of `dataclasses` to support python 3.6. 
