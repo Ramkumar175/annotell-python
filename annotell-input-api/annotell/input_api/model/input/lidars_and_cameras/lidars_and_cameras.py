@@ -14,6 +14,6 @@ class LidarsAndCameras:
 
     def to_dict(self) -> dict:
         return dict(frame=self.frame.to_dict(),
-                    sensorSpecification=self.sensor_specification.to_dict() if self.sensor_specification is not None else None,
+                    sensorSpecification=self.sensor_specification.to_dict() if isinstance(self.sensor_specification, SensorSpecification) else None,
                     externalId=self.external_id,
                     calibrationId=self.calibration_id)
