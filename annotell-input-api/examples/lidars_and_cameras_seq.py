@@ -26,14 +26,6 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
     calibration_spec = create_sensor_calibration("Collection 2020-06-16", [lidar_sensor1], [cam_sensor1, cam_sensor2, cam_sensor3])
     created_calibration = client.calibration.create_calibration(calibration_spec)
 
-    camera_settings = InputModel.CameraSettings(width=1920, height=1080)
-    sensor_settings = {
-        cam_sensor1: camera_settings,
-        cam_sensor2: camera_settings,
-        cam_sensor3: camera_settings
-    }
-    sensor_specification = InputModel.SensorSpecification(sensor_settings=sensor_settings)
-
     lidars_and_cameras_seq = LCSM.LidarsAndCamerasSequence(
         external_id="input1",
         frames=[
@@ -63,7 +55,6 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
             )
         ],
         calibration_id=created_calibration.id,
-        sensor_specification=sensor_specification,
         metadata=metadata
     )
     # Add input

@@ -1,15 +1,13 @@
 from dataclasses import dataclass, field
 from typing import List, Mapping, Union, Optional
 
-from annotell.input_api.model.input.resources import PointCloud, Image, VideoFrame
-from annotell.input_api.model.input.abstract.camera_frame import CameraFrame
-from annotell.input_api.model.input.abstract.sequence_frame import SequenceFrame
 from annotell.input_api.model.ego import EgoVehiclePose
+from annotell.input_api.model.input.abstract.sequence_frame import SequenceFrame
+from annotell.input_api.model.input.resources import PointCloud, Image, VideoFrame
+
 
 @dataclass
-class Frame(CameraFrame, SequenceFrame):
-    frame_id: str
-    relative_timestamp: int
+class Frame(SequenceFrame):
     point_clouds: List[PointCloud] = field(default_factory=list)
     images: List[Image] = field(default_factory=list)
     video_frames: List[VideoFrame] = field(default_factory=list)

@@ -1,28 +1,21 @@
 from dataclasses import field, dataclass
-from typing import List, Union, Union, Mapping
+from typing import Union, Mapping, Optional
 
-from annotell.input_api.model.input.resources.image import Image
-from annotell.input_api.model.input.resources.point_cloud import PointCloud
 from annotell.input_api.model.input.lidars_and_cameras.frame import Frame
-
 from annotell.input_api.model.input.sensor_specification import SensorSpecification
-from annotell.input_api.model.input.abstract import CameraInput, CameraFrame
 
 
 @dataclass
-class LidarsAndCameras(CameraInput):
+class LidarsAndCameras:
     external_id: str
     frame: Frame
     calibration_id: str
-    sensor_specification: SensorSpecification
+    sensor_specification: Optional[SensorSpecification] = None
     metadata: Mapping[str, Union[int, float, str, bool]] = field(default_factory=dict)
 
     def to_dict(self) -> dict:
         return dict(frame=self.frame.to_dict(),
-                    sensorSpecification=self.sensor_specification.to_dict(),
+                    sensorSpecification=self.sensor_specification.to_dict() if isinstance(self.sensor_specification, SensorSpecification) else None,
                     externalId=self.external_id,
                     calibrationId=self.calibration_id,
                     metadata=self.metadata)
-
-    def get_first_camera_frame(self) -> CameraFrame:
-        return self.frame

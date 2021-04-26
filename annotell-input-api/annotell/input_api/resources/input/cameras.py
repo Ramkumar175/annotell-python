@@ -29,8 +29,6 @@ class Cameras(CreateableInputAPIResource):
         The files are uploaded to annotell GCS and an input will be created shortly after submission.
         """
 
-        self._set_sensor_settings(cameras)
-
         payload = cameras.to_dict()
 
         response = self._post_input_request(self.path, payload,
