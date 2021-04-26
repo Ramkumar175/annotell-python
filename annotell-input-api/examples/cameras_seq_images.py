@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 
 import annotell.input_api.input_api_client as IAC
-import annotell.input_api.model.input.cameras_sequence as CamerasSeqModel
 import annotell.input_api.model.input as InputModel
+import annotell.input_api.model.input.cameras_sequence as CamerasSeqModel
 from annotell.input_api.logger import setup_logging
 
 
@@ -11,10 +11,14 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
 
     sensor1 = "RFC01"
     sensor2 = "RFC02"
+    metadata = {
+        "location-lat": 27.986065,
+        "location-long": 86.922623,
+        "vehicle_id": "abg"
+    }
 
     cameras_sequence = CamerasSeqModel.CamerasSequence(
         external_id="camera_sequence_images_example_input",
-        start_timestamp=1617698705,
         frames=[
             CamerasSeqModel.Frame(
                 frame_id="1",
@@ -26,7 +30,8 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
                     InputModel.Image(
                         filename="./examples/resources/img_RFC02.jpg",
                         sensor_name=sensor2),
-                ]
+                ],
+                metadata={'dut_status': 'active'}
             ),
             CamerasSeqModel.Frame(
                 frame_id="2",
@@ -38,9 +43,11 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
                     InputModel.Image(
                         filename="./examples/resources/img_RFC12.jpg",
                         sensor_name=sensor2),
-                ]
+                ],
+                metadata={'dut_status': 'active'}
             )
-        ]
+        ],
+        metadata=metadata
     )
 
     # Add input

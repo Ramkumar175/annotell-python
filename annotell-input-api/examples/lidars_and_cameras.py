@@ -15,6 +15,11 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
     cam_sensor1 = "RFC01"
     cam_sensor2 = "RFC02"
     cam_sensor3 = "RFC03"
+    metadata = {
+        "location-lat": 27.986065,
+        "location-long": 86.922623,
+        "vehicle_id": "abg"
+    }
 
     # Create calibration
     calibration_spec = create_sensor_calibration(
@@ -31,7 +36,8 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
                 ResourceModel.Image("./examples/resources/img_RFC01.jpg", sensor_name=cam_sensor1),
                 ResourceModel.Image("./examples/resources/img_RFC02.jpg", sensor_name=cam_sensor2)
             ]),
-        calibration_id=created_calibration.id
+        calibration_id=created_calibration.id,
+        metadata=metadata
     )
 
     # Add input
@@ -47,5 +53,3 @@ if __name__ == '__main__':
     # Project - Available via `client.project.get_projects()`
     project = "<project-identifier>"
     run(client, project)
-
-
