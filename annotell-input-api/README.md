@@ -12,6 +12,8 @@ Documentation about how to use the library can found [here](https://annotell.git
 All notable changes to this project will be documented in this file.
 
 ## [1.0.4] - TBD
+### Added
+- Added support for providing metadata in the form of a flat KV-pair both on an input-level for all input types, as well as on a frame-level for all sequential input types.
 
 ### Changed
 - Made SensorSpecification Optional for all input types
@@ -24,7 +26,6 @@ All notable changes to this project will be documented in this file.
 ### Added
 - Added an example for download_annotations
 - Added check so that `input_list_id` and `project` is not used simultaneously when creating inputs
-- Added support for providing metadata in the form of a flat KV-pair both on an input-level for all input types, as well as on a frame-level for all sequential input types.
 ### Changed 
 - Made client and file_client internal
 - Fixed bug where client sometimes didn't raise exception when http calls return error codes
