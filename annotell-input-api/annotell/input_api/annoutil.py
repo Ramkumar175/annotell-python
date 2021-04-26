@@ -157,7 +157,9 @@ def main():
     else:
         org_id = None
 
-    from annotell.apiclients.input_api_client import create_input_api_client
-    client = create_input_api_client(client_organization_id=org_id)
+    client = InputApiClient(
+        auth=None,
+        client_organization_id=org_id
+    )
 
     cli(obj={'client': client}, prog_name="annoutil")
