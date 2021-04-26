@@ -81,7 +81,7 @@ def inputs(obj, project, batch, external_ids, include_invalidated, view):
     print()
     if view:
         inputs = client.input.get_inputs(project, batch, external_ids=external_ids, include_invalidated=include_invalidated)
-        view_dict = get_view_links([input.uuid for input in inputs])
+        view_dict = {input.uuid: input.view_link for input in inputs}
         body = []
         headers = ["uuid", "view_link"]
         for uuid, link in view_dict.items():
@@ -97,6 +97,7 @@ def inputs(obj, project, batch, external_ids, include_invalidated, view):
                    "batch",
                    "input_type",
                    "status",
+                   "view_link",
                    "error_message"]
         tab = _get_table(inputs, headers, "INPUTS")
         print(tab)
@@ -156,9 +157,7 @@ def main():
     else:
         org_id = None
 
-    client = InputApiClient(
-        auth=None,
-        client_organization_id=org_id
-    )
+    from annotell.apiclients.input_api_client import create_input_api_client
+    client = create_input_api_client(client_organization_id=org_id)
 
     cli(obj={'client': client}, prog_name="annoutil")
