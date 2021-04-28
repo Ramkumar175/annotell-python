@@ -11,6 +11,10 @@ Documentation about how to use the library can found [here](https://annotell.git
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.5] - TBD
+### Changed
+- Changed the image height/width in the example calibration created in the examples to match the image/videos.
+
 ## [1.0.4] - 2021-04-26
 ### Added
 - Added support for providing metadata in the form of a flat KV-pair both on an input-level for all input types, as well as on a frame-level for all sequential input types.
