@@ -13,7 +13,7 @@ All notable changes to this project will be documented in this file.
 
 ## [1.0.5] - TBD
 ### Changed
-- Changed the image height/width in the example calibration created in the examples to match the image/videos.
+- Changed the height/width in the unity calibration created in the examples to match the image/videos.
 
 ## [1.0.4] - 2021-04-26
 ### Added
