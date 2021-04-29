@@ -40,8 +40,8 @@ def create_sensor_calibration(external_id, lidar_sources: List[str] = None, came
             camera_matrix=camera_camera_matrix,
             distortion_coefficients=camera_distortion_coefficients,
             camera_properties=camera_properties,
-            image_height=920,
-            image_width=1244
+            image_height=1080,
+            image_width=1920
         )
 
     # Create calibration for the scene
