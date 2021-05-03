@@ -25,7 +25,7 @@ class InputResource(InputAPIResource):
         :param invalidated_reason: An Enum describing why inputs were invalidated
         """
         invalidated_json = dict(inputIds=input_uuids, invalidatedReason=invalidated_reason)
-        self._client.post("v1/inputs/actions/invalidate", json=invalidated_json)
+        self._client.post("v1/inputs/actions/invalidate", json=invalidated_json, discard_response=True)
 
     def get_inputs(
         self,
