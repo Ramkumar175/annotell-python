@@ -22,8 +22,10 @@ def run(client: IAC.InputApiClient, calibration_identifier: str) -> IAM.SensorCa
 
 
 if __name__ == '__main__':
+    from datetime import datetime
+
     client = IAC.InputApiClient()
-    calibration_identifier = "<calibration-identifier>"
+    calibration_identifier = f"calibration-{datetime.now()}"
     run(client, calibration_identifier)
 
 

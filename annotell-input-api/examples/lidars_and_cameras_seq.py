@@ -5,6 +5,7 @@ import annotell.input_api.model.input as InputModel
 import annotell.input_api.model.input.lidars_and_cameras_sequence as LCSM
 import annotell.input_api.model.input.resources as ResourceModel
 from annotell.input_api.logger import setup_logging
+from datetime import datetime
 
 from examples.calibration import create_sensor_calibration
 
@@ -23,7 +24,7 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
     }
 
     # Create calibration
-    calibration_spec = create_sensor_calibration("Collection 2020-06-16", [lidar_sensor1], [cam_sensor1, cam_sensor2, cam_sensor3])
+    calibration_spec = create_sensor_calibration(f"Collection {datetime.now()}", [lidar_sensor1], [cam_sensor1, cam_sensor2, cam_sensor3])
     created_calibration = client.calibration.create_calibration(calibration_spec)
 
     lidars_and_cameras_seq = LCSM.LidarsAndCamerasSequence(
