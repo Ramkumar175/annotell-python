@@ -43,7 +43,7 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
             ),
             LCSM.Frame(
                 frame_id="2",
-                relative_timestamp=0,
+                relative_timestamp=100,
                 point_clouds=[
                     ResourceModel.PointCloud("./examples/resources/point_cloud_RFL02.las", sensor_name=lidar_sensor1),
                 ],
