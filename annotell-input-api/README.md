@@ -15,6 +15,9 @@ All notable changes to this project will be documented in this file.
 ### Changed
 - Changed the height/width in the unity calibration created in the examples to match the image/videos.
 
+### Bugfixes
+- Fixed issue where `invalidate_inputs` did not properly discard response content.
+
 ## [1.0.4] - 2021-04-26
 ### Added
 - Added support for providing metadata in the form of a flat KV-pair both on an input-level for all input types, as well as on a frame-level for all sequential input types.
