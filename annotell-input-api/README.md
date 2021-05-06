@@ -11,9 +11,10 @@ Documentation about how to use the library can found [here](https://annotell.git
 
 All notable changes to this project will be documented in this file.
 
-## [1.0.5] - TBD
+## [1.0.5] - 2021-05-06
 ### Changed
 - Changed the height/width in the unity calibration created in the examples to match the image/videos.
+- Added new field in the Input class, view_link. If the Input was successfully created it will contain an URL to view the input in the Annotell app.
 
 ### Bugfixes
 - Fixed issue where `invalidate_inputs` did not properly discard response content.
@@ -21,8 +22,6 @@ All notable changes to this project will be documented in this file.
 ## [1.0.4] - 2021-04-26
 ### Added
 - Added support for providing metadata in the form of a flat KV-pair both on an input-level for all input types, as well as on a frame-level for all sequential input types.
-- Added new field in the Input class, view_link. If the Input was successfully created it
-will contain an URL to view the input in the Annotell app.
 
 ### Changed
 - Made SensorSpecification Optional for all input types
