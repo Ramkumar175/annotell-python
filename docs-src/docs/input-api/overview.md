@@ -235,3 +235,46 @@ Notice how we for each video frame need to specify the timestamp in the video fi
 The choice of which approach to use is up to the client. Long sequences should preferrably be encoded as videos, since this will result in smaller amounts of egress required, resulting in annotations being produced faster. However, this requires care with respect to image quality since most video encodings can degrade quality depending on the chosen compression, codec and bitrate.
 
 If image quality if of central importance and sequnces are not large then it's recommended to supply individual camera images instead of videos.
+
+## Image, Video & Pointcloud Resources
+Every single file containing binary sensor data (e.g. image, video or pointcloud files) is represented as a `Resource`.
+
+```python reference
+https://github.com/annotell/annotell-python/blob/f2b941373b1dff4297d7705ef0f2587eadbca7b3/annotell-input-api/annotell/input_api/model/input/resources/resource.py#L7-L12
+```
+
+When specifying a `Resource` object like `Image`, `PointCloud` or `VideoFrame` it's possible to either:
+
+1. Refer to _local_ files, these will be uploaded (synchronously) to the Annotell platform.
+2. Refer to _remote_ files via URI, these will only be uploaded (asynchronously) to the Annotell platform if necessary. 
+
+**Alternative 1** is achieved by setting the parameter `filename` to the path of the local file and leaving the parameter `resource_id` set the default value of `None`, e.g. 
+
+```python
+Image(
+    "/Users/johndoe/videos/vid_FC.mp4",
+    sensor_name='FC'
+)
+```
+
+This file will automatically be uploaded to the Annotell Platform in a synchronous manner when the corresponding `create` method is called for creating the input.
+
+**Alternative 2** is achieved by setting the parameter `filename` to just be the filename, and setting the parameter `resource_id` to the corresponding URI of the file, e.g. 
+
+```python
+Image(
+    "vid_FC.mp4",
+    sensor_name='FC',
+    resource_id="gs://data-collection/4fcc30af/vid_FC.mp4"
+)
+```
+
+This will result in the file being uploaded to the Annotell Plattform in an asynchronous manner only if it's necessary.
+
+Asynchronous file upload will be triggered by the Annotell plattform in the following scenarios:
+* The pointcloud file needs to be converted into potree format (see [Pointclouds](resources/pointclouds))
+* The sensor associated with the image or video file did not have `width` and `height` specified in the `SensorSpecification` object.
+
+### When to use `resource_id`
+Todo
+
