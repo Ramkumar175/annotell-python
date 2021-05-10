@@ -17,4 +17,3 @@ class CamerasSequence:
                     sensorSpecification=self.sensor_specification.to_dict() if isinstance(self.sensor_specification, SensorSpecification) else None,
                     externalId=self.external_id,
                     metadata=self.metadata)
-

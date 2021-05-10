@@ -1,5 +1,5 @@
 import logging
-from typing import Optional
+from typing import Optional, List
 
 import annotell.input_api.model.input as InputModel
 import annotell.input_api.model.input.cameras_sequence as CamerasSeqModel
@@ -15,7 +15,7 @@ class CamerasSequence(CreateableInputAPIResource):
                cameras_sequence: CamerasSeqModel.CamerasSequence,
                project: Optional[str] = None,
                batch: Optional[str] = None,
-               input_list_id: Optional[int] = None,
+               annotation_types: List[str] = [],
                dryrun: bool = False) -> Optional[InputModel.CreateInputResponse]:
         """
         Upload files and create an input of type ``cameras-sequence``.
@@ -23,11 +23,9 @@ class CamerasSequence(CreateableInputAPIResource):
         :param cameras_sequence: class containing 2D resources that constitute the input
         :param project: project to add input to
         :param batch: batch, defaults to latest open batch
-        :param input_list_id: input list to add input to (alternative to project-batch)
+        :param annotation_types: annotation types for which to produce annotations for. Defaults to empty list (corresponds to all available annotation types).
         :param dryrun: If True the files/metadata will be validated but no input job will be created.
         :returns InputJobCreated: Class containing id of the created input job, or None if dryrun.
-
-        The files are uploaded to annotell GCS and an input will be created shortly after submission.
         """
 
         payload = cameras_sequence.to_dict()
@@ -35,7 +33,7 @@ class CamerasSequence(CreateableInputAPIResource):
         response = self._post_input_request(self.path, payload,
                                             project=project,
                                             batch=batch,
-                                            input_list_id=input_list_id,
+                                            annotation_types=annotation_types,
                                             dryrun=dryrun)
 
         if dryrun:

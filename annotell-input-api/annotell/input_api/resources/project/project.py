@@ -1,6 +1,7 @@
 from typing import List
 
 import annotell.input_api.model.projects as ProjectModel
+import annotell.input_api.model.annotation as AnnotationModel
 from annotell.input_api.resources.abstract import InputAPIResource
 
 
@@ -36,3 +37,10 @@ class ProjectResource(InputAPIResource):
         """
         json_resp = self._client.post(f"v1/projects/{project}/batches/{batch}/publish")
         return ProjectModel.ProjectBatch.from_json(json_resp)
+
+    def get_annotation_types(self, project: str) -> List[AnnotationModel.AnnotationType]:
+        """
+        Returns all available annotation types for the project.
+        """
+        json_resp = self._client.get(f"v1/projects/{project}/annotation-types")
+        return [AnnotationModel.AnnotationType.from_json(anno) for anno in json_resp['annotationTypes']]
