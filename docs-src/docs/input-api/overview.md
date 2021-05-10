@@ -252,7 +252,7 @@ When specifying a `Resource` object (like `Image`, `PointCloud` or `VideoFrame`)
 
 ```python
 Image(
-    "/Users/johndoe/videos/vid_FC.mp4",
+    filename="/Users/johndoe/videos/vid_FC.mp4",
     sensor_name='FC'
 )
 ```
@@ -263,7 +263,7 @@ This file will automatically be uploaded to the Annotell Platform in a synchrono
 
 ```python
 Image(
-    "vid_FC.mp4",
+    filename="vid_FC.mp4",
     sensor_name='FC',
     resource_id="gs://data-collection/4fcc30af/vid_FC.mp4"
 )
