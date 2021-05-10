@@ -43,4 +43,4 @@ class ProjectResource(InputAPIResource):
         Returns all available annotation types for the project.
         """
         json_resp = self._client.get(f"v1/projects/{project}/annotation-types")
-        return [AnnotationModel.AnnotationType.from_json(anno) for anno in json_resp['annotationTypes']]
+        return [AnnotationModel.AnnotationType(anno) for anno in json_resp]

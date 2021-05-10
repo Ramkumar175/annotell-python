@@ -5,9 +5,3 @@ from annotell.input_api.model.abstract.abstract_models import Response
 @dataclass
 class AnnotationType(Response):
     name: str
-
-    @staticmethod
-    def from_json(js: dict):
-        return AnnotationType(
-            name=str(js["name"])
-        )
