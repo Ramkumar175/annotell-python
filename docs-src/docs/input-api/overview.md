@@ -237,16 +237,16 @@ The choice of which approach to use is up to the client. Long sequences should p
 If image quality if of central importance and sequnces are not large then it's recommended to supply individual camera images instead of videos.
 
 ## Image, Video & Pointcloud Resources
-Every single file containing binary sensor data (e.g. image, video or pointcloud files) is represented as a `Resource`.
+Every single file containing binary sensor data (e.g. image, video or pointcloud files) is represented as a `Resource`, with `Image`, `PointCloud` or `VideoFrame` all being sub-classes of it. 
 
 ```python reference
 https://github.com/annotell/annotell-python/blob/f2b941373b1dff4297d7705ef0f2587eadbca7b3/annotell-input-api/annotell/input_api/model/input/resources/resource.py#L7-L12
 ```
 
-When specifying a `Resource` object like `Image`, `PointCloud` or `VideoFrame` it's possible to either:
+When specifying a `Resource` object (like `Image`, `PointCloud` or `VideoFrame`) it's possible to either:
 
 1. Refer to _local_ files, these will be uploaded (synchronously) to the Annotell platform.
-2. Refer to _remote_ files via URI, these will only be uploaded (asynchronously) to the Annotell platform if necessary. 
+2. Refer to _remote_ files via URI, these will only be uploaded (asynchronously) and stored in the Annotell platform if necessary. Otherwise they will be served to annotators via the URI.
 
 **Alternative 1** is achieved by setting the parameter `filename` to the path of the local file and leaving the parameter `resource_id` set the default value of `None`, e.g. 
 
@@ -269,12 +269,8 @@ Image(
 )
 ```
 
-This will result in the file being uploaded to the Annotell Plattform in an asynchronous manner only if it's necessary.
+With this approach the file resources will be served to the plattform via the URI, which also means that the files will not be stored in Annotell's cloud. However, **an exception to this** is for pointcloud files that are not in potree format. In cases like this the Annotell plattform will perform an asynchronous download of the files and convert then to potree format. The potree versions of the files will both be stored and served from Annotell's cloud.
 
-Asynchronous file upload will be triggered by the Annotell plattform in the following scenarios:
-* The pointcloud file needs to be converted into potree format (see [Pointclouds](resources/pointclouds))
-* The sensor associated with the image or video file did not have `width` and `height` specified in the `SensorSpecification` object.
-
-### When to use `resource_id`
-Todo
-
+:::note
+In order to supply `resource_id` configuration around access to the storage-provider is required. Contact Annotell before creating any inputs using the `resource_id` approach.
+:::
