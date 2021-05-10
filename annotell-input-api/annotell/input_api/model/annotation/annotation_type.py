@@ -9,5 +9,5 @@ class AnnotationType(Response):
     @staticmethod
     def from_json(js: dict):
         return AnnotationType(
-            name=str(js["annotationType"])
+            name=str(js["name"])
         )
