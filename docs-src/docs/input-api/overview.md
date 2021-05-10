@@ -237,7 +237,7 @@ The choice of which approach to use is up to the client. Long sequences should p
 If image quality if of central importance and sequnces are not large then it's recommended to supply individual camera images instead of videos.
 
 ## Image, Video & Pointcloud Resources
-Every single file containing binary sensor data (e.g. image, video or pointcloud files) is represented as a `Resource`, with `Image`, `PointCloud` or `VideoFrame` all being sub-classes of it. 
+Every single file containing binary sensor data (e.g. image, video or pointcloud files) is represented as a `Resource`, with `Image`, `PointCloud` and `VideoFrame` all being subclasses of it. 
 
 ```python reference
 https://github.com/annotell/annotell-python/blob/f2b941373b1dff4297d7705ef0f2587eadbca7b3/annotell-input-api/annotell/input_api/model/input/resources/resource.py#L7-L12
