@@ -246,7 +246,7 @@ https://github.com/annotell/annotell-python/blob/f2b941373b1dff4297d7705ef0f2587
 When specifying a `Resource` object (like `Image`, `PointCloud` or `VideoFrame`) it's possible to either:
 
 1. Refer to _local_ files, these will be uploaded (synchronously) to the Annotell platform.
-2. Refer to _remote_ files via URI, these will only be uploaded (asynchronously) and stored in the Annotell platform if necessary. Otherwise they will be served to annotators via the URI.
+2. Refer to _remote_ files via URI, these will only be uploaded (asynchronously) and stored in the Annotell platform if mandatory file conversion is necessary. Otherwise they will be served to annotators via the URI.
 
 **Alternative 1** is achieved by setting the parameter `filename` to the path of the local file and leaving the parameter `resource_id` set the default value of `None`, e.g. 
 
