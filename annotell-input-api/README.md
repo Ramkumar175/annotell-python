@@ -11,6 +11,10 @@ Documentation about how to use the library can found [here](https://annotell.git
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.6] - Not published
+### Added
+- `calibration_id` not available for created inputs via the `client.input.get_inputs` method.
+
 ## [1.0.5] - 2021-05-06
 ### Changed
 - Changed the height/width in the unity calibration created in the examples to match the image/videos.
