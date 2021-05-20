@@ -21,6 +21,7 @@ class Input(Response):
     batch: str
     input_type: str
     status: InputStatus
+    calibration_id: Optional[str]
     view_link: Optional[str]
     error_message: Optional[str]
 
@@ -32,6 +33,7 @@ class Input(Response):
             js["batchId"],
             js["inputType"],
             js["status"],
+            js.get("calibrationId"),
             js.get("viewLink"),
             js.get("errorMessage")
         )

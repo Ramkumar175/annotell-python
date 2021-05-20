@@ -11,6 +11,10 @@ Documentation about how to use the library can found [here](https://annotell.git
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.6] - Not published
+### Added
+- `calibration_id` now available for created inputs via the `client.input.get_inputs` method.
+
 ## [1.0.5] - 2021-05-06
 ### Changed
 - Changed the height/width in the unity calibration created in the examples to match the image/videos.
@@ -25,16 +29,16 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - Made SensorSpecification Optional for all input types
-  
+
 ### Removed
-- Removed sensor_settings from SensorSpecification. The pixel dimensions are now 
+- Removed sensor_settings from SensorSpecification. The pixel dimensions are now
   automatically inferred from videos and images.
 
 ## [1.0.3] - 2021-04-14
 ### Added
 - Added an example for download_annotations
 - Added check so that `input_list_id` and `project` is not used simultaneously when creating inputs
-### Changed 
+### Changed
 - Made client and file_client internal
 - Fixed bug where client sometimes didn't raise exception when http calls return error codes
 - Bugfix where annoutil didn't work due to missing import
@@ -43,7 +47,7 @@ All notable changes to this project will be documented in this file.
 - Removed unnecessary parameters `frame_id` and `relative_timestamp` from `lidars_and_cameras`
 
 ## [1.0.1] - 2021-04-06
-- Use backport of `dataclasses` to support python 3.6. 
+- Use backport of `dataclasses` to support python 3.6.
 
 ## [1.0.0] - 2021-03-23
 - New major release of client. Reworked to be more internally consistent between input types, and use of project and batch identifiers across methods. See [docs](https://annotell.github.io/annotell-python/) for more info.
@@ -79,7 +83,7 @@ usage of the method in any way.
   signature is changed to return a list of annotations for each input, instead of a dict as before.
 - Behaviour of `get_inputs` has changed. It now receives `project` (identifier, not numerical id anymore), as well as three optional parameters `batch`, `external_ids` and `include_invalidated`. Returns all inputs belonging to the project, with the option of filtering on batch, external ID and whether or not including invalidated inputs. The returned list of classes had additional fields describing which batch each input belongs to, as well as their status (`created`, `processing`, `failed`, `invalidated`).
 - Changed name of argument `input_ids` to `input_internal_ids` for method `invalidate_inputs`.
-- Use backport of `dataclasses` to support python 3.6. 
+- Use backport of `dataclasses` to support python 3.6.
 - Add missing dependency on `python-dateutil`.
 
 ### Removed
