@@ -33,7 +33,7 @@ class ProjectResource(InputAPIResource):
 
         :param project Project identifier
         :param batch Batch identifier
-        :return List: List containing all batches
+        :return ProjectBatch: The newly created batch
         """
         json_resp = self._client.post(f"v1/projects/{project}/batches/{batch}")
         return ProjectModel.ProjectBatch.from_json(json_resp)
