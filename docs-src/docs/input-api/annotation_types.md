@@ -1,4 +1,5 @@
 ---
+id: annotation-types
 title: Annotation Types
 ---
 

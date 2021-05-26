@@ -58,7 +58,7 @@ Returns all batches for the project
 ```python
 project_batch = client.project.create_batch("project_external_id", "batch_external_id")
 ```
-Creates a new batch in the `open` state. The new batch will contain the same `annotation types` (SEE XXX) as 
+Creates a new batch in the `open` state. The new batch will contain the same annotation types (see [Annotation Types](annotation-types)) as 
 the latest previous batch, which means that the process of uploading inputs will be identical between batches.
 This method will also publish the latest previous batch, meaning that you will no longer be able to upload
 inputs to that batch. You should therefore be certain that you no longer need to upload more inputs to the 
