@@ -51,19 +51,15 @@ The fields contain all of the information required to create the input.
 Whenever an input is uploaded it automatically gets an UUID, this is used as the primary identifier by Annotell and by all of our internal systems. However, in order to make communication around specific inputs easier we also allow for clients to include any kind of identifier to the input via the external id.
 
 ### Sensor Specification
-The sensor specification contains information related to the different camera and/or lidar sensors used for capturing the data present on the input. The sensor specification only requires information regarding the width and height of the different camera sensors used in the input.
+The sensor specification contains information related to the different camera and/or lidar sensors
+used for capturing the data present on the input.
 
-The additional fields are optional and relate to specifying the order of the camera sensors and human readable variants of the sensor name (e.g. "Front Camera" instead of "FC").
+The additional fields are optional and relate to specifying the order of the camera sensors and
+human readable variants of the sensor name (e.g. "Front Camera" instead of "FC").
 
 ```python
 @dataclass
-class CameraSettings:
-    width: int
-    height: int
-
-@dataclass
 class SensorSpecification:
-    sensor_settings: Mapping[str, CameraSettings]
     sensor_to_pretty_name: Optional[Dict[str, str]] = None
     sensor_order: Optional[List[str]] = None
 ```
@@ -72,11 +68,6 @@ As an example, let's say we have three different camera sensors `R`, `F` and `L`
 
 ```python
 sensor_spec = SensorSpecification(
-    sensor_settings={
-        "R": CameraSettings(width=1080, height=1920),
-        "F": CameraSettings(width=1080, height=1920),
-        "L": CameraSettings(width=1080, height=1920)
-    },
     sensor_to_pretty_name={
         "R": "Right Camera",
         "F": "Front Camera",
