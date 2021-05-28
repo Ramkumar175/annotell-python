@@ -62,8 +62,8 @@ Creates a new batch in the `open` state. The new batch will contain the same Ann
 (see [Annotation Types](annotation-types)) as 
 the latest previous batch, which means that the process of uploading inputs will be identical between batches.
 
-This method has an optional flag `publish_previous_batches` which defaults to `False`. Setting this flag to 
-`True`, as shown in the example below, all previous batches in the `open` state would be published, and you
+This method has an optional flag `publish_previous_batches` which defaults to `False`. By setting this flag to 
+`True`, as shown in the example below, all previous batches in the `open` state would be published and you
 would no longer be able to upload inputs to those batches.
 You should therefore be certain that you no longer need to upload more inputs to the 
 previous batches if you use this flag.
