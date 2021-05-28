@@ -43,7 +43,7 @@ Ongoing projects can benefit from using batches in two ways
 ### Listing Batches
 
 ```python
-projects = client.project.get_project_batches("project_external_id")
+project_batches = client.project.get_project_batches("project_external_id")
 ```
 
 Or via `annoutil` CLI
@@ -54,10 +54,35 @@ annoutil project <project-external-id> --batches
 
 Returns all batches for the project
 
+### Creating Batches
+```python
+project_batch = client.project.create_batch("project_external_id", "batch_external_id")
+```
+Creates a new batch in the `open` state. The new batch will contain the same Annotation Types
+(see [Annotation Types](annotation-types)) as 
+the latest previous batch, which means that the process of uploading inputs will be identical between batches.
+
+This method has an optional flag `publish_previous_batches` which defaults to `False`. By setting this flag to 
+`True`, as shown in the example below, all previous batches in the `open` state would be published and you
+would no longer be able to upload inputs to those batches.
+You should therefore be certain that you no longer need to upload more inputs to the 
+previous batches if you use this flag.
+```python
+project_batch = client.project.create_batch("project_external_id",
+                                            "batch_external_id",
+                                            publish_previous_batches=True)
+```
+:::caution Contact Annotell before use
+Annotell usually helps with creating batches before a client becomes autonomous,
+in order to avoid any confusion please contact Annotell before you start using this feature.
+:::
 ### Publish Batch
 
 ```python
-projects = client.project.publish_batch("project_external_id", "batch_external_id")
+project_batch = client.project.publish_batch("project_external_id", "batch_external_id")
 ```
 
-Publishes the input batch. Published batches are not open for new inputs. A project with *multiple* open batches will require you to specify which open batch to target when creating inputs, whereas a project with a single open batch will allow you omit batch when creating inputs.
+Publishes the input batch, setting the state of the batch to `ready`. Published batches are not open for new inputs. 
+A project with *multiple* open batches will require you to specify which open batch to target 
+when creating inputs, whereas a project with a single open batch will allow you omit batch when 
+creating inputs.

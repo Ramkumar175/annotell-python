@@ -12,6 +12,7 @@ module.exports = {
           "input-api/inputs/cameras_seq",
           "input-api/inputs/lidars_and_cameras_seq"
         ]},
+        "input-api/annotation_types",
         "input-api/usage",
       ]},
       "input-api/calibration",
