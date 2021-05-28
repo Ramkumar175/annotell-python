@@ -58,15 +58,23 @@ Returns all batches for the project
 ```python
 project_batch = client.project.create_batch("project_external_id", "batch_external_id")
 ```
-Creates a new batch in the `open` state. The new batch will contain the same annotation types (see [Annotation Types](annotation-types)) as 
+Creates a new batch in the `open` state. The new batch will contain the same Annotation Types
+(see [Annotation Types](annotation-types)) as 
 the latest previous batch, which means that the process of uploading inputs will be identical between batches.
-This method will also publish the latest previous batch, meaning that you will no longer be able to upload
-inputs to that batch. You should therefore be certain that you no longer need to upload more inputs to the 
-latest batch before you create a new one.
 
+This method has an optional flag `publish_previous_batches` which defaults to `False`. Setting this flag to 
+`True`, as shown in the example below, all previous batches in the `open` state would be published, and you
+would no longer be able to upload inputs to those batches.
+You should therefore be certain that you no longer need to upload more inputs to the 
+previous batches if you use this flag.
+```python
+project_batch = client.project.create_batch("project_external_id",
+                                            "batch_external_id",
+                                            publish_previous_batches=True)
+```
 :::caution Contact Annotell before use
 Annotell usually helps with creating batches before a client becomes autonomous,
-in order to avoid any confusion contact Annotell before you start using this feature.
+in order to avoid any confusion please contact Annotell before you start using this feature.
 :::
 ### Publish Batch
 
