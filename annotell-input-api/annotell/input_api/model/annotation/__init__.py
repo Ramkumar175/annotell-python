@@ -1,2 +1,1 @@
 from annotell.input_api.model.annotation.export_annotation import Annotation
-from annotell.input_api.model.annotation.annotation_type import AnnotationType

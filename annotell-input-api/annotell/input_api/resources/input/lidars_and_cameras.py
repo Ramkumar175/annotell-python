@@ -16,7 +16,7 @@ class LidarsAndCameras(CreateableInputAPIResource):
                lidars_and_cameras: LCModel.LidarsAndCameras,
                project: Optional[str] = None,
                batch: Optional[str] = None,
-               annotation_types: List[str] = [],
+               annotation_types: Optional[List[str]] = None,
                dryrun: bool = False) -> Optional[InputModel.CreateInputResponse]:
         """
         Upload files and create an input of type ``LidarsAndCameras``.
@@ -24,9 +24,9 @@ class LidarsAndCameras(CreateableInputAPIResource):
         :param lidars_and_cameras: class containing 2D and 3D resources that constitute the input
         :param project: project to add input to
         :param batch: batch, defaults to latest open batch
-        :param annotation_types: annotation types for which to produce annotations for. Defaults to empty list (corresponds to all available annotation types).
+        :param annotation_types: annotation types for which to produce annotations for. Defaults to `None` (corresponds to all available annotation types). Passing an empty list will result in the same behaviour as passing `None`.
         :param dryrun: If True the files/metadata will be validated but no input job will be created.
-        :returns InputJobCreated: Class containing id of the created input job, or None if dryrun.
+        :returns InputJobCreated: Class containing id of the created input job, or `None` if dryrun.
         """
 
         payload = lidars_and_cameras.to_dict()

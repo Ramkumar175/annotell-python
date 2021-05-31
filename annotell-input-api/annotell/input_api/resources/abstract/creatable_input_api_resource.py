@@ -20,14 +20,14 @@ class CreateableInputAPIResource(FileResourceClient):
                             input_request: dict,
                             project: Optional[str],
                             batch: Optional[str],
-                            annotation_types: List[str] = [],
+                            annotation_types: Optional[List[str]] = None,
                             dryrun: bool = False) -> Optional[IAM.InputJobCreated]:
         """
         Send input to Input API. if not dryrun is true, only validation is performed
         Otherwise, returns `InputJobCreated`
         """
-
-        input_request['annotationTypes'] = annotation_types
+        if annotation_types:
+            input_request['annotationTypes'] = annotation_types
 
         log.debug("POST:ing to %s input %s", resource_path, input_request)
 
