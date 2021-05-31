@@ -10,6 +10,9 @@ Documentation about how to use the library can found [here](https://annotell.git
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [1.0.7] - 2021-06-
+### Added
+- `created` timestamp when querying `get_inputs`
 
 ## [1.0.6] - 2021-05-28
 ### Added
