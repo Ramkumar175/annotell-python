@@ -1,7 +1,9 @@
 from dataclasses import dataclass
+from datetime import datetime
 from typing import Optional
 from enum import Enum
 from annotell.input_api.model.abstract.abstract_models import Response
+from annotell.input_api.util import ts_to_dt
 
 
 class InputStatus(str, Enum):
@@ -21,6 +23,7 @@ class Input(Response):
     batch: str
     input_type: str
     status: InputStatus
+    created: datetime
     calibration_id: Optional[str]
     view_link: Optional[str]
     error_message: Optional[str]
@@ -33,6 +36,7 @@ class Input(Response):
             js["batchId"],
             js["inputType"],
             js["status"],
+            ts_to_dt(js["created"]),
             js.get("calibrationId"),
             js.get("viewLink"),
             js.get("errorMessage")
