@@ -1,8 +1,10 @@
 from dataclasses import dataclass
 from typing import Optional, List
-from enum import Enum
 from annotell.input_api.model.abstract.abstract_models import Response
-from annotell.input_api.model.annotation.annotation_type import AnnotationType
+from datetime import datetime
+from enum import Enum
+from annotell.input_api.util import ts_to_dt
+
 
 class InputStatus(str, Enum):
     Processing = "processing"
@@ -21,9 +23,11 @@ class Input(Response):
     batch: str
     input_type: str
     status: InputStatus
+    created: datetime
+    calibration_id: Optional[str]
     view_link: Optional[str]
     error_message: Optional[str]
-    annotation_types: List[AnnotationType]
+    annotation_types: List[str]
 
     @staticmethod
     def from_json(js: dict):
@@ -33,6 +37,7 @@ class Input(Response):
             batch=js["batchId"],
             input_type=js["inputType"],
             status=js["status"],
+            created=ts_to_dt(js["created"]),
             view_link=js.get("viewLink"),
             error_message=js.get("errorMessage"),
             annotation_types=js["annotationTypes"]
