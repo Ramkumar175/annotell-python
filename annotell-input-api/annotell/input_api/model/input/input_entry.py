@@ -38,5 +38,6 @@ class Input(Response):
             status=js["status"],
             created=ts_to_dt(js["created"]),
             view_link=js.get("viewLink"),
+            calibration_id=js.get("calibrationId"),
             error_message=js.get("errorMessage")
         )
