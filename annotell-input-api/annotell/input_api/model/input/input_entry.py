@@ -27,7 +27,6 @@ class Input(Response):
     calibration_id: Optional[str]
     view_link: Optional[str]
     error_message: Optional[str]
-    annotation_types: List[str]
 
     @staticmethod
     def from_json(js: dict):
@@ -39,6 +38,5 @@ class Input(Response):
             status=js["status"],
             created=ts_to_dt(js["created"]),
             view_link=js.get("viewLink"),
-            error_message=js.get("errorMessage"),
-            annotation_types=js["annotationTypes"]
+            error_message=js.get("errorMessage")
         )
