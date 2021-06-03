@@ -29,3 +29,10 @@ class TestProject:
         assert len(project_batches) >= 1
 
         assert all([cameras_project == batch.project for batch in project_batches])
+
+    def test_get_annotation_types(self, client: IAC.InputApiClient):
+        projects = client.project.get_projects()
+        cameras_project = self.filter_cameras_project(projects)[0].project
+        annotation_types = client.project.get_annotation_types(cameras_project)
+
+        assert isinstance(annotation_types, list)
