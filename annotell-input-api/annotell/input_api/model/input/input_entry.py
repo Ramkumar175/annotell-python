@@ -1,8 +1,8 @@
 from dataclasses import dataclass
-from datetime import datetime
-from typing import Optional
-from enum import Enum
+from typing import Optional, List
 from annotell.input_api.model.abstract.abstract_models import Response
+from datetime import datetime
+from enum import Enum
 from annotell.input_api.util import ts_to_dt
 
 
@@ -31,13 +31,13 @@ class Input(Response):
     @staticmethod
     def from_json(js: dict):
         return Input(
-            js["internalId"],
-            js["externalId"],
-            js["batchId"],
-            js["inputType"],
-            js["status"],
-            ts_to_dt(js["created"]),
-            js.get("calibrationId"),
-            js.get("viewLink"),
-            js.get("errorMessage")
+            uuid=js["internalId"],
+            external_id=js["externalId"],
+            batch=js["batchId"],
+            input_type=js["inputType"],
+            status=js["status"],
+            created=ts_to_dt(js["created"]),
+            view_link=js.get("viewLink"),
+            calibration_id=js.get("calibrationId"),
+            error_message=js.get("errorMessage")
         )

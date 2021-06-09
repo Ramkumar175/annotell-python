@@ -1,5 +1,5 @@
 import logging
-from typing import Optional
+from typing import Optional, List
 
 import annotell.input_api.model.input as InputModel
 from annotell.input_api.resources.abstract import CreateableInputAPIResource
@@ -14,7 +14,7 @@ class Cameras(CreateableInputAPIResource):
                cameras: InputModel.Cameras,
                project: Optional[str] = None,
                batch: Optional[str] = None,
-               input_list_id: Optional[int] = None,
+               annotation_types: Optional[List[str]] = None,
                dryrun: bool = False) -> Optional[InputModel.CreateInputResponse]:
         """
         Upload files and create an input of type ``cameras``.
@@ -22,11 +22,9 @@ class Cameras(CreateableInputAPIResource):
         :param cameras: class containing 2D resources that constitute the input
         :param project: project to add input to
         :param batch: batch, defaults to latest open batch
-        :param input_list_id: input list to add input to (alternative to project-batch)
+        :param annotation_types: annotation types for which to produce annotations for. Defaults to `None` (corresponds to all available annotation types). Passing an empty list will result in the same behaviour as passing `None`.
         :param dryrun: If True the files/metadata will be validated but no input job will be created.
-        :returns InputJobCreated: Class containing id of the created input job, or None if dryrun.
-
-        The files are uploaded to annotell GCS and an input will be created shortly after submission.
+        :returns InputJobCreated: Class containing id of the created input job, or `None` if dryrun.
         """
 
         payload = cameras.to_dict()
@@ -34,7 +32,7 @@ class Cameras(CreateableInputAPIResource):
         response = self._post_input_request(self.path, payload,
                                             project=project,
                                             batch=batch,
-                                            input_list_id=input_list_id,
+                                            annotation_types=annotation_types,
                                             dryrun=dryrun)
 
         if dryrun:

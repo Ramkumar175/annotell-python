@@ -1,6 +1,7 @@
-from typing import List
+from typing import List, Optional
 
 import annotell.input_api.model.projects as ProjectModel
+import annotell.input_api.model.annotation as AnnotationModel
 from annotell.input_api.resources.abstract import InputAPIResource
 
 
@@ -53,3 +54,14 @@ class ProjectResource(InputAPIResource):
         """
         json_resp = self._client.post(f"v1/projects/{project}/batches/{batch}/publish")
         return ProjectModel.ProjectBatch.from_json(json_resp)
+
+    def get_annotation_types(self, project: str, batch: Optional[str] = None) -> List[str]:
+        """
+        Returns all available annotation types for the project.
+        If batch included all available annotation types for the batch will be returned.
+        """
+        if batch:
+            json_resp = self._client.get(f"v1/projects/{project}/batches/{batch}/annotation-types")
+        else:
+            json_resp = self._client.get(f"v1/projects/{project}/annotation-types")
+        return [anno for anno in json_resp]

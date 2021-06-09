@@ -1,5 +1,5 @@
 import logging
-from typing import Optional, Dict
+from typing import Optional, Dict, List
 
 import annotell.input_api.model as IAM
 from annotell.input_api.file_resource_client import FileResourceClient
@@ -17,26 +17,23 @@ class CreateableInputAPIResource(FileResourceClient):
         self._file_resource_client = file_resource_client
 
     def _post_input_request(self, resource_path: str,
-                           input_request: dict,
-                           project: Optional[str],
-                           batch: Optional[str],
-                           input_list_id: Optional[int],
-                           dryrun: bool = False) -> Optional[IAM.InputJobCreated]:
+                            input_request: dict,
+                            project: Optional[str],
+                            batch: Optional[str],
+                            annotation_types: Optional[List[str]] = None,
+                            dryrun: bool = False) -> Optional[IAM.InputJobCreated]:
         """
         Send input to Input API. if not dryrun is true, only validation is performed
         Otherwise, returns `InputJobCreated`
         """
-        if input_list_id and project:
-            error_message = "Supplying `input_list_id` and `project` is not allowed."
-            raise Exception(error_message)
-
-        if input_list_id is not None:
-            input_request['inputListId'] = input_list_id
+        if annotation_types:
+            input_request['annotationTypes'] = annotation_types
 
         log.debug("POST:ing to %s input %s", resource_path, input_request)
 
         request_url = self._resolve_request_url(resource_path, project, batch)
-        json_resp = self._client.post(request_url, json=input_request, dryrun=dryrun)
+        json_resp = self._client.post(
+            request_url, json=input_request, dryrun=dryrun)
         if not dryrun:
             response = IAM.InputJobCreated.from_json(json_resp)
 

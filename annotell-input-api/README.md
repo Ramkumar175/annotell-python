@@ -13,6 +13,10 @@ All notable changes to this project will be documented in this file.
 ## [1.0.7] - 2021-06-
 ### Added
 - `created` timestamp when querying `get_inputs`
+- Method `get_annotation_types`
+
+### Changed
+- `input_list_id` replaced with `annotation_types` for all createable resources (`Cameras`, `CamerasSeq`, `LidarsAndCameras`, `LidarsAndCamerasSeq`).
 
 ## [1.0.6] - 2021-05-28
 ### Added
