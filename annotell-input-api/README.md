@@ -10,7 +10,7 @@ Documentation about how to use the library can found [here](https://annotell.git
 # Changelog
 
 All notable changes to this project will be documented in this file.
-## [1.0.7] - 2021-06-
+## [1.0.7] - 2021-06-11
 ### Added
 - `created` timestamp when querying `get_inputs`
 - Method `get_annotation_types`
