@@ -3,9 +3,6 @@ id: annotation_types
 title: Annotation Types
 ---
 
-:::info Coming soon
-The functionality described here is not currently available, but will be shortly.
-:::
 Annotation Types are something that **can** be configured for a project either during or after 
 the Guideline Agreement Process (GAP). During the GAP a set of taxonomies are defined
 which will be used in order to annotate all the inputs that are uploaded to the platform.
