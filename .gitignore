@@ -134,3 +134,6 @@ dmypy.json
 .pyre/
 
 *.iml
+
+# IDE folders
+*.vscode/

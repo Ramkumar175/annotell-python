@@ -13,4 +13,4 @@ if __name__ == '__main__':
     client = IAC.InputApiClient()
 
     project = "Project-Identifier"
-    projects = run(client, project=project)
+    project_batches = run(client, project=project)
