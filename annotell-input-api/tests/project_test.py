@@ -15,10 +15,6 @@ class TestProject:
     def filter_cameras_project(projects: List[IAM.Project]):
         return [p for p in projects if p.project == TestProjects.CamerasProject]
 
-    @staticmethod
-    def filter_cameras_project_with_at(projects: List[IAM.Project]):
-        return [p for p in projects if p.project == TestProjects.CamerasProjectWithAT]
-
     def test_get_projects(self, client: IAC.InputApiClient):
         projects = get_projects_example.run(client=client)
         assert isinstance(projects, list)
@@ -40,7 +36,7 @@ class TestProject:
         projects = client.project.get_projects()
         print([project.project for project in projects])
 
-        project = self.filter_cameras_project_with_at(projects)[0].project
+        project = self.filter_cameras_project(projects)[0].project
         annotation_types = get_project_annotation_types_example.run(client=client, project=project)
 
         assert isinstance(annotation_types, list)
@@ -51,7 +47,7 @@ class TestProject:
 
     def test_get_batch_annotation_types(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
-        project = self.filter_cameras_project_with_at(projects)[0].project
+        project = self.filter_cameras_project(projects)[0].project
         batch = client.project.get_project_batches(project)[0].batch
 
         annotation_types = get_project_batches_annotation_types_example.run(client=client, project=project, batch=batch)

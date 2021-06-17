@@ -48,4 +48,4 @@ if __name__ == '__main__':
     # Annotation Types - Available via `client.project.get_annotation_types(project)`
     annotation_types = ["Annotation-type"]
 
-    run(client, project)
+    run(client, project, annotation_types)

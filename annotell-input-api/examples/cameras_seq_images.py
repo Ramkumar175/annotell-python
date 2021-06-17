@@ -67,5 +67,5 @@ if __name__ == '__main__':
     annotation_types = ["annotation-type"]
 
     client = IAC.InputApiClient()
-    run(client, project)
+    run(client, project, annotation_types)
 

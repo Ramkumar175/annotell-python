@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+from typing import List, Optional
 
 import annotell.input_api.input_api_client as IAC
 import annotell.input_api.model.input as InputModel
@@ -11,7 +12,11 @@ from examples.calibration import create_sensor_calibration
 from datetime import datetime
 
 
-def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputModel.CreateInputResponse:
+def run(client: IAC.InputApiClient,
+        project: str,
+        annotation_types: Optional[List[str]] = None,
+        dryrun: bool = True) -> InputModel.CreateInputResponse:
+
     print("Creating Lidar and Camera Sequence Input...")
 
     lidar_sensor1 = "lidar"
@@ -25,8 +30,10 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
     }
 
     # Create calibration
-    calibration_spec = create_sensor_calibration(f"Collection {datetime.now()}", [lidar_sensor1], [cam_sensor1, cam_sensor2, cam_sensor3])
-    created_calibration = client.calibration.create_calibration(calibration_spec)
+    calibration_spec = create_sensor_calibration(f"Collection {datetime.now()}", [
+                                                 lidar_sensor1], [cam_sensor1, cam_sensor2, cam_sensor3])
+    created_calibration = client.calibration.create_calibration(
+        calibration_spec)
 
     lidars_and_cameras_seq = LCSM.LidarsAndCamerasSequence(
         external_id="input1",
@@ -74,6 +81,7 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
     # Add input
     return client.lidars_and_cameras_sequence.create(lidars_and_cameras_seq,
                                                      project=project,
+                                                     annotation_types=annotation_types,
                                                      dryrun=dryrun)
 
 
@@ -83,4 +91,7 @@ if __name__ == '__main__':
 
     # Project - Available via `client.project.get_projects()`
     project = "<project-identifier>"
-    run(client, project, dryrun=True)
+    # Annotation Types - Available via `client.project.get_annotation_types(project)`
+    annotation_types = ["Annotation-type"]
+
+    run(client, project, annotation_types, dryrun=True)

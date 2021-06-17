@@ -1,4 +1,4 @@
-from __future__ import absolute_import
+from __future__ import absolute_import, annotations
 
 from typing import List
 
@@ -31,6 +31,25 @@ class TestLidarsAndCamerasSeq:
         projects = client.project.get_projects()
         project = self.filter_lidar_and_cameras_project(projects)[0].project
         resp = lidars_cameras_example.run(client=client, project=project, dryrun=False)
+        assert isinstance(resp.input_uuid, str)
+
+        with pytest.raises(AttributeError):
+            resp.files
+
+    def test_validate_lidars_and_cameras_with_at_input(self, client: IAC.InputApiClient):
+        projects = client.project.get_projects()
+        project = self.filter_lidar_and_cameras_project(projects)[0].project
+
+        annotation_types = ["object-detection", "signs"]
+        resp = lidars_cameras_example.run(client=client, project=project, annotation_types=annotation_types)
+        assert resp is None
+
+    def test_create_lidars_and_cameras_with_at_input(self, client: IAC.InputApiClient):
+        projects = client.project.get_projects()
+        project = self.filter_lidar_and_cameras_project(projects)[0].project
+
+        annotation_types = ["object-detection", "signs"]
+        resp = lidars_cameras_example.run(client=client, project=project, annotation_types=annotation_types, dryrun=False)
         assert isinstance(resp.input_uuid, str)
 
         with pytest.raises(AttributeError):

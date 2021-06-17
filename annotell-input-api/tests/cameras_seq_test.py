@@ -14,10 +14,6 @@ class TestCameras:
     def filter_cameras_seq_project(projects: List[IAM.Project]):
         return [p for p in projects if p.project == TestProjects.CamerasSequenceProject]
 
-    @staticmethod
-    def filter_cameras_seq_project_with_at(projects: List[IAM.Project]):
-        return [p for p in projects if p.project == TestProjects.CamerasSequenceProjectWithAT]
-
     def test_get_cameras_project(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
         project = self.filter_cameras_seq_project(projects)
@@ -57,17 +53,17 @@ class TestCameras:
 
     def test_validate_cameras_sequence_with_at_input(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
-        project = self.filter_cameras_seq_project_with_at(projects)[0].project
+        project = self.filter_cameras_seq_project(projects)[0].project
 
-        annotation_types = ["object_detection", "signs"]
+        annotation_types = ["object-detection", "signs"]
 
         resp = cameras_seq_images_example.run(client=client, project=project, annotation_types=annotation_types)
         assert resp is None
 
     def test_create_cameras_sequence_with_at_input(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
-        project = self.filter_cameras_seq_project_with_at(projects)[0].project
-        annotation_types = ["object_detection", "signs"]
+        project = self.filter_cameras_seq_project(projects)[0].project
+        annotation_types = ["object-detection", "signs"]
 
         resp = cameras_seq_images_example.run(client=client, project=project, annotation_types=annotation_types, dryrun=False)
         assert isinstance(resp.input_uuid, str)
