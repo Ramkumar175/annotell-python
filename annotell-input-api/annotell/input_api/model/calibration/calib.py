@@ -20,6 +20,7 @@ class SensorCalibration:
             'calibration': {k: v.to_dict() for (k, v) in self.calibration.items()}
         }
 
+
 @dataclass
 class SensorCalibrationEntry(Response):
     id: str
@@ -29,9 +30,11 @@ class SensorCalibrationEntry(Response):
 
     @staticmethod
     def from_json(js: dict):
+        calibration = {k: CameraCalibration.from_json(v) if v.get('camera_matrix') else LidarCalibration.from_json(v)
+                       for (k, v) in js['calibration'].items()}
         return SensorCalibrationEntry(
             id=js["id"],
             external_id=js["externalId"],
             created=ts_to_dt(js["created"]),
-            calibration=js.get("calibration")
+            calibration=calibration
         )

@@ -20,6 +20,15 @@ class RotationQuaternion(RequestCall):
     def to_dict(self) -> Dict:
         return self.__dict__
 
+    @staticmethod
+    def from_json(js: dict):
+        return RotationQuaternion(
+            w=js["w"],
+            x=js["x"],
+            y=js["y"],
+            z=js["z"],
+        )
+
 
 @dataclass
 class Position(RequestCall):
@@ -29,6 +38,14 @@ class Position(RequestCall):
 
     def to_dict(self) -> Dict:
         return self.__dict__
+
+    @staticmethod
+    def from_json(js: dict):
+        return Position(
+            x=js["x"],
+            y=js["y"],
+            z=js["z"],
+        )
 
 
 @dataclass
@@ -40,6 +57,15 @@ class CameraMatrix(RequestCall):
 
     def to_dict(self) -> Dict:
         return self.__dict__
+
+    @staticmethod
+    def from_json(js: dict):
+        return CameraMatrix(
+            fx=js["fx"],
+            fy=js["fy"],
+            cx=js["cx"],
+            cy=js["cy"],
+        )
 
 
 @dataclass
@@ -59,6 +85,16 @@ class DistortionCoefficients(RequestCall):
         else:
             assert(self.k3 is not None)
 
+    @staticmethod
+    def from_json(js: dict):
+        return DistortionCoefficients(
+            k1=js["k1"],
+            k2=js["k2"],
+            p1=js["p1"],
+            p2=js["p2"],
+            k3=js.get("k3")
+        )
+
 
 @dataclass
 class UndistortionCoefficients(RequestCall):
@@ -69,6 +105,18 @@ class UndistortionCoefficients(RequestCall):
 
     def to_dict(self) -> Dict:
         return self.__dict__
+
+    @staticmethod
+    def from_json(js: dict):
+        if js:
+            return UndistortionCoefficients(
+                l1=js["l1"],
+                l2=js["l2"],
+                l3=js["l3"],
+                l4=js["l4"]
+            )
+        else:
+            return None
 
 
 @dataclass
@@ -83,6 +131,12 @@ class CameraProperty(RequestCall):
     def get_camera_type(self) -> CameraType:
         return self.camera_type
 
+    @staticmethod
+    def from_json(js: dict):
+        return CameraProperty(
+            camera_type=js["camera_type"]
+        )
+
 
 @dataclass
 class LidarCalibration(RequestCall):
@@ -94,6 +148,13 @@ class LidarCalibration(RequestCall):
             "position": self.position.to_dict(),
             "rotation_quaternion": self.rotation_quaternion.to_dict()
         }
+
+    @staticmethod
+    def from_json(js: dict):
+        return LidarCalibration(
+            position=Position.from_json(js["position"]),
+            rotation_quaternion=RotationQuaternion.from_json(js["rotation_quaternion"])
+        )
 
 
 @dataclass
@@ -127,3 +188,16 @@ class CameraCalibration(RequestCall):
             base["undistortion_coefficients"] = self.undistortion_coefficients.to_dict()
 
         return base
+
+    @staticmethod
+    def from_json(js: dict):
+        return CameraCalibration(
+            position=Position.from_json(js["position"]),
+            rotation_quaternion=RotationQuaternion.from_json(js["rotation_quaternion"]),
+            camera_matrix=CameraMatrix.from_json(js["camera_matrix"]),
+            distortion_coefficients=DistortionCoefficients.from_json(js["distortion_coefficients"]),
+            camera_properties=CameraProperty.from_json(js["camera_properties"]),
+            image_height=js["image_height"],
+            image_width=js["image_width"],
+            undistortion_coefficients=UndistortionCoefficients.from_json(js.get("undistortion_coefficients")),
+        )
