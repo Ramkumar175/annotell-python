@@ -4,8 +4,7 @@ import annotell.input_api.input_api_client as IAC
 import annotell.input_api.model as IAM
 import examples.get_projects as get_projects_example
 import examples.get_project_batches as get_project_batches_example
-import examples.get_project_annotation_types as get_project_annotation_types_example
-import examples.get_project_batches_annotation_types as get_project_batches_annotation_types_example
+from examples.get_annotation_types import run as get_annotation_types
 from tests.utils import TestProjects
 
 
@@ -37,7 +36,7 @@ class TestProject:
         print([project.project for project in projects])
 
         project = self.filter_cameras_project(projects)[0].project
-        annotation_types = get_project_annotation_types_example.run(client=client, project=project)
+        annotation_types = get_annotation_types(client=client, project=project)
 
         assert isinstance(annotation_types, list)
 
@@ -50,7 +49,7 @@ class TestProject:
         project = self.filter_cameras_project(projects)[0].project
         batch = client.project.get_project_batches(project)[0].batch
 
-        annotation_types = get_project_batches_annotation_types_example.run(client=client, project=project, batch=batch)
+        annotation_types = get_annotation_types(client=client, project=project, batch=batch)
 
         assert isinstance(annotation_types, list)
 

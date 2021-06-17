@@ -2,6 +2,7 @@ from enum import Enum
 
 
 class TestProjects(str, Enum):
+    BatchProject = "batch-project"
     CamerasProject = "cameras-project"
     CamerasSequenceProject = "cameras_sequence-project"
     LidarsAndCamerasProject = "lidars_and_cameras-project"
