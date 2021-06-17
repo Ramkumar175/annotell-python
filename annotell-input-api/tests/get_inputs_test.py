@@ -14,6 +14,11 @@ class TestInput:
     def test_get_inputs(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
         project = self.filter_projects(projects)[0].project
-        inputs = get_inputs_example.run(client=client, project=project)
-        assert isinstance(inputs, list)
+        project_inputs = get_inputs_example.run(client=client, project=project)
+        assert isinstance(project_inputs, list)
 
+        assert len(project_inputs) >= 1
+
+        input = get_inputs_example.run(client=client, project=project, input_uuids=[project_inputs[0].uuid])
+
+        assert len(input) == 1
