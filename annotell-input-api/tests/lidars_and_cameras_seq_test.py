@@ -72,3 +72,10 @@ class TestLidarsAndCamerasSeq:
 
         with pytest.raises(AttributeError):
             resp.files
+
+    def test_create_dangling_lidars_and_cameras_seq_input(self, client: IAC.InputApiClient):
+        resp = lidars_cameras_seq_example.run(client=client, project=None, dryrun=False)
+        assert isinstance(resp.input_uuid, str)
+
+        with pytest.raises(AttributeError):
+            resp.files

@@ -70,3 +70,10 @@ class TestCameras:
 
         with pytest.raises(AttributeError):
             resp.files
+
+    def test_create_dangling_cameras_sequence_videos_input(self, client: IAC.InputApiClient):
+        resp = cameras_seq_videos_example.run(client=client, project=None, dryrun=False)
+        assert isinstance(resp.input_uuid, str)
+
+        with pytest.raises(AttributeError):
+            resp.files
