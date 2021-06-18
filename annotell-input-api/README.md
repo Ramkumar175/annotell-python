@@ -10,6 +10,13 @@ Documentation about how to use the library can found [here](https://annotell.git
 # Changelog
 
 All notable changes to this project will be documented in this file.
+
+## [1.0.8] - TBD
+### Added
+
+### Changed
+- `client.calibration.get_calibration()` now properly deserializes calibration into `SensorCalibrationEntry` instead of keeping it as a dict.
+
 ## [1.0.7] - 2021-06-11
 ### Added
 - `created` timestamp when querying `get_inputs`
@@ -24,7 +31,7 @@ All notable changes to this project will be documented in this file.
 - It is now possible to create your project batches on your own using the
   `client.project.create_batch` method. Please contact Annotell's Professional Services
   before using. More information available in the [documentation](https://annotell.github.io/annotell-python/).
-  
+
 ## [1.0.5] - 2021-05-06
 ### Changed
 - Changed the height/width in the unity calibration created in the examples to match the image/videos.
