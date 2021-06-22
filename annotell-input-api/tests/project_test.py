@@ -44,7 +44,7 @@ class TestProject:
 
         assert "QA" in annotation_types
 
-    def test_get_batch_annotation_types(self, client: IAC.InputApiClient):
+    def test_get_project_batch_annotation_types(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
         project = self.filter_cameras_project(projects)[0].project
         batch = client.project.get_project_batches(project)[0].batch
