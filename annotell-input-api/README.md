@@ -12,7 +12,13 @@ Documentation about how to use the library can found [here](https://annotell.git
 All notable changes to this project will be documented in this file.
 
 ## [1.0.8] - TBD
+### Added
 The `get_inputs` method now accepts `input_uuids` as a parameter.
+
+### Changed
+- `client.calibration.get_calibration()` now properly deserializes calibration into `SensorCalibrationEntry` instead of keeping it as a dict.
+
+>>>>>>> master
 ## [1.0.7] - 2021-06-11
 ### Added
 - `created` timestamp when querying `get_inputs`
