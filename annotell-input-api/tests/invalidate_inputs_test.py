@@ -28,7 +28,7 @@ class TestCameras:
 
         assert isinstance(input_uuid, str)
 
-        inputs = []
+        inputs = None
         for _ in range(3):
             inputs = get_inputs_example.run(
                 client=client, project=project, input_uuids=[input_uuid])
