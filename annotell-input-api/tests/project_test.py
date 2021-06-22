@@ -42,7 +42,7 @@ class TestProject:
 
         assert len(annotation_types) >= 1
 
-        assert "QA" in annotation_types
+        # assert "QA" not in annotation_types
 
     def test_get_project_batch_annotation_types(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
