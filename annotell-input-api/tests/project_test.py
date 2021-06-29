@@ -33,7 +33,6 @@ class TestProject:
 
     def test_get_project_annotation_types(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
-        print([project.project for project in projects])
 
         project = self.filter_cameras_project(projects)[0].project
         annotation_types = get_annotation_types(client=client, project=project)
