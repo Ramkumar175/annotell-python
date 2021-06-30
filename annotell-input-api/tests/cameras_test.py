@@ -33,3 +33,29 @@ class TestCameras:
 
         with pytest.raises(AttributeError):
             resp.files
+
+    def test_validate_create_cameras_with_at(self, client: IAC.InputApiClient):
+        projects = client.project.get_projects()
+        project = self.filter_cameras_project(projects)[0].project
+        annotation_types = ["object-detection", "signs"]
+        resp = cameras_example.run(client=client, project=project, annotation_types=annotation_types)
+        assert resp is None
+
+    def test_create_cameras_with_at(self, client: IAC.InputApiClient):
+        projects = client.project.get_projects()
+        project = self.filter_cameras_project(projects)[0].project
+        annotation_types = ["object-detection", "signs"]
+        resp = cameras_example.run(client=client, project=project, annotation_types=annotation_types, dryrun=False)
+
+        assert isinstance(resp.input_uuid, str)
+
+        with pytest.raises(AttributeError):
+            resp.files
+
+    def test_create_dangling_cameras_input(self, client: IAC.InputApiClient):
+        resp = cameras_example.run(client=client, project=None, dryrun=False)
+
+        assert isinstance(resp.input_uuid, str)
+
+        with pytest.raises(AttributeError):
+            resp.files

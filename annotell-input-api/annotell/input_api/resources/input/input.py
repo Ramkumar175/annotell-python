@@ -42,7 +42,7 @@ class InputResource(InputAPIResource):
         :param batch: Batch (identifier) to filter
         :param invalidated: Returns invalidated inputs if True, otherwise valid inputs
         :param external_id: External ID to filter input on
-        : param input_uuids: A UUID to filter inputs on
+        :param input_uuids: A UUID to filter inputs on
         :return List: List of Inputs
         """
 

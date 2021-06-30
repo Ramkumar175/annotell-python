@@ -4,10 +4,14 @@ import annotell.input_api.input_api_client as IAC
 import annotell.input_api.model.input as InputModel
 import annotell.input_api.model.input.cameras as CamerasModel
 from annotell.input_api.logger import setup_logging
-from typing import Optional
+from typing import List, Optional
 
 
-def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> Optional[InputModel.CreateInputResponse]:
+def run(client: IAC.InputApiClient,
+        project: str,
+        annotation_types: Optional[List[str]] = None,
+        dryrun: bool = True) -> Optional[InputModel.CreateInputResponse]:
+
     print("Creating Cameras Input...")
 
     sensor1 = "RFC01"
@@ -22,15 +26,17 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> Option
         external_id="input1",
         frame=CamerasModel.Frame(
             images=[
-                InputModel.Image("./examples/resources/img_RFC01.jpg", sensor_name=sensor1),
-                InputModel.Image("./examples/resources/img_RFC02.jpg", sensor_name=sensor2),
+                InputModel.Image(
+                    "./examples/resources/img_RFC01.jpg", sensor_name=sensor1),
+                InputModel.Image(
+                    "./examples/resources/img_RFC02.jpg", sensor_name=sensor2),
             ]
         ),
         metadata=metadata
     )
 
     # Add input
-    return client.cameras.create(cameras, project=project, dryrun=dryrun)
+    return client.cameras.create(cameras, project=project, annotation_types=annotation_types, dryrun=dryrun)
 
 
 if __name__ == '__main__':
@@ -39,6 +45,7 @@ if __name__ == '__main__':
 
     # Project - Available via `client.project.get_projects()`
     project = "Project-identifier"
-    run(client, project)
+    # Annotation Types - Available via `client.project.get_annotation_types(project)`
+    annotation_types = ["annotation-type"]
 
-
+    run(client, project, annotation_types)

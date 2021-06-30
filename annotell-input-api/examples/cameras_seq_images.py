@@ -1,4 +1,5 @@
 from __future__ import absolute_import
+from typing import List, Optional
 
 import annotell.input_api.input_api_client as IAC
 import annotell.input_api.model.input as InputModel
@@ -6,7 +7,7 @@ import annotell.input_api.model.input.cameras_sequence as CamerasSeqModel
 from annotell.input_api.logger import setup_logging
 
 
-def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
+def run(client: IAC.InputApiClient, project: str, annotation_types: Optional[List[str]] = None, dryrun: bool = True):
     print("Creating Cameras Sequence Input...")
 
     sensor1 = "RFC01"
@@ -53,6 +54,7 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
     # Add input
     return client.cameras_sequence.create(cameras_sequence,
                                           project=project,
+                                          annotation_types=annotation_types,
                                           dryrun=dryrun)
 
 
@@ -61,6 +63,9 @@ if __name__ == '__main__':
     # Project - Available via `client.project.get_projects()`
     project = "<project-identifier>"
 
+    # Annotation Types - Available via `client.project.get_annotation_types(project)`
+    annotation_types = ["annotation-type"]
+
     client = IAC.InputApiClient()
-    run(client, project)
+    run(client, project, annotation_types)
 
