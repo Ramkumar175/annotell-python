@@ -25,7 +25,7 @@ class Lidars(CreateableInputAPIResource):
         :param batch: batch, defaults to latest open batch
         :param annotation_types: annotation types for which to produce annotations for. Defaults to `None` (corresponds to all available annotation types). Passing an empty list will result in the same behaviour as passing `None`.
         :param dryrun: If True the files/metadata will be validated but no input job will be created.
-        :returns InputJobCreated: Class containing id of the created input job, or `None` if dryrun.
+        :returns CreateInputResponse: Class containing id of the created input job, or `None` if dryrun.
         """
 
         payload = lidars.to_dict()
