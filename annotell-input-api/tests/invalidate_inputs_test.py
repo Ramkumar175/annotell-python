@@ -29,7 +29,7 @@ class TestCameras:
         assert isinstance(input_uuid, str)
 
         inputs = None
-        for _ in range(3):
+        for _ in range(6):
             inputs = get_inputs_example.run(
                 client=client, project=project, input_uuids=[input_uuid])
 
@@ -39,8 +39,8 @@ class TestCameras:
             time.sleep(1)
 
         assert isinstance(inputs, list)
-
         assert len(inputs) == 1
+        assert inputs[0].status == "created"
 
         invalidate_inputs_example.run(client=client,
                                       input_uuid=input_uuid,
