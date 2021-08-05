@@ -16,9 +16,11 @@ Sequential input types are easily identified by the suffix `Seq` present in thei
 
 The following input types are currently supported
 * `Cameras`
+* `Lidars`
 * `LidarsAndCameras`
 * `CamerasSeq`
-* `LidarAndCamerasSeq` 
+* `LidarsSeq`
+* `LidarAndCamerasSeq`
 
 ## Input Fields
 All non-sequential inputs have the following structure
@@ -91,14 +93,14 @@ When including calibration id make sure that all of the sensors present on the i
 Inputs without a lidar sensor do not require a calibration.
 
 ### Metadata
-Metadata can be added to inputs via the `metadata` field. It consists of _flat_ key-value pairs, which means that nested data structures are not allowed. Metadata can be used to include additional information about an input. 
+Metadata can be added to inputs via the `metadata` field. It consists of _flat_ key-value pairs, which means that nested data structures are not allowed. Metadata can be used to include additional information about an input.
 
 Metadata is not used during the process of producing annotations, i.e. annotators do not have access to the metadata.
 
 ### Frame (non-sequential inputs)
-The Frame object specifies the binary data to be annotated (.jpg, .png, .las etc) as well as which sensor the data originated from. 
+The Frame object specifies the binary data to be annotated (.jpg, .png, .las etc) as well as which sensor the data originated from.
 
-The Frame object is different for each input type since they all support different kinds of sensors, even though the overall structure is the same. 
+The Frame object is different for each input type since they all support different kinds of sensors, even though the overall structure is the same.
 
 As an example, let's say we want to create an input consiting of images from three different camera sensors `R`, `F` and `L`. The corresponding binary data is present in the files `img_cam_R.jpg`, `img_cam_F.jpg` and `img_cam_F.jpg`. This would correspond to creating a `Cameras` input.
 
@@ -124,7 +126,7 @@ lidars_and_cameras = LidarsAndCameras(
         images=[
             Image("img_cam_R.jpg", sensor_name="R"),
             Image("img_cam_F.jpg", sensor_name="F"),
-            Image("img_cam_L.jpg", sensor_name="L"),            
+            Image("img_cam_L.jpg", sensor_name="L"),
         ],
         point_clouds=[
             PointCloud("scan_vdl_64.las", sensor_name="VDL-64")
@@ -148,7 +150,7 @@ frames = [frame_1, frame_2, frame_3]
 
 This representation captures that `frame_1` comes first, then `frame_2` and `frame_3`, but it does not express how much time has passed between the different frames. This information is encoded via the `relative_timestamp` parameter present on each Frame object. The relative timestamp is expressed in milliseconds and describes the relative time between the Frame and the start of the input.
 
-For example, let's say that the sensor data is collected and aggregated at 2Hz. That would then be expressed as 
+For example, let's say that the sensor data is collected and aggregated at 2Hz. That would then be expressed as
 
 ```python
 frame_1 = Frame(..., relative_timestamp=0)
@@ -165,9 +167,9 @@ Similarly to the metadata capability available on an input-level, it's also poss
 
 ## Video or sequence of images for sequential inputs?
 
-The sequential input types `CamerasSeq` and `LidarsAndCamerasSeq` provide two different ways of providing sequential camera resources, either as a set of individual images or as videofiles where each camera frame is represented as a timestamp in a videofile. 
+The sequential input types `CamerasSeq` and `LidarsAndCamerasSeq` provide two different ways of providing sequential camera resources, either as a set of individual images or as videofiles where each camera frame is represented as a timestamp in a videofile.
 
-As an example, let's say we want to create an input of type `CamerasSeq` consisting of 2 frames, each with camera data from two different sensors `R` and `L`. 
+As an example, let's say we want to create an input of type `CamerasSeq` consisting of 2 frames, each with camera data from two different sensors `R` and `L`.
 
 If we have individual images for each frame and sensor, this would correspond to the following list of frames
 
@@ -228,7 +230,7 @@ The choice of which approach to use is up to the client. Long sequences should p
 If image quality if of central importance and sequnces are not large then it's recommended to supply individual camera images instead of videos.
 
 ## Image, Video & Pointcloud Resources
-Every single file containing binary sensor data (e.g. image, video or pointcloud files) is represented as a `Resource`, with `Image`, `PointCloud` and `VideoFrame` all being subclasses of it. 
+Every single file containing binary sensor data (e.g. image, video or pointcloud files) is represented as a `Resource`, with `Image`, `PointCloud` and `VideoFrame` all being subclasses of it.
 
 ```python reference
 https://github.com/annotell/annotell-python/blob/f2b941373b1dff4297d7705ef0f2587eadbca7b3/annotell-input-api/annotell/input_api/model/input/resources/resource.py#L7-L12
@@ -239,7 +241,7 @@ When specifying a `Resource` object (like `Image`, `PointCloud` or `VideoFrame`)
 1. Refer to _local_ files, these will be uploaded (synchronously) to the Annotell platform.
 2. Refer to _remote_ files via URI, these will only be uploaded (asynchronously) and stored in the Annotell platform if mandatory file conversion is necessary. Otherwise they will be served to annotators via the URI.
 
-**Alternative 1** is achieved by setting the parameter `filename` to the path of the local file and leaving the parameter `resource_id` set the default value of `None`, e.g. 
+**Alternative 1** is achieved by setting the parameter `filename` to the path of the local file and leaving the parameter `resource_id` set the default value of `None`, e.g.
 
 ```python
 Image(
@@ -250,7 +252,7 @@ Image(
 
 This file will automatically be uploaded to the Annotell Platform in a synchronous manner when the corresponding `create` method is called for creating the input.
 
-**Alternative 2** is achieved by setting the parameter `filename` to just be the filename, and setting the parameter `resource_id` to the corresponding URI of the file, e.g. 
+**Alternative 2** is achieved by setting the parameter `filename` to just be the filename, and setting the parameter `resource_id` to the corresponding URI of the file, e.g.
 
 ```python
 Image(
