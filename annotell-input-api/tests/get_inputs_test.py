@@ -22,7 +22,7 @@ class TestInput:
         assert isinstance(project_inputs, list)
         assert len(project_inputs) >= 1
 
-    def test_get_inputs_with_input_uuid(self, client: IAC.InputApiClient):
+    def test_get_inputs_with_uuid(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
         project = self.filter_cameras_project(projects)[0].project
         input_response = cameras_example.run(client=client, project=project, dryrun=False)
@@ -30,7 +30,6 @@ class TestInput:
 
         assert isinstance(input_uuid, str)
 
-        print(input_uuid)
         inputs = get_inputs_by_uuids_example.run(client=client, input_uuids=[input_uuid])
 
         assert isinstance(inputs, list)
