@@ -15,11 +15,11 @@ All notable changes to this project will be documented in this file.
 ### Added
 - A new method has been added, `get_inputs_with_uuids`, which can fetch inputs using only the `input_uuid`.
 - `annoutil` has a new flag when fetching inputs, `annoutil inputs --uuids <comma_separated_uuids>`.
+- `lidars` and `lidars_sequence` inputs now available through the client.
 
 ### Changed
 - `client.calibration.get_calibration()` now properly deserializes calibration into `SensorCalibrationEntry` instead of keeping it as a dict.
 
->>>>>>> master
 ## [1.0.7] - 2021-06-11
 ### Added
 - `created` timestamp when querying `get_inputs`
