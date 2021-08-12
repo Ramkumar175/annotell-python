@@ -1,3 +1,4 @@
+from annotell.input_api.model.input.input_entry import Input
 import logging
 from typing import List, Optional
 
@@ -33,7 +34,6 @@ class InputResource(InputAPIResource):
         batch: Optional[str] = None,
         include_invalidated: bool = False,
         external_ids: Optional[List[str]] = None,
-        input_uuids: Optional[List[str]] = None,
     ) -> List[InputModel.Input]:
         """
         Gets inputs for project, with option to filter for invalidated inputs
@@ -42,17 +42,26 @@ class InputResource(InputAPIResource):
         :param batch: Batch (identifier) to filter
         :param invalidated: Returns invalidated inputs if True, otherwise valid inputs
         :param external_id: External ID to filter input on
-        :param input_uuids: A UUID to filter inputs on
         :return List: List of Inputs
         """
 
         external_id_query_param = ",".join(external_ids) if external_ids else None
-        input_uuids_query_param = ",".join(input_uuids) if input_uuids else None
         json_resp = self._client.get("v1/inputs", params=filter_none({
             "project": project,
             "batch": batch,
             "invalidated": include_invalidated,
-            "externalIds": external_id_query_param,
-            "inputUuids": input_uuids_query_param,
+            "externalIds": external_id_query_param
         }))
         return [InputModel.Input.from_json(js) for js in json_resp]
+
+    def get_inputs_by_uuids(self, input_uuids: List[str]) -> List[Input]:
+        """
+        Gets inputs using input uuids
+
+        :param input_uuids: A UUID to filter inputs on
+        :return List: List of Inputs
+        """
+
+        body = dict(uuids=input_uuids)
+        json_resp = self._client.post("v1/inputs/query", json=body)
+        return [Input.from_json(js) for js in json_resp]

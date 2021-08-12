@@ -13,7 +13,8 @@ All notable changes to this project will be documented in this file.
 
 ## [1.0.8] - TBD
 ### Added
-- The `get_inputs` method now accepts `input_uuids` as a parameter.
+- A new method has been added, `get_inputs_with_uuids`, which can fetch inputs using only the `input_uuid`.
+- `annoutil` has a new flag when fetching inputs, `annoutil inputs --uuids <comma_separated_uuids>`.
 - `lidars` and `lidars_sequence` inputs now available through the client.
 
 ### Changed
