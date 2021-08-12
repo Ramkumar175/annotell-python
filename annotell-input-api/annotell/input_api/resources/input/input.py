@@ -61,5 +61,7 @@ class InputResource(InputAPIResource):
         :param input_uuids: A UUID to filter inputs on
         :return List: List of Inputs
         """
-        json_resp = self._client.post("v1/inputs/query", json=input_uuids)
+
+        body = dict(uuids=input_uuids)
+        json_resp = self._client.post("v1/inputs/query", json=body)
         return [Input.from_json(js) for js in json_resp]

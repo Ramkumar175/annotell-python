@@ -36,7 +36,7 @@ class TestLidarsAndCamerasSeq:
         runner = CliRunner()
         result = runner.invoke(
             annoutil.inputs,
-            ['lidars_and_cameras-project', '--external-ids', 'input1', '--include-invalidated'],
+            ['--project', 'lidars_and_cameras-project', '--external-ids', 'input1', '--include-invalidated'],
             obj={'client': client}
         )
         assert result.exit_code == 0, result.output
@@ -45,7 +45,7 @@ class TestLidarsAndCamerasSeq:
         runner = CliRunner()
         result = runner.invoke(
             annoutil.inputs,
-            ['lidars_and_cameras-project', '--external-ids', 'input1', '--include-invalidated', '--view'],
+            ['--project', 'lidars_and_cameras-project', '--external-ids', 'input1', '--include-invalidated', '--view'],
             obj={'client': client}
         )
         assert result.exit_code == 0, result.output
