@@ -12,6 +12,8 @@ from annotell.input_api.resources.input.cameras_sequence import CamerasSequence
 from annotell.input_api.resources.input.input import InputResource
 from annotell.input_api.resources.input.lidars_and_cameras import LidarsAndCameras
 from annotell.input_api.resources.input.lidars_and_cameras_sequence import LidarsAndCamerasSequence
+from annotell.input_api.resources.input.lidars import Lidars
+from annotell.input_api.resources.input.lidars_sequence import LidarsSequence
 from annotell.input_api.resources.project.project import ProjectResource
 
 DEFAULT_HOST = "https://input.annotell.com"
@@ -54,3 +56,5 @@ class InputApiClient:
         self.lidars_and_cameras_sequence = LidarsAndCamerasSequence(self._client, self._file_client)
         self.cameras = Cameras(self._client, self._file_client)
         self.cameras_sequence = CamerasSequence(self._client, self._file_client)
+        self.lidars = Lidars(self._client, self._file_client)
+        self.lidars_sequence = LidarsSequence(self._client, self._file_client)
