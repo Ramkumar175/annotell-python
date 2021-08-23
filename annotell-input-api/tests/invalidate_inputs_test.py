@@ -7,7 +7,7 @@ import annotell.input_api.input_api_client as IAC
 import annotell.input_api.model as IAM
 import examples.cameras as cameras_example
 import examples.invalidate_inputs as invalidate_inputs_example
-import examples.get_inputs as get_inputs_example
+import examples.get_inputs_by_uuids as get_inputs_example
 from annotell.input_api.model.input.invalidated_reason_input import \
     InvalidatedReasonInput
 
@@ -30,8 +30,7 @@ class TestCameras:
 
         inputs = None
         for _ in range(6):
-            inputs = get_inputs_example.run(
-                client=client, project=project, input_uuids=[input_uuid])
+            inputs = get_inputs_example.run(client=client, input_uuids=[input_uuid])
 
             if len(inputs) == 1 and inputs[0].status == 'created':
                 break
@@ -46,9 +45,6 @@ class TestCameras:
                                       input_uuid=input_uuid,
                                       invalidated_reason=InvalidatedReasonInput.BAD_CONTENT)
 
-        invalidated_input = get_inputs_example.run(client=client,
-                                                   project=project,
-                                                   include_invalidated=True,
-                                                   input_uuids=[input_uuid])[0]
+        invalidated_input = get_inputs_example.run(client=client, input_uuids=[input_uuid])[0]
 
         assert invalidated_input.status == "invalidated:broken-input"

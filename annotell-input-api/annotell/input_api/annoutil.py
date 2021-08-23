@@ -70,16 +70,17 @@ def projects(obj, project, get_batches):
 
 
 @click.command()
-@click.argument('project', nargs=1, default=None, required=True, type=str)
+@click.option('--project', nargs=1, default=None, required=False, type=str)
 @click.option('--batch', nargs=1, default=None, required=False, type=str)
 @click.option('--external-ids', required=False, multiple=True)
 @click.option('--include-invalidated', required=False, is_flag=True)
 @click.option("--view", is_flag=True)
+@click.option("--uuids", type=str, help="Comma separated list of input uuids")
 @click.pass_obj
-def inputs(obj, project, batch, external_ids, include_invalidated, view):
+def inputs(obj, project, batch, external_ids, include_invalidated, view, uuids):
     client = obj['client']
     print()
-    if view:
+    if view and project:
         inputs = client.input.get_inputs(project, batch, external_ids=external_ids, include_invalidated=include_invalidated)
         view_dict = {input.uuid: input.view_link for input in inputs}
         body = []
@@ -89,6 +90,18 @@ def inputs(obj, project, batch, external_ids, include_invalidated, view):
                 uuid, link
             ])
         tab = _tabulate(body, headers, title="VIEW LINKS FOR INPUTS")
+        print(tab)
+    elif uuids is not None:
+        uuids = uuids.split(",")
+        inputs = client.input.get_inputs_by_uuids(uuids)
+        headers = ["uuid",
+            "external_id",
+            "batch",
+            "input_type",
+            "status",
+            "view_link",
+            "error_message"]
+        tab = _get_table(inputs, headers, "INPUTS")
         print(tab)
     else:
         inputs = client.input.get_inputs(project, batch, include_invalidated=include_invalidated)
