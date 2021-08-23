@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 - A new method has been added, `get_inputs_with_uuids`, which can fetch inputs using only the `input_uuid`.
 - `annoutil` has a new flag when fetching inputs, `annoutil inputs --uuids <comma_separated_uuids>`.
 - `lidars` and `lidars_sequence` inputs now available through the client.
+- A new method has been added, `add_annotation_type`, which adds additional annotation types to be performed for an input.
 
 ### Changed
 - `client.calibration.get_calibration()` now properly deserializes calibration into `SensorCalibrationEntry` instead of keeping it as a dict.

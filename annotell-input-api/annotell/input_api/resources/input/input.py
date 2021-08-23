@@ -54,6 +54,19 @@ class InputResource(InputAPIResource):
         }))
         return [InputModel.Input.from_json(js) for js in json_resp]
 
+    def add_annotation_type(self, input_uuid: str, annotation_type: str) -> None:
+        """
+        Adds annotation-type to the input, which informs the Annotell Platform
+        to produce a corresponding annotation for the annotation-type. Only
+        possible if the annotation-type is available in the corresponding batch
+        of the input (use method `get_annotation_types` to check).
+        """
+
+        self._client.post(
+            f"v1/inputs/{input_uuid}/actions/add-annotation-type/{annotation_type}",
+            discard_response=True
+        )
+
     def get_inputs_by_uuids(self, input_uuids: List[str]) -> List[Input]:
         """
         Gets inputs using input uuids
