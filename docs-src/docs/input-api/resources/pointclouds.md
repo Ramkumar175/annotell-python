@@ -25,7 +25,7 @@ We validate `VERSION`, `FIELDS`, `SIZE`, `TYPE` and `COUNT` rows of this header.
 ## CSV
 We currently only support the following exact header and separation character:
 ```
-ts_gps, x, y, z, intensity
+ts_gps,x,y,z,intensity
 ```
 
 All other formats will fail.
