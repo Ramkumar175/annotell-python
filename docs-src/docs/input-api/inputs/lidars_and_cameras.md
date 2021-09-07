@@ -1,5 +1,5 @@
 ---
-title: LidarsAndCameras
+title: Lidars and Cameras
 ---
 
 A `LidarsAndCameras` input consists of a *single* frame which contains 1-8 cameras images as well as a single pointcloud. For more documentation on what each field corresponds to in the `LidarsAndCameras` object please check the section related to [Input Overview](/docs/input-api/overview).
