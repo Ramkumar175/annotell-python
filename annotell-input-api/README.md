@@ -11,7 +11,7 @@ Documentation about how to use the library can found [here](https://annotell.git
 
 All notable changes to this project will be documented in this file.
 
-## [1.0.8] - TBD
+## [1.0.8] - 2021-09-07
 ### Added
 - A new method has been added, `get_inputs_with_uuids`, which can fetch inputs using only the `input_uuid`.
 - `annoutil` has a new flag when fetching inputs, `annoutil inputs --uuids <comma_separated_uuids>`.
