@@ -25,7 +25,7 @@ class DataTypeWithAttributes:
     name: str = None
     val: Any = None
     attributes: Optional[Attributes] = field(default_factory=Attributes)
-
+    stream: str = None
 
 @dataclass
 class Coordinate:
