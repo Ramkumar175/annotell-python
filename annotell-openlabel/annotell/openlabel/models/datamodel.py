@@ -27,6 +27,7 @@ class DataTypeWithAttributes:
     attributes: Optional[Attributes] = field(default_factory=Attributes)
     stream: str = None
 
+
 @dataclass
 class Coordinate:
     x: float
@@ -205,18 +206,6 @@ class Elements(OpenLabelBase):
     objects: Optional[Dict[str, Object]] = field(default_factory=dict)
     relations: Optional[Dict[str, Relation]] = field(default_factory=dict)
 
-    def __repr__(self):
-        rep_str = ", ".join(
-            [
-                f"actions: {len(self.actions)}" if self.actions else "",
-                f"contexts: {len(self.contexts)}" if self.contexts else "",
-                f"events: {len(self.events)}" if self.events else "",
-                f"objects: {len(self.objects)}" if self.objects else "",
-                f"relations: {len(self.relations)}" if self.relations else ""
-            ]
-        )
-        return f"Elements({rep_str})"
-
     def get_relations_for_object(self, object_id: str) -> List[Relation]:
         return [relation for relation in self.relations.values() if relation.object_in_odf_objects(object_id)]
 
@@ -235,8 +224,21 @@ class Ontologies(dict):
 
 
 @dataclass
-class Stream(Attributes):
-    pass
+class Sync(OpenLabelBase):
+    frame_stream: str = None
+    timestamp: str = None
+
+
+@dataclass
+class StreamProperties(Attributes):
+    sync: Optional[Sync] = None
+
+
+@dataclass
+class Stream(OpenLabelBase):
+    name: str = None
+    type: str = None
+    attributes: Optional[Attributes] = field(default_factory=Attributes)
 
 
 @dataclass
@@ -248,11 +250,6 @@ class FrameProperties(Attributes):
 class Frame(Elements):
     frame_properties: Optional[FrameProperties] = field(default_factory=FrameProperties)
 
-    def __repr__(self):
-        rep_str = f"{super().__repr__()}, "
-        rep_str += f"properties: {self.frame_properties}"
-        return f"Frame({rep_str})"
-
 
 @dataclass
 class OpenLabelData(OpenLabelBase):
@@ -261,7 +258,6 @@ class OpenLabelData(OpenLabelBase):
     frames: Optional[Dict[str, Frame]] = field(default_factory=dict)
     metadata: Optional[Metadata] = field(default_factory=Metadata)
     ontologies: Optional[Ontologies] = field(default_factory=Ontologies)
-    streams: Optional[Dict[str, Stream]] = field(default_factory=dict)
 
     def to_dict(self):
         stripped_dict = super().to_dict()
