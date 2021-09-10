@@ -2,7 +2,7 @@ import unittest
 from dataclasses import asdict
 
 from annotell.openlabel.models.utils.deserialize import deserialize
-from annotell.openlabel.models.datamodel import OpenLabelData
+from annotell.openlabel.models.datamodel import OpenLabelAnnotation
 from static.expected_openlabel import expected_openlabel
 from static.objects_for_testing import all_attributes, all_basic_types, all_element_objects, all_frames, all_object_datas, all_shapes, \
     openlabel_data
@@ -53,6 +53,6 @@ class TestDeserializer(unittest.TestCase):
         assert instance == obj, f"Failed to deserialize object data {type(obj)}\n{data}"
 
     def test_deserialize_judgement(self):
-        data = OpenLabelData.from_dict(data=expected_openlabel)
+        data = OpenLabelAnnotation.from_dict(data=expected_openlabel)
         x = data.to_dict()
         assert x == expected_openlabel

@@ -90,4 +90,4 @@ all_frames = [frame_properties, frame_properties_full, frame, frame_all]
 # Top level. TODO: add coordinate system, ontologies and streams when they are implemented
 frames = {"0": frame}
 metadata = od.Metadata(assignment_id=485735, feedback="blabla")
-openlabel_data = od.OpenLabelData(elements=elements, frames=frames, metadata=metadata)
+openlabel_data = od.OpenLabelAnnotation(elements=elements, frames=frames, metadata=metadata)
