@@ -6,6 +6,7 @@ module.exports = {
       "input-api/project",
       {"Inputs": [
         "input-api/overview",
+        "input-api/annotation_types",
         {"Input Types": [
           "input-api/inputs/cameras",
           "input-api/inputs/lidars",
@@ -14,9 +15,9 @@ module.exports = {
           "input-api/inputs/lidars_seq",
           "input-api/inputs/lidars_and_cameras_seq"
         ]},
-        "input-api/annotation_types",
-        "input-api/usage",
+        "input-api/working_with_inputs",
       ]},
+      "input-api/annotations",  
       "input-api/calibration",
       "input-api/error_handling",
       "input-api/FAQ",
