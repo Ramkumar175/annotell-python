@@ -77,11 +77,11 @@ Inputs can be created via Annotell's Input API, which has support for several di
 
 ## Annotation
 
-Inputs are annotated in requests, producing _annotations_. By default, annotations follow Annotell's annotation format.
-Based on client needs, custom export formats can be accommodated by Annotell Professional Services team.
+Inputs are annotated in requests, producing _annotations_. Version v1.0.x provide by default annotations in Annotell's annotation format. Version v1.1.x and above provide annotations in the [ASAM OpenLABEL](https://www.asam.net/project-detail/asam-openlabel-v100/) format.
 
 ### Format
 
+#### v1.0.x (Will be deprecated) 🚨
 The Annotell annotation format is closely linked to the Annotell task definition. The task definition determines what we are expected to save, where properties are stored and what datatype(s) the properties will be. The Annotell annotation format is saved as a JSON file and will be described according to the data types of JSON.
 
 The Annotell annotation is an object with the following top keys:
@@ -99,3 +99,6 @@ The Annotell annotation is an object with the following top keys:
   "properties": {}
 }
 ```
+
+#### v1.1.x (Upcoming release) 🚧
+Annotations are provided as json files in the ASAM OpenLABEL format. Eventual conversion of this format needs to occur client-side after the annotations have been fetched. More information on how the ASAM OpenLABEL format is structured is available at [ASAM](https://www.asam.net/index.php?eID=dumpFile&t=f&f=3876&token=413e8c85031ae64cc35cf42d0768627514868b2f#_structure_of_the_openlabel_format).
