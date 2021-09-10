@@ -252,7 +252,7 @@ class Frame(Elements):
 
 
 @dataclass
-class OpenLabelData(OpenLabelBase):
+class OpenLabelAnnotation(OpenLabelBase):
     coordinate_systems: Optional[Dict[str, CoordinateSystem]] = field(default_factory=dict)
     elements: Optional[Elements] = field(default_factory=Elements)
     frames: Optional[Dict[str, Frame]] = field(default_factory=dict)
