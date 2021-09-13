@@ -1,11 +1,14 @@
 from typing import List, Dict, Optional, Generator
-
+from deprecated import deprecated
 from annotell.input_api.model.annotation import ExportAnnotation, Annotation
 from annotell.input_api.util import filter_none
 from annotell.input_api.resources.abstract import InputAPIResource
 
 
 class AnnotationResource(InputAPIResource):
+    @deprecated(reason="Returns annotations in client-specific format."
+                       "This method is deprecated in favour of `get_project_annotations` which lets you list "
+                       "annotations based on project, batch and annotation type.")
     def get_annotations(
             self,
             input_uuids: List[str]
