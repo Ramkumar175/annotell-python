@@ -38,8 +38,8 @@ class AnnotationResource(InputAPIResource):
         url = f"v1/annotations/projects/{project}/"
         if batch:
             url += f"batch/{batch}/"
-        if annotation_type:
-            url += f"annotation-type/{annotation_type}"
+
+        url += f"annotation-type/{annotation_type}"
 
         annotations = self._client.get(url)
         for js in annotations:
