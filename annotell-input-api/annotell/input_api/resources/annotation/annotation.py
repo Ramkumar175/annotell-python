@@ -1,6 +1,6 @@
 from typing import List, Dict, Optional, Generator
 
-import annotell.input_api.model.annotation as AnnotationModel
+from annotell.input_api.model.annotation import ExportAnnotation, Annotation
 from annotell.input_api.util import filter_none
 from annotell.input_api.resources.abstract import InputAPIResource
 
@@ -9,7 +9,7 @@ class AnnotationResource(InputAPIResource):
     def get_annotations(
             self,
             input_uuids: List[str]
-    ) -> Dict[str, List[AnnotationModel.ExportAnnotation]]:
+    ) -> Dict[str, List[ExportAnnotation]]:
         """
         Returns the export ready annotations, either
 
@@ -24,14 +24,14 @@ class AnnotationResource(InputAPIResource):
         annotations = dict()
         for k, v in json_resp.items():
             annotations[k] = [
-                AnnotationModel.ExportAnnotation.from_json(annotation) for annotation in v
+                ExportAnnotation.from_json(annotation) for annotation in v
             ]
         return annotations
 
     def get_project_annotations(self,
                                 project: str,
                                 annotation_type: str,
-                                batch: Optional[str] = None) -> Generator[AnnotationModel.Annotation, None, None]:
+                                batch: Optional[str] = None) -> Generator[dict, None, None]:
         url = f"v1/annotations/projects/{project}/"
         if batch:
             url += f"batch/{batch}/"
@@ -40,7 +40,7 @@ class AnnotationResource(InputAPIResource):
 
         annotations = self._client.get(url)
         for js in annotations:
-            annotation = AnnotationModel.Annotation.from_json(js)
+            annotation = Annotation.from_json(js)
             yield self.get_annotation(annotation.input_uuid, annotation_type)
 
     def get_annotation(self,
