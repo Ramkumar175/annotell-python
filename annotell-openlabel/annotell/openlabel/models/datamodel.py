@@ -189,7 +189,7 @@ class Relation(BaseElement):
     rdf_subjects: List[RdfSubject] = field(default_factory=list)
     rdf_objects: List[RdfObject] = field(default_factory=list)
 
-    def object_in_odf_objects(self, object_id: str) -> bool:
+    def object_in_rdf_objects(self, object_id: str) -> bool:
         return any([object_id == rdf_object.uid for rdf_object in self.rdf_objects])
 
 
@@ -207,7 +207,10 @@ class Elements(OpenLabelBase):
     relations: Optional[Dict[str, Relation]] = field(default_factory=dict)
 
     def get_relations_for_object(self, object_id: str) -> List[Relation]:
-        return [relation for relation in self.relations.values() if relation.object_in_odf_objects(object_id)]
+        return [relation for relation in self.relations.values() if relation.object_in_rdf_objects(object_id)]
+
+    def get_relations_for_object_of_type(self, object_id: str, relation_type: str) -> List[Relation]:
+        return [relation for relation in self.get_relations_for_object(object_id=object_id) if relation.type == relation_type]
 
 
 class Metadata(dict):
