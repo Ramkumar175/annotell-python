@@ -10,7 +10,7 @@ class Annotation(Response):
     input_uuid: str
     annotation_type: str
     created: datetime
-    annotation: Optional[Dict] = None
+    content: Dict
 
     @staticmethod
     def from_json(js: dict):
@@ -18,5 +18,5 @@ class Annotation(Response):
             input_uuid=js["inputUuid"],
             annotation_type=js["annotationType"],
             created=ts_to_dt(js["created"]),
-            annotation=js.get("annotation")
+            content=js.get("content") or dict()
         )

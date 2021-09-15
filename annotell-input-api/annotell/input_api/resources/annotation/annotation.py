@@ -34,7 +34,7 @@ class AnnotationResource(InputAPIResource):
     def get_project_annotations(self,
                                 project: str,
                                 annotation_type: str,
-                                batch: Optional[str] = None) -> Generator[dict, None, None]:
+                                batch: Optional[str] = None) -> Generator[Annotation, None, None]:
         url = f"v1/annotations/projects/{project}/"
         if batch:
             url += f"batch/{batch}/"
@@ -44,7 +44,9 @@ class AnnotationResource(InputAPIResource):
         annotations = self._client.get(url)
         for js in annotations:
             annotation = Annotation.from_json(js)
-            yield self.get_annotation(annotation.input_uuid, annotation_type)
+            annotation.content = self.get_annotation(annotation.input_uuid, annotation_type)
+
+            yield annotation
 
     def get_annotation(self,
                        input_uuid: str,
