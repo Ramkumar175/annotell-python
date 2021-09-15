@@ -23,6 +23,7 @@ module.exports = {
       "input-api/FAQ",
       {
         "Supported File Formats": [
+          "input-api/resources/images",
           "input-api/resources/pointclouds"
         ]
       }
