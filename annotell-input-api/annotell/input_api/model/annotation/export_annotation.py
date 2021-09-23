@@ -4,13 +4,13 @@ from typing import Union
 
 
 @dataclass
-class Annotation(Response):
+class ExportAnnotation(Response):
     annotation_id: int
     export_content: Union[list, dict]
 
     @staticmethod
     def from_json(js: dict):
-        return Annotation(
+        return ExportAnnotation(
             annotation_id=int(js["annotationId"]),
             export_content=js["exportContent"]
         )
