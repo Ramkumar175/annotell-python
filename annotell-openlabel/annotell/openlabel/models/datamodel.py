@@ -192,6 +192,8 @@ class Relation(BaseElement):
     def object_in_rdf_objects(self, object_id: str) -> bool:
         return any([object_id == rdf_object.uid for rdf_object in self.rdf_objects])
 
+    def object_in_rdf_subjects(self, object_id: str) -> bool:
+        return any([object_id == rdf_subject.uid for rdf_subject in self.rdf_subjects])
 
 @dataclass
 class CoordinateSystem(OpenLabelBase):
@@ -207,7 +209,9 @@ class Elements(OpenLabelBase):
     relations: Optional[Dict[str, Relation]] = field(default_factory=dict)
 
     def get_relations_for_object(self, object_id: str) -> List[Relation]:
-        return [relation for relation in self.relations.values() if relation.object_in_rdf_objects(object_id)]
+        return [relation for relation in self.relations.values()
+                if relation.object_in_rdf_objects(object_id) or
+                relation.object_in_rdf_subjects(object_id)]
 
     def get_relations_for_object_of_type(self, object_id: str, relation_type: str) -> List[Relation]:
         return [relation for relation in self.get_relations_for_object(object_id=object_id) if relation.type == relation_type]
