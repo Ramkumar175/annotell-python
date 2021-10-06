@@ -69,10 +69,10 @@ Inputs can be created via Annotell's Input API, which has support for several di
 ### Input Types
 | Type                           | Description                                                                           |
 | -------------------------------|---------------------------------------------------------------------------------------|
-| **Cameras**                    | A single frame consisting of images from 1-8 cameras                                  |
-| **LidarsAndCameras**           | A single frame consisting of 1-3 lidar point clouds and images from 1-8 cameras       |
-| **CamerasSeq**                 | Sequence of frames, each frame consisting of images from 1-8 cameras                  |
-| **LidarsAndCamerasSeq**        | Sequence of frames, consisting of 1-3 lidar point clouds and images from 1-8 cameras  |
+| **Cameras**                    | A single frame consisting of images from 1-9 cameras                                  |
+| **LidarsAndCameras**           | A single frame consisting of 1-3 lidar point clouds and images from 1-9 cameras       |
+| **CamerasSeq**                 | Sequence of frames, each frame consisting of images from 1-9 cameras                  |
+| **LidarsAndCamerasSeq**        | Sequence of frames, consisting of 1-3 lidar point clouds and images from 1-9 cameras  |
 
 
 ## Annotation

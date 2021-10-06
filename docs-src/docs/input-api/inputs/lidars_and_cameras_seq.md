@@ -2,7 +2,7 @@
 title: Lidars and Cameras Sequence
 ---
 
-A `LidarsAndCamerasSeq` input consists of a sequence of camera images and lidar point clouds, where each frame consists on 1-8 camera images as well as a single cloud. For more documentation on what each field corresponds to in the `LidarsAndCamerasSeq` object please check the section related to [Input Overview](/docs/input-api/overview).
+A `LidarsAndCamerasSeq` input consists of a sequence of camera images and lidar point clouds, where each frame consists on 1-9 camera images as well as a single cloud. For more documentation on what each field corresponds to in the `LidarsAndCamerasSeq` object please check the section related to [Input Overview](/docs/input-api/overview).
 
 :::info no multi-lidar support currently
 Currently there is only support for supplying a single point cloud per frame.
