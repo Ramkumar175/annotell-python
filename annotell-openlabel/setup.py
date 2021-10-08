@@ -39,7 +39,7 @@ setup(
         python_requires='>=3.6',
         include_package_data=True,
         package_data={
-                '': ['*.md', 'LICENSE'],
+                '': ['*.md', 'LICENSE', '*.json'],
         },
         classifiers=[
                 'Development Status :: 3 - Alpha',
