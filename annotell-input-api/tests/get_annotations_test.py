@@ -24,7 +24,7 @@ class TestGetAnnotations:
         with pytest.raises(Exception) as exception_info:
             get_annotation_example.run(client=client, input_uuid="ab9cb6b5-497c-47b7-8dac-591de4ff65f6", annotation_type="object")
 
-        assert exception_info.value.args[0] == "404 Client Error: Not Found for url: http://annotell.org:8010/v1/annotations/inputs/ab9cb6b5-497c-47b7-8dac-591de4ff65f6/annotation-type/object"
+        assert "404 Client Error: Not Found for url:" in exception_info.value.args[0]
 
     def test_get_project_annotations(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
