@@ -45,7 +45,7 @@ class AnnotationResource(InputAPIResource):
         annotations = self._client.get(url)
         for js in annotations:
             partial_annotation = PartialAnnotation.from_json(js)
-            content = self.get_json(partial_annotation.resourceId)
+            content = self.get_json(partial_annotation.uri)
             yield partial_annotation.to_annotation(content)
 
     def get_annotation(self,

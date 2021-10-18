@@ -16,7 +16,7 @@ class PartialAnnotation(Response):
     input_uuid: str
     annotation_type: str
     created: datetime
-    resourceId: str
+    uri: str
 
     @staticmethod
     def from_json(js: dict):
@@ -24,7 +24,7 @@ class PartialAnnotation(Response):
             input_uuid=js["inputUuid"],
             annotation_type=js["annotationType"],
             created=ts_to_dt(js["created"]),
-            resourceId=js.get("resourceId")
+            uri=js.get("uri")
         )
 
     def to_annotation(self, content: Dict) -> Annotation:
