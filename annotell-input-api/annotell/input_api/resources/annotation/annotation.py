@@ -1,6 +1,7 @@
 from typing import List, Dict, Optional, Generator
 from deprecated import deprecated
-from annotell.input_api.model.annotation import ExportAnnotation, Annotation
+from annotell.input_api.model.annotation import ExportAnnotation
+from annotell.input_api.model.annotation.client_annotation import Annotation, PartialAnnotation
 from annotell.input_api.util import filter_none
 from annotell.input_api.resources.abstract import InputAPIResource
 
@@ -43,10 +44,9 @@ class AnnotationResource(InputAPIResource):
 
         annotations = self._client.get(url)
         for js in annotations:
-            annotation = Annotation.from_json(js)
-            annotation.content = self.get_annotation(annotation.input_uuid, annotation_type)
-
-            yield annotation
+            partial_annotation = PartialAnnotation.from_json(js)
+            content = self.get_json(partial_annotation.resourceId)
+            yield partial_annotation.to_annotation(content)
 
     def get_annotation(self,
                        input_uuid: str,

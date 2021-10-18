@@ -2,6 +2,7 @@
 import logging
 import random
 import time
+import json
 from pathlib import Path
 from typing import Mapping, Dict, BinaryIO, Optional
 
@@ -17,14 +18,14 @@ RETRYABLE_STATUS_CODES = [408, 429, 500, 501, 502, 503, 504, 505, 506, 507, 508,
 class FileResourceClient:
 
     def __init__(self,
-                 max_upload_retry_attempts: int = 23,
-                 max_upload_retry_wait_time: int = 60):
+                 max_retry_attempts: int = 23,
+                 max_retry_wait_time: int = 60):
         """
         :param max_upload_retry_attempts: Max number of attempts to retry uploading a file to GCS.
         :param max_upload_retry_wait_time:  Max with time before retrying an upload to GCS.
         """
-        self.MAX_NUM_UPLOAD_RETRIES = max_upload_retry_attempts
-        self.MAX_RETRY_WAIT_TIME = max_upload_retry_wait_time  # seconds
+        self.MAX_NUM_RETRIES = max_retry_attempts
+        self.MAX_RETRY_WAIT_TIME = max_retry_wait_time  # seconds
 
     def _get_wait_time(self, upload_attempt: int) -> int:
         """
@@ -49,10 +50,10 @@ class FileResourceClient:
         try:
             resp.raise_for_status()
         except requests.HTTPError as e:
-            log.error(f"On upload attempt ({upload_attempt}/{self.MAX_NUM_UPLOAD_RETRIES}) to GCS "
+            log.error(f"On upload attempt ({upload_attempt}/{self.MAX_NUM_RETRIES}) to GCS "
                       f"got response:\n{resp.status_code}: {resp.content}")
 
-            if upload_attempt < self.MAX_NUM_UPLOAD_RETRIES and resp.status_code in RETRYABLE_STATUS_CODES:
+            if upload_attempt < self.MAX_NUM_RETRIES and resp.status_code in RETRYABLE_STATUS_CODES:
                 wait_time = self._get_wait_time(upload_attempt)
                 log.info(f"Waiting {int(wait_time)} seconds before retrying")
                 time.sleep(wait_time)
@@ -76,3 +77,34 @@ class FileResourceClient:
                 content_type = get_content_type(filename)
                 headers = {"Content-Type": content_type}
                 self._upload_file(upload_url, file, headers)
+
+    def get_json(self, url: str) -> Dict:
+        return self._get_json(url, self.MAX_NUM_RETRIES)
+
+    def _get_json(self, url: str, number_of_retries: int) -> Dict:
+        """
+        Download a file from cloud storage
+
+        :param url: URL of file to download
+        :param number_of_retries: Number of download attempts before we stop trying to download
+        :return: JSON deserialized to dictionary
+        """
+        resp = requests.get(url)
+        try:
+            resp.raise_for_status()
+            annotation = json.loads(resp.content)
+        except requests.HTTPError as e:
+            if number_of_retries > 0 and resp.status_code in RETRYABLE_STATUS_CODES:
+                wait_time = self._get_wait_time(number_of_retries)
+                log.error(f"Failed to download annotation. Retrying again in {int(wait_time)} seconds"
+                          f"Attempt {self.MAX_NUM_RETRIES + 1 - number_of_retries}/{self.MAX_NUM_RETRIES}")
+
+                time.sleep(wait_time)
+                self._get_json(url, number_of_retries - 1)
+            else:
+                raise e
+
+        except Exception as e:
+            raise e
+
+        return annotation
