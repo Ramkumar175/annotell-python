@@ -49,6 +49,9 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *.cover
+
+# IDE folders
+*.vscode
 *.py,cover
 .hypothesis/
 .pytest_cache/
@@ -131,3 +134,6 @@ dmypy.json
 .pyre/
 
 *.iml
+
+# IDE folders
+*.vscode/

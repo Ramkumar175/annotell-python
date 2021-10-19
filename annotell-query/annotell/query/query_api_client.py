@@ -31,7 +31,6 @@ class QueryApiClient:
         :param auth_host: authentication server host
         """
         self.host = host
-        self.metadata_url = "%s/v1/search/metadata/query" % self.host
         self.judgements_query_url = "%s/v1/search/judgements/query" % self.host
         self.kpi_query_url = "%s/v1/search/kpi/query" % self.host
 
@@ -112,29 +111,6 @@ class QueryApiClient:
         )
         r = self._return_request_resp(resp)
         return StreamingQueryResponse(r) if stream else QueryResponse(r)
-
-    def query_metadata(self,
-                       query_filter: Optional[str] = None,
-                       limit: Optional[int] = DEFAULT_LIMIT,
-                       includes: FIELDS_TYPE = None,
-                       excludes: FIELDS_TYPE = None,
-                       aggregates: AGGREGATES_TYPE = None,
-                       stream: bool = False):
-        """
-        Returns a QueryResponse or StreamingQueryResponse with result items
-        :param query_filter:
-        :param limit: set to None for no limit
-        :param excludes: list
-        :param includes: list
-        :param stream, use stream if you want to get more than 10000 items
-        :return:
-        """
-        return self._query(self.metadata_url, stream,
-                           query_filter=query_filter,
-                           limit=limit,
-                           includes=includes,
-                           excludes=excludes,
-                           aggregates=aggregates)
 
     def query_kpi_data_entries(self,
                                query_filter: Optional[str] = None,
