@@ -29,8 +29,8 @@ class InputApiClient:
                  host: str = DEFAULT_HOST,
                  auth_host: str = DEFAULT_AUTH_HOST,
                  client_organization_id: int = None,
-                 max_upload_retry_attempts: int = 23,
-                 max_upload_retry_wait_time: int = 60):
+                 max_retry_attempts: int = 23,
+                 max_retry_wait_time: int = 60):
         """
         :param auth: auth credentials, see https://github.com/annotell/annotell-python/tree/master/annotell-auth
         :param host: override for input api url
@@ -44,8 +44,8 @@ class InputApiClient:
                                   host=host,
                                   auth_host=auth_host,
                                   client_organization_id=client_organization_id)
-        self._file_client = FileResourceClient(max_upload_retry_attempts=max_upload_retry_attempts,
-                                               max_upload_retry_wait_time=max_upload_retry_wait_time)
+        self._file_client = FileResourceClient(max_retry_attempts=max_retry_attempts,
+                                               max_retry_wait_time=max_retry_wait_time)
 
         self.calibration = CalibrationResource(self._client)
         self.project = ProjectResource(self._client)

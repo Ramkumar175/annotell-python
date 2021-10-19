@@ -11,6 +11,15 @@ Documentation about how to use the library can found [here](https://annotell.git
 
 All notable changes to this project will be documented in this file.
 
+## [1.0.9] - TBD
+### Added
+- Two new methods has been added for downloading annotations: `client.annotation.get_annotation` and `client.annotation.get_project_annotations`. These two methods will serve the annotations
+in the OpenLABEL format. With this change the previous method for fetching annotations,
+ `client.annotation.get_annotations` has become deprecated.
+
+### Changed
+- Two constructor arguments in `InputApiClient` and `FileResourceClient` have been renamed from `max_upload_retry_attemps`, `max_upload_retry_wait_time`
+to `max_retry_attempts`, `max_retry_wait_time` respectively.
 ## [1.0.8] - 2021-09-07
 ### Added
 - A new method has been added, `get_inputs_with_uuids`, which can fetch inputs using only the `input_uuid`.
