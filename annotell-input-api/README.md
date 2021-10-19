@@ -11,7 +11,7 @@ Documentation about how to use the library can found [here](https://annotell.git
 
 All notable changes to this project will be documented in this file.
 
-## [1.0.9] - 2021-10-19
+## [1.1.0] - 2021-10-19
 ### Added
 - Two new methods has been added for downloading annotations: `client.annotation.get_annotation` and `client.annotation.get_project_annotations`. These two methods will serve annotations
 in the OpenLABEL format. With this change the previous method for fetching annotations,
