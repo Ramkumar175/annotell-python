@@ -1,7 +1,6 @@
 from typing import Union
 
 from .models import *
-from .models import Model as OpenLabelAnnotation
 
 from .models import Type1 as DataTypes
 from .models import Type2 as NumTypes

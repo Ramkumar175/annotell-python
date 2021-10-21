@@ -13,7 +13,8 @@ with open(schema_path) as fp:
             str(json_schema),
             input_file_type=InputFileType.JsonSchema,
             output=output,
-            use_schema_description=True
+            use_schema_description=True,
+            class_name='OpenLabelAnnotation'
     )
     model: str = output.read_text()
     print(model)

@@ -1299,13 +1299,13 @@
           "anyOf": [
             {
               "items": {
-                "type": "string"
+                "type": "number"
               },
               "type": "array"
             },
             {
               "items": {
-                "type": "number"
+                "type": "string"
               },
               "type": "array"
             }
