@@ -52,14 +52,14 @@ The OpenLABEL json can be used as is or it can be converted into a pythonic obje
 #### Using input and annotation type
 ```python
 client = InputApiClient()
-annotation = client.annotation.get_annotation(input_uuid=input_uuid,
+annotation: Annotation = client.annotation.get_annotation(input_uuid=input_uuid,
                                               annotation_type=annotation_type)
 ```
 This method returns a single `Annotation` object, containing the OpenLABEL json, using an input uuid and an annotation type.
 #### Using Annotation UUID
 ```python
 client = InputApiClient()
-annotation = client.annotation.get_annotation(annotation_uuid=annotation_uuid)
+annotation: Annotation = client.annotation.get_annotation(annotation_uuid=annotation_uuid)
 ```
 This method returns a single `Annotation` object, containing the OpenLABEL json, using an annotation uuid. This method is useful since after you have
 downloaded the annotation once you only need to save the annotation uuid as a unique identifier for the annotation.

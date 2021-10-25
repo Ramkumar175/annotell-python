@@ -109,7 +109,7 @@ it is straight forward to parse the json. Here is an example where the annotatio
 the [Downloading Annotations](input-api/annotations.md) chapter:
 ```
 client = InputApiClient()
-annotation = client.annotation.get_annotation(input_uuid=input_uuid, annotation_type=annotation_type)
-open_label = Openlabel.parse_obj(annotation.content)
+annotation: Annotation = client.annotation.get_annotation(input_uuid=input_uuid, annotation_type=annotation_type)
+open_label: Openlabel = Openlabel.parse_obj(annotation.content)
 ```
 Any conversion away from this format will need to occur client-side.
