@@ -79,9 +79,7 @@ Inputs can be created via Annotell's Input API, which has support for several di
 
 Inputs are annotated in requests, producing _annotations_. Version v1.0.x provide by default annotations in Annotell's annotation format. Version v1.1.x and above provide annotations in the [ASAM OpenLABEL](https://www.asam.net/project-detail/asam-openlabel-v100/) format.
 
-### Format
-
-#### v1.0.x (Will be deprecated) 🚨
+### v1.0.x Format (Deprecated) 🚨
 The Annotell annotation format is closely linked to the Annotell task definition. The task definition determines what we are expected to save, where properties are stored and what datatype(s) the properties will be. The Annotell annotation format is saved as a JSON file and will be described according to the data types of JSON.
 
 The Annotell annotation is an object with the following top keys:
@@ -100,5 +98,18 @@ The Annotell annotation is an object with the following top keys:
 }
 ```
 
-#### v1.1.x (Upcoming release) 🚧
-Annotations are provided as json files in the ASAM OpenLABEL format. Eventual conversion of this format needs to occur client-side after the annotations have been fetched. More information on how the ASAM OpenLABEL format is structured is available at [ASAM](https://www.asam.net/index.php?eID=dumpFile&t=f&f=3876&token=413e8c85031ae64cc35cf42d0768627514868b2f#_structure_of_the_openlabel_format).
+### v1.1.x Format (Upcoming release) 🚧
+Annotations are provided by the `annotell-input-api` as json objects in the ASAM OpenLABEL format.
+More information on how the ASAM OpenLABEL format is structured is available at [ASAM](https://www.asam.net/index.php?eID=dumpFile&t=f&f=3876&token=413e8c85031ae64cc35cf42d0768627514868b2f#_structure_of_the_openlabel_format).
+
+#### Convert to OpenLABEL
+Besides the `annotell-input-api` Annotell also provides a library in order to parse the OpenLABEL json into a pythonic object,
+called `annotell-openlabel` which you can find [here](https://pypi.org/project/annotell-openlabel), and with this
+it is straight forward to parse the json. Here is an example where the annotation is fetched using a method described in
+the [Downloading Annotations](input-api/annotations.md) chapter:
+```
+client = InputApiClient()
+annotation = client.annotation.get_annotation(input_uuid=input_uuid, annotation_type=annotation_type)
+open_label = Openlabel.parse_obj(annotation.content)
+```
+Any conversion away from this format will need to occur client-side.
