@@ -15,4 +15,4 @@ if __name__ == '__main__':
 
     input_uuid = "<input-uuid>"
     annotation_type = "<annotation-type>"
-    run(client, input_uuid, annotation_type)
+    annotation = run(client, input_uuid, annotation_type)

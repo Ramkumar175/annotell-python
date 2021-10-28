@@ -17,4 +17,6 @@ if __name__ == '__main__':
     # Project - Available via `client.project.get_projects()`
     project = "<project-idenfitier>"
     annotation_type = "<annotation-type>"
-    run(client, project, annotation_type)
+    annotation_generator = run(client, project, annotation_type)
+    for annotation in annotation_generator:
+        print(annotation)
