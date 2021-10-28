@@ -50,6 +50,7 @@ class AnnotationResource(InputAPIResource):
 
     def get_annotation(self,
                        input_uuid: str,
-                       annotation_type: str) -> dict:
-        annotation = self._client.get(f"v1/annotations/inputs/{input_uuid}/annotation-type/{annotation_type}")
+                       annotation_type: str) -> Annotation:
+        json_resp = self._client.get(f"v1/annotations/inputs/{input_uuid}/annotation-type/{annotation_type}")
+        annotation = Annotation.from_json(json_resp)
         return annotation
