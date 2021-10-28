@@ -11,7 +11,7 @@ from annotell.input_api.model.annotation.client_annotation import Annotation
 #TODO: Add client_annotations to testdata INT-663
 class TestGetAnnotations:
     def test_get_annotation(self, client: IAC.InputApiClient):
-        annotation = get_annotation_example.run(client=client, input_uuid="9c11cf44-e5a1-4367-a7a5-6ce0bf900763", annotation_type="objects")
+        annotation = get_annotation_example.run(client=client, input_uuid="9c11cf44-e5a1-4367-a7a5-6ce0bf900763", annotation_type="signs")
         assert isinstance(annotation, Annotation)
         assert annotation.content["test"] == 1
 

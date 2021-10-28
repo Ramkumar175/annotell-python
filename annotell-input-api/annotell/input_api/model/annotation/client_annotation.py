@@ -32,7 +32,7 @@ class PartialAnnotation(Response):
             input_uuid=js["inputUuid"],
             annotation_type=js["annotationType"],
             created=ts_to_dt(js["created"]),
-            uri=js("uri"))
+            uri=js["uri"])
 
     def to_annotation(self, content: Dict) -> Annotation:
         return Annotation(
