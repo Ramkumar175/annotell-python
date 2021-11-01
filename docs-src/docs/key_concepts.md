@@ -110,6 +110,6 @@ the [Downloading Annotations](input-api/annotations.md) chapter:
 ```
 client = InputApiClient()
 annotation: Annotation = client.annotation.get_annotation(input_uuid=input_uuid, annotation_type=annotation_type)
-open_label: Openlabel = Openlabel.parse_obj(annotation.content)
+open_label: OpenLabelAnnotation = OpenLabelAnnotation.parse_obj(annotation.content)
 ```
 Any conversion away from this format will need to occur client-side.
