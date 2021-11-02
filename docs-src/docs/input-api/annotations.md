@@ -5,7 +5,7 @@ title: Downloading Annotations
 Annotations are made available for each [input](overview) and [annotation type](annotation_types) as soon as they are quality assured by the Annotell platform. Information about the format can be found in the [Key Concepts](../key_concepts.md#annotation) section.
 
 
-## v1.0.x (Deprecated) 🚨
+## v1.0.x (Will be deprecated) 🚨
 
 Once annotations are available they can be downloaded by supplying a list of `input_uuid`s for the corresponding inputs. A dictonary is returned containing available annotations for each input. Several annotations occur if the project is setup in such a way that each input should be annotated with different annotation types, e.g. Lane Markings and Objects.
 

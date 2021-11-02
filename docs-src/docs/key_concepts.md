@@ -79,7 +79,7 @@ Inputs can be created via Annotell's Input API, which has support for several di
 
 Inputs are annotated in requests, producing _annotations_. Version v1.0.x provide by default annotations in Annotell's annotation format. Version v1.1.x and above provide annotations in the [ASAM OpenLABEL](https://www.asam.net/project-detail/asam-openlabel-v100/) format.
 
-### v1.0.x Format (Deprecated) 🚨
+### v1.0.x Format (Will be deprecated) 🚨
 The Annotell annotation format is closely linked to the Annotell task definition. The task definition determines what we are expected to save, where properties are stored and what datatype(s) the properties will be. The Annotell annotation format is saved as a JSON file and will be described according to the data types of JSON.
 
 The Annotell annotation is an object with the following top keys:
