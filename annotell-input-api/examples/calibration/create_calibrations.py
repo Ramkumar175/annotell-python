@@ -1,8 +1,6 @@
-from typing import List
-
 import annotell.input_api.input_api_client as IAC
 import annotell.input_api.model as IAM
-from examples.calibration import create_sensor_calibration
+from examples.calibration.calibration import create_sensor_calibration
 
 
 def run(client: IAC.InputApiClient, calibration_identifier: str) -> IAM.SensorCalibrationEntry:
@@ -14,8 +12,7 @@ def run(client: IAC.InputApiClient, calibration_identifier: str) -> IAM.SensorCa
     cam_sensor3 = "RFC03"
 
     # Create calibration
-    calibration_spec = create_sensor_calibration(
-        calibration_identifier, [lidar_sensor1], [cam_sensor1, cam_sensor2, cam_sensor3])
+    calibration_spec = create_sensor_calibration(calibration_identifier, [lidar_sensor1], [cam_sensor1, cam_sensor2, cam_sensor3])
     created_calibration = client.calibration.create_calibration(calibration_spec)
 
     return created_calibration
@@ -27,5 +24,3 @@ if __name__ == '__main__':
     client = IAC.InputApiClient()
     calibration_identifier = f"calibration-{datetime.now()}"
     run(client, calibration_identifier)
-
-

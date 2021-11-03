@@ -11,8 +11,7 @@ with open('README.md') as f:
 # resolve version by opening file. We cannot do import during install
 # since the package does not yet exist
 with open('annotell/input_api/__init__.py', 'r') as fd:
-    match = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]',
-                      fd.read(), re.MULTILINE)
+    match = re.search(r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', fd.read(), re.MULTILINE)
     version = match.group(1) if match else None
 
 if not version:
@@ -42,7 +41,9 @@ setup(
         'requests>=2.23.0',
         'tabulate>=0.8.7',
         'python-dateutil',
-        "dataclasses;python_version<'3.7'"
+        "dataclasses;python_version<'3.7'",
+        "pydantic",
+        "Deprecated"
     ],
     python_requires='>=3.6',
     include_package_data=True,
@@ -55,7 +56,5 @@ setup(
         'Intended Audience :: Developers',
         'Programming Language :: Python :: 3',
     ],
-    scripts=[
-        "bin/annoutil"
-    ]
+    scripts=["bin/annoutil"]
 )

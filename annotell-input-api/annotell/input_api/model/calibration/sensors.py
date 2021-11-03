@@ -1,7 +1,10 @@
 from dataclasses import dataclass
 from typing import Dict, Optional
-from annotell.input_api.model.abstract.abstract_models import RequestCall
 from enum import Enum
+
+from deprecated import deprecated
+
+from annotell.input_api.model.abstract.abstract_models import RequestCall
 
 
 class CameraType(str, Enum):
@@ -81,19 +84,13 @@ class DistortionCoefficients(RequestCall):
 
     def validate(self, camera_type: CameraType):
         if camera_type == CameraType.KANNALA:
-            assert(self.k3 is None)
+            assert self.k3 is None
         else:
-            assert(self.k3 is not None)
+            assert self.k3 is not None
 
     @staticmethod
     def from_json(js: dict):
-        return DistortionCoefficients(
-            k1=js["k1"],
-            k2=js["k2"],
-            p1=js["p1"],
-            p2=js["p2"],
-            k3=js.get("k3")
-        )
+        return DistortionCoefficients(k1=js["k1"], k2=js["k2"], p1=js["p1"], p2=js["p2"], k3=js.get("k3"))
 
 
 @dataclass
@@ -109,54 +106,44 @@ class UndistortionCoefficients(RequestCall):
     @staticmethod
     def from_json(js: dict):
         if js:
-            return UndistortionCoefficients(
-                l1=js["l1"],
-                l2=js["l2"],
-                l3=js["l3"],
-                l4=js["l4"]
-            )
+            return UndistortionCoefficients(l1=js["l1"], l2=js["l2"], l3=js["l3"], l4=js["l4"])
         else:
             return None
 
 
+@deprecated(reason="Will be removed, migrate to typed calibrations", action="once")
 @dataclass
 class CameraProperty(RequestCall):
     camera_type: CameraType
 
     def to_dict(self):
-        return {
-            "camera_type": self.camera_type
-        }
+        return {"camera_type": self.camera_type}
 
     def get_camera_type(self) -> CameraType:
         return self.camera_type
 
     @staticmethod
     def from_json(js: dict):
-        return CameraProperty(
-            camera_type=js["camera_type"]
-        )
+        return CameraProperty(camera_type=js["camera_type"])
 
 
+@deprecated(reason="Will be removed, migrate to typed calibrations", action="once")
 @dataclass
 class LidarCalibration(RequestCall):
     position: Position
     rotation_quaternion: RotationQuaternion
 
     def to_dict(self) -> Dict:
-        return {
-            "position": self.position.to_dict(),
-            "rotation_quaternion": self.rotation_quaternion.to_dict()
-        }
+        return {"position": self.position.to_dict(), "rotation_quaternion": self.rotation_quaternion.to_dict()}
 
     @staticmethod
     def from_json(js: dict):
         return LidarCalibration(
-            position=Position.from_json(js["position"]),
-            rotation_quaternion=RotationQuaternion.from_json(js["rotation_quaternion"])
+            position=Position.from_json(js["position"]), rotation_quaternion=RotationQuaternion.from_json(js["rotation_quaternion"])
         )
 
 
+@deprecated(reason="Will be removed, migrate to typed calibrations", action="once")
 @dataclass
 class CameraCalibration(RequestCall):
     position: Position
@@ -172,7 +159,7 @@ class CameraCalibration(RequestCall):
         camera_type = self.camera_properties.get_camera_type()
         self.distortion_coefficients.validate(camera_type=camera_type)
         if camera_type == CameraType.KANNALA:
-            assert (self.undistortion_coefficients is not None)
+            assert self.undistortion_coefficients is not None
 
     def to_dict(self) -> Dict:
         base = {

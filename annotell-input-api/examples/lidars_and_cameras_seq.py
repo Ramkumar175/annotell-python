@@ -1,13 +1,13 @@
 from __future__ import absolute_import
 
+from datetime import datetime
+
 import annotell.input_api.input_api_client as IAC
 import annotell.input_api.model.input as InputModel
 import annotell.input_api.model.input.lidars_and_cameras_sequence as LCSM
 import annotell.input_api.model.input.resources as ResourceModel
 from annotell.input_api.logger import setup_logging
-from datetime import datetime
-
-from examples.calibration import create_sensor_calibration
+from examples.calibration.calibration import create_sensor_calibration
 
 
 def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputModel.CreateInputResponse:
