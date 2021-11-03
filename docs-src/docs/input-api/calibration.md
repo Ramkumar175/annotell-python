@@ -1,40 +1,92 @@
 ---
 title: Calibration
 ---
+Inputs including both a 2D and 3D representation such as **lidars_and_cameras** require a calibration relating the camera sensors with the
+lidar sensors in terms of location and rotation. The calibration should also contain the required information for projecting 3D points into
+the image plane of the camera.
 
-Inputs including both a 2D and 3D representation such as **lidars_and_cameras** require a calibration relating the camera sensors with the lidar sensors in terms of location and rotation. The calibration should also contain the required information for projecting 3D points into the image plane of the camera.
+A Calibration object consists of a set of key-value pairs where the key is the name of the sensor (i.e. sensor name) and the value is either
+a _LidarCalibration_ object or any of the different camera calibrations.
 
-A Calibration object consists of a set of key-value pairs where the key is the name of the sensor (i.e. sensor name) and the value is either a _LidarCalibration_ object or a _CameraCalibration_ object depending on the sensor.
+# Lidar
 
-A lidar calibration is represented as a _LidarCalibration_ object and consists of a position expressed with three coordinates and a rotation in the form of a [Quaternion](https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation). See the code example below for creating a basic _LidarCalibration_ object.
-
-The Camera calibration format is based on [OpenCVs](https://docs.opencv.org/3.4/d4/d94/tutorial_camera_calibration.html) format and this [paper](http://www.robots.ox.ac.uk/~cmei/articles/single_viewpoint_calib_mei_07.pdf). Currently three different camera types are supported: `PINHOLE`, `FISHEYE` and `KANNALA`. The camera calibration consists of the following set of key-value pairs.
-
-| Key                       | Value                                                                                                                               |
-| :------------------------ | :---------------------------------------------------------------------------------------------------------------------------------- |
-| rotation_quaternion       | A RotationQuaternion object                                                                                                         |
-| position                  | A Position object                                                                                                                   |
-| camera_matrix             | A CameraMatrix object                                                                                                               |
-| camera_properties         | A CameraProperty object                                                                                                             |
-| distortion_coefficients   | A DistortionCoefficients object. Please note that the coefficient _k3_ should be equal to None if the camera type is _Kannala_**.** |
-| image_height              | Integer                                                                                                                             |
-| image_width               | Integer                                                                                                                             |
-| undistortion_coefficients | \(**Optional\)** An UndistortionCoefficients object. This is only used for _Kannala_ cameras.                                       |
+| Key                       | Value                             | Parameters             |
+| :------------------------ | :---------------------------------|:-----------------------|
+| rotation_quaternion       | A RotationQuaternion object       | `w, x, y, z`           |
+| position                  | A Position object                 | `x, y, z`              |
+A lidar calibration is represented as a _LidarCalibration_ object and consists of a position expressed with three coordinates and a rotation
+in the form of a [Quaternion](https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation). See the code example below for creating a
+basic _LidarCalibration_ object.
 
 
-## Example: Creating a calibration
-The following example code shows how you can create a *unity* (i.e. we assume that all sensors are placed at origin and have no rotation) calibration for a lidar sensor and several camera sensors of type `PINHOLE`.
 ```python reference
-https://github.com/annotell/annotell-python/blob/master/annotell-input-api/examples/calibration.py
+https://github.com/annotell/annotell-python/blob/master/annotell-input-api/examples/calibration/create_lidar_calibration.py
 ```
 
-:::tip reuse calibration
-Note that you can, and should, reuse the same calibration for multiple inputs if possible.
+# Camera
+The Camera calibration format is based on [OpenCVs](https://docs.opencv.org/3.4/d4/d94/tutorial_camera_calibration.html) format and
+this [paper](http://www.robots.ox.ac.uk/~cmei/articles/single_viewpoint_calib_mei_07.pdf). Currently, three different camera types are
+supported: `PINHOLE`, `FISHEYE` and `KANNALA`.
+
+![Camera Calibrations commonality](camera-calibration.png)
+
+## Pinhole
+
+The `PINHOLE` camera model consists of the following attributes
+
+| Key                       | Value                             | Parameters             |
+| :------------------------ | :---------------------------------|:-----------------------|
+| rotation_quaternion       | A RotationQuaternion object       | `w, x, y, z`           |
+| position                  | A Position object                 | `x, y, z`              |
+| camera_matrix             | A CameraMatrix object             | `fx, fy, cx, cy`       |
+| distortion_coefficients   | A DistortionCoefficients object.  | `k1, k2, p1, p2, k3`   |
+| image_height              | Integer                           | NA                     |
+| image_width               | Integer                           | NA                     |
+| field_of_view             | Float                             | NA                     |
+
+```python reference
+https://github.com/annotell/annotell-python/blob/master/annotell-input-api/examples/calibration/create_pinhole_calibration.py
+```
+
+## Fisheye
+The Fisheye camera model expands the `PINHOLE` model with the following
+
+| Key                       | Value                             | Parameters             |
+| :------------------------ | :---------------------------------|:-----------------------|
+| xi                        | Float                             | NA                     |
+
+```python reference
+https://github.com/annotell/annotell-python/blob/master/annotell-input-api/examples/calibration/create_fisheye_calibration.py
+```
+
+
+## Kannala
+The `KANNALA` camera model changes and expands the `PINHOLE` with the following
+
+| Key                       | Value                             | Parameters             |
+| :------------------------ | :---------------------------------|:-----------------------|
+| distortion_coefficients   |A KannalaDistortionCoefficients object. <br/> Note that it is a subset of the DistortionCoefficients, omitting the `k3` parameter  | `k1, k2, p1, p2`   |
+| undistortion_coefficients |A UndistortionCoefficients object. | `l1, l2, l3, l4`   |
+
+```python reference
+https://github.com/annotell/annotell-python/blob/master/annotell-input-api/examples/calibration/create_kannala_calibration.py
+```
+
+## Example: Creating a calibration
+
+The following example code shows how you can create a *unity* (i.e. we assume that all sensors are placed at origin and have no rotation)
+calibration for a lidar sensor and several camera sensors of type `PINHOLE`.
+
+```python reference
+https://github.com/annotell/annotell-python/blob/master/annotell-input-api/examples/calibration/calibration.py
+```
+
+:::tip reuse calibration Note that you can, and should, reuse the same calibration for multiple inputs if possible.
 :::
 
 ### Listing existing calibrations
 
-As a final step we can fetch the calibration via the external id. This can either be done via the client, or via the CLI annoutil tool. 
+As a final step we can fetch the calibration via the external id. This can either be done via the client, or via the CLI annoutil tool.
 
 ```python
 client.calibration.get_calibration(external_id="Collection 2020-06-16")
