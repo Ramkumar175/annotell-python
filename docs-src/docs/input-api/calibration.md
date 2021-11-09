@@ -81,7 +81,8 @@ calibration for a lidar sensor and several camera sensors of type `PINHOLE`.
 https://github.com/annotell/annotell-python/blob/master/annotell-input-api/examples/calibration/calibration.py
 ```
 
-:::tip reuse calibration Note that you can, and should, reuse the same calibration for multiple inputs if possible.
+:::tip reuse calibration
+Note that you can, and should, reuse the same calibration for multiple inputs if possible.
 :::
 
 ### Listing existing calibrations
