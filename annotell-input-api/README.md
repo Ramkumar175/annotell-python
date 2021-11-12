@@ -11,6 +11,10 @@ Documentation about how to use the library can found [here](https://annotell.git
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.1] - 2021-11-11
+### Changed
+- Fixed import statement to work with python < 3.9
+
 ## [1.1.0] - 2021-11-03
 ### Added
 - Two new methods has been added for downloading annotations: `client.annotation.get_annotation` and `client.annotation.get_project_annotations`. These two methods will serve annotations

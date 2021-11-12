@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 from annotell.input_api.model.abstract.abstract_models import Response
 from annotell.input_api.util import ts_to_dt
-import annotell.input_api.model.calibration.sensors as CM
+from annotell.input_api.model.calibration import sensors as CM
 from annotell.input_api.model.calibration.common import BaseCalibration, CalibrationType
 from annotell.input_api.model.calibration.lidar.lidar_calibration import LidarCalibration
 from annotell.input_api.model.calibration.camera.kannala_calibration import KannalaCalibration
