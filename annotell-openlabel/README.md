@@ -33,11 +33,10 @@ openlabel_annotation = OLM.OpenLabelAnnotation.parse_raw(json_data)
 dict_data = openlabel_annotation.dict(exclude_none=True)
 ```
     
-    
-    
-
-
-
 ## Further reading
 https://www.asam.net/project-detail/asam-openlabel-v100/
 
+# Changelog
+
+## [0.1.0] - 2021-11-18
+- Updated json schema and model to be true to the 1.0.0 release of openlabel. Previously it was based on the release-candidate

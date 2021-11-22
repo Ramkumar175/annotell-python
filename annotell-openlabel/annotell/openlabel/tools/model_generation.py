@@ -12,6 +12,7 @@ with open(schema_path) as fp:
     generate(
             str(json_schema),
             input_file_type=InputFileType.JsonSchema,
+            reuse_model=True,
             output=output,
             use_schema_description=True,
             class_name='OpenLabelAnnotation'
