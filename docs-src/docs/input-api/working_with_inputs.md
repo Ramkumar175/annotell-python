@@ -109,6 +109,7 @@ The response is a list of `Input` objects containing the following properties
 | uuid          | ID used to identify the input within the Annotell Platform          |
 | external_id   | External ID supplied during input creation                          |
 | batch         | Which batch does the input belong to                                |
+| view_link     | A url to view the input in the Annotell Platform                    |
 | input_type    | Type of input (see [Input Types](../key_concepts.md))               |
 | status        | Input status (see [Input Statuses](#input-status))                  |
 | error_message | If there is an error during input creation the error message will be included, otherwise it's `None` |
