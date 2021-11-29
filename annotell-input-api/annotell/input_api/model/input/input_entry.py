@@ -7,6 +7,7 @@ from annotell.input_api.util import ts_to_dt
 
 
 class InputStatus(str, Enum):
+    Pending = "pending"
     Processing = "processing"
     Created = "created"
     Failed = "failed"
