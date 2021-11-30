@@ -7,112 +7,156 @@ To install with pip run `pip install annotell-input-api`
 # Documentation & Getting Started Guide
 
 Documentation about how to use the library can found [here](https://annotell.github.io/annotell-python/)
+
 # Changelog
 
 All notable changes to this project will be documented in this file.
 
-## [1.1.1] - 2021-11-11
+## [1.1.2] - TBD
+
 ### Changed
+
+- Refactor of `file_resource_client.py`, split upload and download into separate classes.
+
+### Added
+
+- New parameter `timeout` to `InputApiClient`, which decides what the timeout in seconds is for calls to Annotell API:s and Google Cloud Storage.
+- Retries when a `ConnectionError` is raised during uploading/downloading of resources to/from Google Cloud Storage.
+
+## [1.1.1] - 2021-11-11
+
+### Changed
+
 - Fixed import statement to work with python < 3.9
 
 ## [1.1.0] - 2021-11-03
+
 ### Added
+
 - Two new methods has been added for downloading annotations: `client.annotation.get_annotation` and `client.annotation.get_project_annotations`. These two methods will serve annotations
-in the OpenLABEL format. With this change the previous method for fetching annotations,
- `client.annotation.get_annotations` has become deprecated.
+  in the OpenLABEL format. With this change the previous method for fetching annotations,
+  `client.annotation.get_annotations` has become deprecated.
 
 - Stricter typing for the calibrations, specifically the camera calibrations. Each of the supported camera calibration models now have their own class in `annotell.input_api.model.calibration.camera`. Documentation regarding use can be found here: [Documentation](https://annotell.github.io/annotell-python/docs/input-api/calibration)
 - Field of View support for camera calibrations
 - New Parameter Xi for Fisheye camera calibration model
 
 ### Changed
+
 - Two constructor arguments in `InputApiClient` and `FileResourceClient` have been renamed from `max_upload_retry_attemps`, `max_upload_retry_wait_time`
-to `max_retry_attempts`, `max_retry_wait_time` respectively.
+  to `max_retry_attempts`, `max_retry_wait_time` respectively.
 
 - The old camera calibration class will be deprecated in favour of the new classes
 
 ## [1.0.8] - 2021-09-07
+
 ### Added
+
 - A new method has been added, `get_inputs_with_uuids`, which can fetch inputs using only the `input_uuid`.
 - `annoutil` has a new flag when fetching inputs, `annoutil inputs --uuids <comma_separated_uuids>`.
 - `lidars` and `lidars_sequence` inputs now available through the client.
 - A new method has been added, `add_annotation_type`, which adds additional annotation types to be performed for an input.
 
 ### Changed
+
 - `client.calibration.get_calibration()` now properly deserializes calibration into `SensorCalibrationEntry` instead of keeping it as a dict.
 
 ## [1.0.7] - 2021-06-11
+
 ### Added
+
 - `created` timestamp when querying `get_inputs`
 - Method `get_annotation_types`
 
 ### Changed
+
 - `input_list_id` replaced with `annotation_types` for all createable resources (`Cameras`, `CamerasSeq`, `LidarsAndCameras`, `LidarsAndCamerasSeq`).
 
 ## [1.0.6] - 2021-05-28
+
 ### Added
+
 - `calibration_id` now available for created inputs via the `client.input.get_inputs` method.
 - It is now possible to create your project batches on your own using the
   `client.project.create_batch` method. Please contact Annotell's Professional Services
   before using. More information available in the [documentation](https://annotell.github.io/annotell-python/).
 
 ## [1.0.5] - 2021-05-06
+
 ### Changed
+
 - Changed the height/width in the unity calibration created in the examples to match the image/videos.
 - Added new field in the Input class, view_link. If the Input was successfully created it will contain an URL to view the input in the Annotell app.
 
 ### Bugfixes
+
 - Fixed issue where `invalidate_inputs` did not properly discard response content.
 
 ## [1.0.4] - 2021-04-26
+
 ### Added
+
 - Added support for providing metadata in the form of a flat KV-pair both on an input-level for all input types, as well as on a frame-level for all sequential input types.
 
 ### Changed
+
 - Made SensorSpecification Optional for all input types
 
 ### Removed
+
 - Removed sensor_settings from SensorSpecification. The pixel dimensions are now
   automatically inferred from videos and images.
 
 ## [1.0.3] - 2021-04-14
+
 ### Added
+
 - Added an example for download_annotations
 - Added check so that `input_list_id` and `project` is not used simultaneously when creating inputs
+
 ### Changed
+
 - Made client and file_client internal
 - Fixed bug where client sometimes didn't raise exception when http calls return error codes
 - Bugfix where annoutil didn't work due to missing import
 - Clarified examples with different images/videos for different sensors and frames.
+
 ### Removed
+
 - Removed unnecessary parameters `frame_id` and `relative_timestamp` from `lidars_and_cameras`
 
 ## [1.0.1] - 2021-04-06
+
 - Use backport of `dataclasses` to support python 3.6.
 
 ## [1.0.0] - 2021-03-23
+
 - New major release of client. Reworked to be more internally consistent between input types, and use of project and batch identifiers across methods. See [docs](https://annotell.github.io/annotell-python/) for more info.
 - `client.lidar_and_cameras.create` replaces `client.create_inputs_point_cloud_with_images`
 - `client.cameras.create` replaces `client.upload_and_create_images_input_job`
 - `client.annotations.get_annotations` replaces `client.download_annotations`
 
 ## [0.4.4] - 2021-03-02
+
 - Remove unused dependency on annotell-cloud-storage
 
 ## [0.4.3] - 2021-02-16
+
 - Fixed import bug in annoutil CLI tool.
 
 ## [0.4.2] - 2021-02-02
 
 ### Changed
+
 - Changed url for the `get_calibration_data` method. Does not affect
-usage of the method in any way.
+  usage of the method in any way.
 
 ## [0.4.1] - 2021-01-29
 
 ### Changed
 
 - Removed unused property `deadline` from project
+
 ## [0.4.0] - 2021-01-28
 
 ### Changed

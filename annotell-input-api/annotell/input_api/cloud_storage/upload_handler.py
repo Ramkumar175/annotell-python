@@ -19,9 +19,9 @@ class UploadHandler:
         :param max_upload_retry_attempts: Max number of attempts to retry uploading a file to GCS.
         :param max_upload_retry_wait_time:  Max with time before retrying an upload to GCS.
         """
-        self.MAX_NUM_RETRIES = max_retry_attempts
-        self.MAX_RETRY_WAIT_TIME = max_retry_wait_time  # seconds
-        self.TIMEOUT = timeout  # seconds
+        self.max_num_retries = max_retry_attempts
+        self.max_retry_wait_time = max_retry_wait_time  # seconds
+        self.timeout = timeout  # seconds
 
     #  Using similar retry strategy as gsutil
     #  https://cloud.google.com/storage/docs/gsutil/addlhelp/RetryHandlingStrategy
@@ -30,7 +30,7 @@ class UploadHandler:
         Upload the file to GCS, retries if the upload fails with some specific status codes.
         """
         log.info(f"Uploading file={file.name}")
-        resp = requests.put(upload_url, data=file, headers=headers, timeout=self.TIMEOUT)
+        resp = requests.put(upload_url, data=file, headers=headers, timeout=self.timeout)
         try:
             resp.raise_for_status()
         except (HTTPError, ConnectionError) as e:
@@ -44,12 +44,12 @@ class UploadHandler:
             raise e
 
     def _handle_upload_error(self, upload_url: str, file: BinaryIO, headers: Dict[str, str], resp: Response, number_of_retries: int):
-        upload_attempt = self.MAX_NUM_RETRIES - number_of_retries + 1
+        upload_attempt = self.max_num_retries - number_of_retries + 1
         log.error(
-            f"On upload attempt ({upload_attempt}/{self.MAX_NUM_RETRIES}) to GCS "
+            f"On upload attempt ({upload_attempt}/{self.max_num_retries}) to GCS "
             f"got response:\n{resp.status_code}: {resp.content}"
         )
-        wait_time = get_wait_time(upload_attempt, self.MAX_RETRY_WAIT_TIME)
+        wait_time = get_wait_time(upload_attempt, self.max_retry_wait_time)
         log.info(f"Waiting {int(wait_time)} seconds before retrying")
         time.sleep(wait_time)
         self._upload_file(upload_url, file, headers, number_of_retries - 1)
@@ -66,4 +66,4 @@ class UploadHandler:
             with file_path.open('rb') as file:
                 content_type = get_content_type(filename)
                 headers = {"Content-Type": content_type}
-                self._upload_file(upload_url, file, headers, self.MAX_NUM_RETRIES)
+                self._upload_file(upload_url, file, headers, self.max_num_retries)

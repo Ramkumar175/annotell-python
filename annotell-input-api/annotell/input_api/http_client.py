@@ -15,11 +15,7 @@ ENVELOPED_JSON_TAG = "data"
 class HttpClient:
     """Http Client dealing with auth and communication with API."""
 
-    def __init__(self,
-                 auth,
-                 host: str,
-                 auth_host: str,
-                 client_organization_id: int = None):
+    def __init__(self, auth, host: str, auth_host: str, client_organization_id: int = None, timeout: int = 60):
         """
         :param auth: auth credentials, see https://github.com/annotell/annotell-python/tree/master/annotell-auth
         :param host: override for input api url
@@ -31,17 +27,16 @@ class HttpClient:
 
         self.host = host
         self._auth_req_session = FaultTolerantAuthRequestSession(host=auth_host, auth=auth)
-        self.headers = {
-            "Accept-Encoding": "gzip",
-            "Accept": "application/json",
-            "User-Agent": "annotell-input-api/%s" % __version__
-        }
+        self.headers = {"Accept-Encoding": "gzip", "Accept": "application/json", "User-Agent": "annotell-input-api/%s" % __version__}
         self.dryrun_header = {"X-Dryrun": ""}
+        self.timeout = 60
 
         if client_organization_id is not None:
             self.headers["X-Organization-Id"] = str(client_organization_id)
-            log.warning(f"WARNING: You will now act as if you are part of organization: {client_organization_id}. "
-                        f"This will not work unless you are an Annotell user.")
+            log.warning(
+                f"WARNING: You will now act as if you are part of organization: {client_organization_id}. "
+                f"This will not work unless you are an Annotell user."
+            )
 
     @property
     def session(self):
@@ -79,6 +74,7 @@ class HttpClient:
         """
 
         kwargs.setdefault("headers", self.headers)
+        kwargs.setdefault("timeout", self.timeout)
         resp = self.session.get(f"{self.host}/{endpoint}", **kwargs)
         return self._unwrap_enveloped_json(self._raise_on_error(resp).json())
 
@@ -97,8 +93,9 @@ class HttpClient:
             headers = {**self.headers, **self.dryrun_header}
         else:
             headers = {**self.headers}
-        kwargs.setdefault("headers", headers)
 
+        kwargs.setdefault("headers", headers)
+        kwargs.setdefault("timeout", self.timeout)
         resp = self.session.post(f"{self.host}/{endpoint}", data, filter_none(json), **kwargs)
         if discard_response:
             self._raise_on_error(resp)
@@ -116,5 +113,6 @@ class HttpClient:
         :rtype: dict
         """
         kwargs.setdefault("headers", self.headers)
+        kwargs.setdefault("timeout", self.timeout)
         resp = self.session.put(f"{self.host}/{endpoint}", filter_none(data), **kwargs)
         return self._unwrap_enveloped_json(self._raise_on_error(resp).json())

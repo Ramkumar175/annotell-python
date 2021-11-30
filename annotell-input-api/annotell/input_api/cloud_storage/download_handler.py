@@ -19,13 +19,13 @@ class DownloadHandler:
         :param max_upload_retry_attempts: Max number of attempts to retry uploading a file to GCS.
         :param max_upload_retry_wait_time:  Max with time before retrying an upload to GCS.
         """
-        self.MAX_NUM_RETRIES = max_retry_attempts
-        self.MAX_RETRY_WAIT_TIME = max_retry_wait_time  # seconds
-        self.TIMEOUT = timeout  # seconds
+        self.max_num_retries = max_retry_attempts
+        self.max_retry_wait_time = max_retry_wait_time  # seconds
+        self.timeout = timeout  # seconds
 
     def get_json(self, url: str) -> Dict:
         try:
-            return json.loads(self._download_file(url, self.MAX_NUM_RETRIES))
+            return json.loads(self._download_file(url, self.max_num_retries))
         except Exception as e:
             raise e
 
@@ -37,17 +37,17 @@ class DownloadHandler:
         :param number_of_retries: Number of download attempts before we stop trying to download
         :return: JSON deserialized to dictionary
         """
-        resp = requests.get(url, timeout=self.TIMEOUT)
+        resp = requests.get(url, timeout=self.timeout)
         try:
             resp.raise_for_status()
         except (HTTPError, ConnectionError) as e:
             http_condition = number_of_retries > 0 and resp.status_code in RETRYABLE_STATUS_CODES
             if http_condition or isinstance(e, ConnectionError):
-                upload_attempt = self.MAX_NUM_RETRIES - number_of_retries + 1
-                wait_time = get_wait_time(upload_attempt, self.MAX_RETRY_WAIT_TIME)
+                upload_attempt = self.max_num_retries - number_of_retries + 1
+                wait_time = get_wait_time(upload_attempt, self.max_retry_wait_time)
                 log.error(
                     f"Failed to download annotation. Retrying in {int(wait_time)} seconds. "
-                    f"Attempt {upload_attempt}/{self.MAX_NUM_RETRIES}"
+                    f"Attempt {upload_attempt}/{self.max_num_retries}"
                 )
                 time.sleep(wait_time)
                 self._download_file(url, number_of_retries - 1)

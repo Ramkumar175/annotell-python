@@ -44,7 +44,7 @@ class InputApiClient:
         :param max_upload_retry_wait_time:  Max with time before retrying an upload to GCS.
         """
 
-        self._client = HttpClient(auth=auth, host=host, auth_host=auth_host, client_organization_id=client_organization_id)
+        self._client = HttpClient(auth=auth, host=host, auth_host=auth_host, client_organization_id=client_organization_id, timeout=timeout)
         self._file_client = FileResourceClient(
             max_retry_attempts=max_retry_attempts, max_retry_wait_time=max_retry_wait_time, timeout=timeout
         )
