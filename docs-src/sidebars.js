@@ -17,7 +17,7 @@ module.exports = {
         ]},
         "input-api/working_with_inputs",
       ]},
-      "input-api/annotations",  
+      "input-api/annotations",
       "input-api/calibration",
       "input-api/error_handling",
       "input-api/FAQ",
@@ -28,5 +28,9 @@ module.exports = {
         ]
       }
     ],
+    "OpenLABEL": [
+        "openlabel/openlabel-format",
+        "openlabel/python-client"
+    ]
   },
 };
