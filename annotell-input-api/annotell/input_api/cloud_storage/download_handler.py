@@ -43,8 +43,8 @@ class DownloadHandler:
         except (HTTPError, ConnectionError) as e:
             http_condition = number_of_retries > 0 and resp.status_code in RETRYABLE_STATUS_CODES
             if http_condition or isinstance(e, ConnectionError):
-                upload_attempt = self.max_num_retries - number_of_retries + 1
-                wait_time = get_wait_time(upload_attempt, self.max_retry_wait_time)
+                download_attempt = self.max_num_retries - number_of_retries + 1
+                wait_time = get_wait_time(download_attempt, self.max_retry_wait_time)
                 log.error(
                     f"Failed to download annotation. Retrying in {int(wait_time)} seconds. "
                     f"Attempt {upload_attempt}/{self.max_num_retries}"
