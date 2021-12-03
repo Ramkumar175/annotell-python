@@ -41,7 +41,7 @@ class DownloadHandler:
         except (HTTPError, ConnectionError) as e:
             http_condition = number_of_retries > 0 and resp.status_code in RETRYABLE_STATUS_CODES
             if http_condition or isinstance(e, ConnectionError):
-
+                self._handle_download_error(resp, number_of_retries)
                 self._download_file(url, number_of_retries - 1)
             else:
                 raise e
