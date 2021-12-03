@@ -12,7 +12,7 @@ Documentation about how to use the library can found [here](https://annotell.git
 
 All notable changes to this project will be documented in this file.
 
-## [1.1.2] - TBD
+## [1.1.2] - 2021-12-03
 
 ### Changed
 
