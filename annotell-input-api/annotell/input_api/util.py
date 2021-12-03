@@ -68,14 +68,15 @@ def get_view_links(input_uuids: List[str]) -> Dict[str, str]:
     return view_dict
 
 
-def get_wait_time(upload_attempt: int, max_retry_wait_time: int) -> int:
+# https://cloud.google.com/iot/docs/how-tos/exponential-backoff
+def get_wait_time(upload_attempt: int, max_retry_wait_time: int) -> float:
     """
     Calculates the wait time before attempting another file upload or download
 
     :param upload_attempt: How many attempts to upload that have been made
     :return: int: The time to wait before retrying upload
     """
-    max_wait_time = pow(2, upload_attempt - 1)
-    wait_time = random.random() * max_wait_time
-    wait_time = wait_time if wait_time < max_retry_wait_time else max_retry_wait_time
-    return wait_time
+    initial_wait_time_seconds: int = pow(2, upload_attempt - 1)
+    wait_time_seconds: float = initial_wait_time_seconds + random.random()
+    wait_time_seconds: float = wait_time_seconds if wait_time_seconds < max_retry_wait_time else max_retry_wait_time
+    return wait_time_seconds

@@ -22,6 +22,8 @@ All notable changes to this project will be documented in this file.
 
 - New parameter `timeout` to `InputApiClient`, which decides what the timeout in seconds is for calls to Annotell API:s and Google Cloud Storage.
 - Retries when a `ConnectionError` is raised during uploading/downloading of resources to/from Google Cloud Storage.
+- New input status `Pending`. An input will have this status if the input has been validated, but the server is waiting for the associated data to
+  be uploaded. When all data is uploaded the status of the input will change to `Processing`.
 
 ## [1.1.1] - 2021-11-11
 

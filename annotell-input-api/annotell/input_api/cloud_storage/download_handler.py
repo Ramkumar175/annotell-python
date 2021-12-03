@@ -6,6 +6,7 @@ import requests
 import time
 
 from requests.exceptions import HTTPError, ConnectionError
+from requests.models import Response
 
 from annotell.input_api.util import RETRYABLE_STATUS_CODES, get_wait_time
 
@@ -24,10 +25,7 @@ class DownloadHandler:
         self.timeout = timeout  # seconds
 
     def get_json(self, url: str) -> Dict:
-        try:
-            return json.loads(self._download_file(url, self.max_num_retries))
-        except Exception as e:
-            raise e
+        return json.loads(self._download_file(url, self.max_num_retries))
 
     def _download_file(self, url: str, number_of_retries: int) -> bytes:
         """
@@ -43,18 +41,18 @@ class DownloadHandler:
         except (HTTPError, ConnectionError) as e:
             http_condition = number_of_retries > 0 and resp.status_code in RETRYABLE_STATUS_CODES
             if http_condition or isinstance(e, ConnectionError):
-                download_attempt = self.max_num_retries - number_of_retries + 1
-                wait_time = get_wait_time(download_attempt, self.max_retry_wait_time)
-                log.error(
-                    f"Failed to download annotation. Retrying in {int(wait_time)} seconds. "
-                    f"Attempt {upload_attempt}/{self.max_num_retries}"
-                )
-                time.sleep(wait_time)
+
                 self._download_file(url, number_of_retries - 1)
             else:
                 raise e
 
-        except Exception as e:
-            raise e
-
         return resp.content
+
+    def _handle_download_error(self, resp: Response, number_of_retries: int) -> None:
+        download_attempt = self.max_num_retries - number_of_retries + 1
+        wait_time = get_wait_time(download_attempt, self.max_retry_wait_time)
+        log.error(
+            f"Failed to download file. Got response: {resp.status_code}: {resp.content}"
+            f"Attempt {download_attempt}/{self.max_num_retries}, retrying in {int(wait_time)} seconds."
+        )
+        time.sleep(wait_time)

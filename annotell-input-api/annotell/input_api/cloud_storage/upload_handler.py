@@ -36,23 +36,19 @@ class UploadHandler:
         except (HTTPError, ConnectionError) as e:
             http_condition = number_of_retries > 0 and resp.status_code in RETRYABLE_STATUS_CODES
             if http_condition or isinstance(e, ConnectionError):
-                self._handle_upload_error(upload_url, file, headers, resp, number_of_retries)
+                self._handle_upload_error(resp, number_of_retries)
+                self._upload_file(upload_url, file, headers, number_of_retries - 1)
             else:
                 raise e
 
-        except Exception as e:
-            raise e
-
-    def _handle_upload_error(self, upload_url: str, file: BinaryIO, headers: Dict[str, str], resp: Response, number_of_retries: int):
+    def _handle_upload_error(self, resp: Response, number_of_retries: int):
         upload_attempt = self.max_num_retries - number_of_retries + 1
-        log.error(
-            f"On upload attempt ({upload_attempt}/{self.max_num_retries}) to GCS "
-            f"got response:\n{resp.status_code}: {resp.content}"
-        )
         wait_time = get_wait_time(upload_attempt, self.max_retry_wait_time)
-        log.info(f"Waiting {int(wait_time)} seconds before retrying")
+        log.error(
+            f"Failed to upload file. Got response: {resp.status_code}: {resp.content}"
+            f"Attempt {upload_attempt}/{self.max_num_retries}, retrying in {int(wait_time)} seconds."
+        )
         time.sleep(wait_time)
-        self._upload_file(upload_url, file, headers, number_of_retries - 1)
 
     def upload_files(self, url_map: Mapping[str, str], folder: Optional[Path] = None) -> None:
         """
