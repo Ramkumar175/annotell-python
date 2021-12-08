@@ -8,6 +8,10 @@ the image plane of the camera.
 A Calibration object consists of a set of key-value pairs where the key is the name of the sensor (i.e. sensor name) and the value is either
 a _LidarCalibration_ object or any of the different camera calibrations.
 
+:::tip reuse calibration
+Note that you can, and should, reuse the same calibration for multiple inputs if possible.
+:::
+
 # Lidar
 
 | Key                       | Value                             | Parameters             |
@@ -81,9 +85,7 @@ calibration for a lidar sensor and several camera sensors of type `PINHOLE`.
 https://github.com/annotell/annotell-python/blob/master/annotell-input-api/examples/calibration/calibration.py
 ```
 
-:::tip reuse calibration
-Note that you can, and should, reuse the same calibration for multiple inputs if possible.
-:::
+
 
 ### Listing existing calibrations
 
