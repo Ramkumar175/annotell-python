@@ -38,6 +38,11 @@ https://www.asam.net/project-detail/asam-openlabel-v100/
 
 # Changelog
 
+## [0.1.2] - 2021-12-29
+- Updated several fields with multiple types to fix issues with serialization and deserialization.
+For example, the coordinates on `Poly2d` objects were previously always parsed to strings.
+  This update means that an attempt to parse them to floats is made. If this fails the they will be parsed to strings. 
+
 ## [0.1.1] - 2021-11-24
 - Updated stream properties model generation to be nicer to work with
 

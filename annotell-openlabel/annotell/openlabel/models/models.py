@@ -29,7 +29,7 @@ class AttributePointers(Enum):
     vec = 'vec'
 
 
-class Type1(Enum):
+class DataTypes(Enum):
     """
     Type of the element data pointed by this pointer.
     """
@@ -108,7 +108,7 @@ class Metadata(BaseModel):
     )
 
 
-class Type2(Enum):
+class NumTypes(Enum):
     """
     This attribute specifies whether the number shall be considered as a value, a minimum, or a maximum in its context.
     """
@@ -133,13 +133,13 @@ class OntologyItem(BaseModel):
 
 
 class Ontology(BaseModel):
-    __root__: Union[str, OntologyItem] = Field(
+    __root__: Union[OntologyItem, str] = Field(
         ...,
         description='This is the JSON object of OpenLABEL ontologies. Ontology keys are strings containing numerical UIDs or 32 bytes UUIDs. Ontology values may be strings, for example, encoding a URI. JSON objects containing a URI string and optional lists of included and excluded terms.',
     )
 
 
-class Type3(Enum):
+class RdfTypes(Enum):
     """
     The OpenLABEL type of element.
     """
@@ -155,7 +155,7 @@ class RdfAgent(BaseModel):
     An RDF agent is either an RDF semantic object or subject.
     """
 
-    type: Optional[Type3] = Field(None, description='The OpenLABEL type of element.')
+    type: Optional[RdfTypes] = Field(None, description='The OpenLABEL type of element.')
     uid: Optional[str] = Field(
         None, description='The element UID this RDF agent refers to.'
     )
@@ -175,13 +175,13 @@ class Resource(BaseModel):
     )
 
 
-class StreamProperty(BaseModel):
+class FisheyeCamera(BaseModel):
     """
     This JSON object defines an instance of the intrinsic parameters of a fisheye camera.
     """
 
     class Config:
-        extra = Extra.allow
+        extra = Extra.forbid
 
     center_x_px: Optional[Optional[float]] = Field(
         None,
@@ -211,13 +211,13 @@ class StreamProperty(BaseModel):
     )
 
 
-class StreamProperty1(BaseModel):
+class PinholeCamera(BaseModel):
     """
     This JSON object defines an instance of the intrinsic parameters of a pinhole camera.
     """
 
     class Config:
-        extra = Extra.allow
+        extra = Extra.forbid
 
     camera_matrix: Optional[List[float]] = Field(
         None,
@@ -235,7 +235,7 @@ class StreamProperty1(BaseModel):
     width_px: Optional[int] = None
 
 
-class Type4(Enum):
+class StreamTypes(Enum):
     """
     A string encoding the type of the stream.
     """
@@ -252,14 +252,14 @@ class Stream(BaseModel):
     A stream describes the source of a data sequence, usually a sensor.
     """
 
-    class Config:
+    class Config: # TODO: Look into smart_union later
         extra = Extra.forbid
 
     description: Optional[str] = Field(None, description='Description of the stream.')
     stream_properties: Optional[
-        Union[Dict[str, Any], StreamProperty, StreamProperty1]
+        Union[FisheyeCamera, PinholeCamera, Dict[str, Any]]
     ] = Field(None, description='Properties of the stream.')
-    type: Optional[Type4] = Field(
+    type: Optional[StreamTypes] = Field(
         None, description='A string encoding the type of the stream.'
     )
     uri: Optional[str] = Field(
@@ -273,7 +273,7 @@ class SyncItem(BaseModel):
         None,
         description='This is the internal frame number inside the stream this OpenLABEL frame corresponds to.',
     )
-    timestamp: Optional[Union[str, float]] = Field(
+    timestamp: Optional[Union[int, str]] = Field(
         None,
         description='The timestamp indicates a time instant as a string or numerical value to describe this frame.',
     )
@@ -292,7 +292,7 @@ class Sync(BaseModel):
     )
 
 
-class TransformDatum(BaseModel):
+class MatrixTransform(BaseModel):
     class Config:
         extra = Extra.forbid
 
@@ -302,7 +302,7 @@ class TransformDatum(BaseModel):
     )
 
 
-class TransformDatum1(BaseModel):
+class QuaternionTransform(BaseModel):
     """
     A transform can be defined with a quaternion to encode the rotation of a coordinate system with respect to another, and a translation.
     """
@@ -324,7 +324,7 @@ class TransformDatum1(BaseModel):
     )
 
 
-class TransformDatum2(BaseModel):
+class EulerTransform(BaseModel):
     """
     A transform can be defined with a sequence of Euler angles to encode the rotation of a coordinate system with respect to another and a translation.
     """
@@ -351,12 +351,12 @@ class TransformDatum2(BaseModel):
 
 
 class TransformData(BaseModel):
-    __root__: Union[TransformDatum, TransformDatum1, TransformDatum2] = Field(
+    __root__: Union[MatrixTransform, QuaternionTransform, EulerTransform] = Field(
         ..., description='JSON object containing the transform data.'
     )
 
 
-class Type6(Enum):
+class VecTypes(Enum):
     """
     This attribute specifies whether the vector shall be considered as a descriptor of individual values or as a definition of a range.
     """
@@ -400,7 +400,7 @@ class ElementDataPointer(BaseModel):
         ...,
         description='List of frame intervals of the element data pointed by this pointer.',
     )
-    type: Optional[Type1] = Field(
+    type: Optional[DataTypes] = Field(
         None, description='Type of the element data pointed by this pointer.'
     )
 
@@ -469,7 +469,7 @@ class FrameProperties(BaseModel):
         None,
         description='Streams is a JSON object which contains OpenLABEL streams with specific information for this frame. Stream keys can be any string, for example, a friendly stream name.',
     )
-    timestamp: Optional[Union[str, float]] = Field(
+    timestamp: Optional[Union[int, str]] = Field(
         None,
         description='The timestamp indicates a time instant as a string or numerical value to describe this frame.',
     )
@@ -559,7 +559,7 @@ class AreaReference(BaseModel):
         None,
         description='This is the type of the reference as a string with the name of the element data (e.g. line_reference)',
     )
-    val: Optional[List[float]] = Field(
+    val: Optional[List[int]] = Field(
         None,
         description='The array of indexes of the references of type reference_type.',
     )
@@ -933,7 +933,7 @@ class LineReference(BaseModel):
         None,
         description='This is the type of the reference as a string with the name of the element data (e.g. point3d)',
     )
-    val: Optional[List[float]] = Field(
+    val: Optional[List[int]] = Field(
         None,
         description='The array of indexes of the references of type reference_type.',
         max_items=2,
@@ -1019,7 +1019,7 @@ class Num(BaseModel):
         None,
         description='This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
     )
-    type: Optional[Type2] = Field(
+    type: Optional[NumTypes] = Field(
         None,
         description='This attribute specifies whether the number shall be considered as a value, a minimum, or a maximum in its context.',
     )
@@ -1325,7 +1325,7 @@ class Poly2d(BaseModel):
         ...,
         description='This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
     )
-    val: Union[List[str], List[float]] = Field(
+    val: Union[List[float], List[str]] = Field(
         ...,
         description='List of numerical values of the polyline, according to its mode.',
     )
@@ -1468,7 +1468,7 @@ class Vec(BaseModel):
         None,
         description='This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
     )
-    type: Optional[Type6] = Field(
+    type: Optional[VecTypes] = Field(
         None,
         description='This attribute specifies whether the vector shall be considered as a descriptor of individual values or as a definition of a range.',
     )
