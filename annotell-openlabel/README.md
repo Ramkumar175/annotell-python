@@ -38,6 +38,9 @@ https://www.asam.net/project-detail/asam-openlabel-v100/
 
 # Changelog
 
+## [0.1.3] - 2022-01-04
+- Fixed issues with version 0.1.2
+
 ## [0.1.2] - 2021-12-29
 - Updated several fields with multiple types to fix issues with serialization and deserialization.
 For example, the coordinates on `Poly2d` objects were previously always parsed to strings.
