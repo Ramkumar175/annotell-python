@@ -34,4 +34,4 @@ class FileResourceClient:
 
         :param url: Signed URL to GCS resource to download
         """
-        self._download_handler.get_json(url)
+        return self._download_handler.get_json(url)
