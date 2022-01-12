@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+from datetime import datetime
 from annotell.input_api.model.calibration.calib import SensorCalibrationEntry
 import examples.calibration.get_calibrations as get_calibrations_example
 import examples.calibration.create_calibrations as create_calibrations_example
@@ -7,7 +8,7 @@ import annotell.input_api.input_api_client as IAC
 
 
 class TestCalibration:
-    calibration_identifier = "<calibration-123abc"
+    calibration_identifier = f"<calibration-{datetime.now()}"
 
     def test_create_calibration(self, client: IAC.InputApiClient):
         calibrations = create_calibrations_example.run(client, self.calibration_identifier)
