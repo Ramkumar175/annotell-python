@@ -11,7 +11,4 @@ class EgoVehiclePose:
     rotation: RotationQuaternion
 
     def to_dict(self) -> Dict:
-        return dict(
-            position=self.position.to_dict(),
-            rotation=self.rotation.to_dict()
-        )
+        return dict(position=self.position.to_dict(), rotation=self.rotation.to_dict())

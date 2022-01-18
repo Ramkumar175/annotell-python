@@ -14,8 +14,10 @@ class LidarsAndCameras:
     metadata: Mapping[str, Union[int, float, str, bool]] = field(default_factory=dict)
 
     def to_dict(self) -> dict:
-        return dict(frame=self.frame.to_dict(),
-                    sensorSpecification=self.sensor_specification.to_dict() if isinstance(self.sensor_specification, SensorSpecification) else None,
-                    externalId=self.external_id,
-                    calibrationId=self.calibration_id,
-                    metadata=self.metadata)
+        return dict(
+            frame=self.frame.to_dict(),
+            sensorSpecification=self.sensor_specification.to_dict() if isinstance(self.sensor_specification, SensorSpecification) else None,
+            externalId=self.external_id,
+            calibrationId=self.calibration_id,
+            metadata=self.metadata
+        )

@@ -9,6 +9,7 @@ from tests.utils import TestProjects
 
 
 class TestCameras:
+
     @staticmethod
     def filter_cameras_project(projects: List[IAM.Project]):
         return [p for p in projects if p.project == TestProjects.CamerasProject]

@@ -11,6 +11,4 @@ class Lidars:
     metadata: Mapping[str, Union[int, float, str, bool]] = field(default_factory=dict)
 
     def to_dict(self) -> dict:
-        return dict(frame=self.frame.to_dict(),
-                    externalId=self.external_id,
-                    metadata=self.metadata)
+        return dict(frame=self.frame.to_dict(), externalId=self.external_id, metadata=self.metadata)

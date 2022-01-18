@@ -11,12 +11,14 @@ log = logging.getLogger(__name__)
 class LidarsSequence(CreateableInputAPIResource):
     path = 'lidars-sequence'
 
-    def create(self,
-               lidars_sequence: ls_model.LidarsSequence,
-               project: Optional[str] = None,
-               batch: Optional[str] = None,
-               annotation_types: Optional[List[str]] = None,
-               dryrun: bool = False) -> Optional[input_model.CreateInputResponse]:
+    def create(
+        self,
+        lidars_sequence: ls_model.LidarsSequence,
+        project: Optional[str] = None,
+        batch: Optional[str] = None,
+        annotation_types: Optional[List[str]] = None,
+        dryrun: bool = False
+    ) -> Optional[input_model.CreateInputResponse]:
         """
         Upload files and create an input of type ``LidarsSequence``.
 
@@ -30,11 +32,9 @@ class LidarsSequence(CreateableInputAPIResource):
 
         payload = lidars_sequence.to_dict()
 
-        response = self._post_input_request(self.path, payload,
-                                            project=project,
-                                            batch=batch,
-                                            annotation_types=annotation_types,
-                                            dryrun=dryrun)
+        response = self._post_input_request(
+            self.path, payload, project=project, batch=batch, annotation_types=annotation_types, dryrun=dryrun
+        )
 
         if dryrun:
             return None

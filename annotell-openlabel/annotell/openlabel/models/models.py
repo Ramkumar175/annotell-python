@@ -61,12 +61,8 @@ class FrameInterval(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    frame_end: Optional[int] = Field(
-        None, description='Ending frame number of the interval.'
-    )
-    frame_start: Optional[int] = Field(
-        None, description='Initial frame number of the interval.'
-    )
+    frame_end: Optional[int] = Field(None, description='Ending frame number of the interval.')
+    frame_start: Optional[int] = Field(None, description='Initial frame number of the interval.')
 
 
 class SchemaVersion(Enum):
@@ -93,19 +89,13 @@ class Metadata(BaseModel):
         None,
         description='Additional information or description about the annotation content.',
     )
-    file_version: Optional[str] = Field(
-        None, description='Version number of the OpenLABEL annotation content.'
-    )
-    name: Optional[str] = Field(
-        None, description='Name of the OpenLABEL annotation content.'
-    )
+    file_version: Optional[str] = Field(None, description='Version number of the OpenLABEL annotation content.')
+    name: Optional[str] = Field(None, description='Name of the OpenLABEL annotation content.')
     schema_version: SchemaVersion = Field(
         ...,
         description='Version number of the OpenLABEL schema this annotation JSON object follows.',
     )
-    tagged_file: Optional[str] = Field(
-        None, description='File name or URI of the data file being tagged.'
-    )
+    tagged_file: Optional[str] = Field(None, description='File name or URI of the data file being tagged.')
 
 
 class NumTypes(Enum):
@@ -124,6 +114,7 @@ class BoundaryMode(Enum):
 
 
 class OntologyItem(BaseModel):
+
     class Config:
         extra = Extra.allow
 
@@ -135,7 +126,8 @@ class OntologyItem(BaseModel):
 class Ontology(BaseModel):
     __root__: Union[OntologyItem, str] = Field(
         ...,
-        description='This is the JSON object of OpenLABEL ontologies. Ontology keys are strings containing numerical UIDs or 32 bytes UUIDs. Ontology values may be strings, for example, encoding a URI. JSON objects containing a URI string and optional lists of included and excluded terms.',
+        description=
+        'This is the JSON object of OpenLABEL ontologies. Ontology keys are strings containing numerical UIDs or 32 bytes UUIDs. Ontology values may be strings, for example, encoding a URI. JSON objects containing a URI string and optional lists of included and excluded terms.',
     )
 
 
@@ -156,22 +148,22 @@ class RdfAgent(BaseModel):
     """
 
     type: Optional[RdfTypes] = Field(None, description='The OpenLABEL type of element.')
-    uid: Optional[str] = Field(
-        None, description='The element UID this RDF agent refers to.'
-    )
+    uid: Optional[str] = Field(None, description='The element UID this RDF agent refers to.')
 
 
 class ResourceUid(BaseModel):
     __root__: str = Field(
         ...,
-        description='This is a JSON object that contains links to external resources. Resource_uid keys are strings containing numerical UIDs or 32 bytes UUIDs. Resource_uid values are strings describing the identifier of the element in the external resource.',
+        description=
+        'This is a JSON object that contains links to external resources. Resource_uid keys are strings containing numerical UIDs or 32 bytes UUIDs. Resource_uid values are strings describing the identifier of the element in the external resource.',
     )
 
 
 class Resource(BaseModel):
     __root__: str = Field(
         ...,
-        description='This is the JSON object of OpenLABEL resources. Resource keys are strings containing numerical UIDs or 32 bytes UUIDs. Resource values are strings that describe an external resource, for example, file name, URLs, that may be used to link data of the OpenLABEL annotation content with external existing content.',
+        description=
+        'This is the JSON object of OpenLABEL resources. Resource keys are strings containing numerical UIDs or 32 bytes UUIDs. Resource values are strings that describe an external resource, for example, file name, URLs, that may be used to link data of the OpenLABEL annotation content with external existing content.',
     )
 
 
@@ -191,24 +183,16 @@ class FisheyeCamera(BaseModel):
         None,
         description='y-coordinate (vertical) of the principal point of projection.',
     )
-    focal_length_x: Optional[Optional[float]] = Field(
-        None, description='Horizontal focal length (x-axis) in pixels.'
-    )
-    focal_length_y: Optional[Optional[float]] = Field(
-        None, description='Vertical focal length (y-axis) in pixels.'
-    )
-    height_px: Optional[int] = Field(
-        None, description='Height of the image frame in pixels.'
-    )
+    focal_length_x: Optional[Optional[float]] = Field(None, description='Horizontal focal length (x-axis) in pixels.')
+    focal_length_y: Optional[Optional[float]] = Field(None, description='Vertical focal length (y-axis) in pixels.')
+    height_px: Optional[int] = Field(None, description='Height of the image frame in pixels.')
     lens_coeffs: Optional[List[float]] = Field(
         None,
         description='This is the list of N values for the lens coefficients.',
         max_items=5,
         min_items=4,
     )
-    width_px: Optional[int] = Field(
-        None, description='Width of the image frame in pixels.'
-    )
+    width_px: Optional[int] = Field(None, description='Width of the image frame in pixels.')
 
 
 class PinholeCamera(BaseModel):
@@ -221,7 +205,8 @@ class PinholeCamera(BaseModel):
 
     camera_matrix: Optional[List[float]] = Field(
         None,
-        description='This is a 3x4 camera matrix which projects 3D homogeneous points (4x1) from a camera coordinate system into the image plane (3x1). This is the usual K matrix for camera projection as in OpenCV. It is extended from 3x3 to 3x4 to enable its direct utilisation to project 4x1 homogeneous 3D points. The matrix is defined to follow the camera model: x-to-right, y-down, z-forward. The following equation applies: x_img = camera_matrix * X_ccs.',
+        description=
+        'This is a 3x4 camera matrix which projects 3D homogeneous points (4x1) from a camera coordinate system into the image plane (3x1). This is the usual K matrix for camera projection as in OpenCV. It is extended from 3x3 to 3x4 to enable its direct utilisation to project 4x1 homogeneous 3D points. The matrix is defined to follow the camera model: x-to-right, y-down, z-forward. The following equation applies: x_img = camera_matrix * X_ccs.',
         max_items=12,
         min_items=12,
     )
@@ -252,19 +237,16 @@ class Stream(BaseModel):
     A stream describes the source of a data sequence, usually a sensor.
     """
 
-    class Config: # TODO: Look into smart_union later
+    class Config:  # TODO: Look into smart_union later
         extra = Extra.forbid
 
     description: Optional[str] = Field(None, description='Description of the stream.')
-    stream_properties: Optional[
-        Union[FisheyeCamera, PinholeCamera, Dict[str, Any]]
-    ] = Field(None, description='Properties of the stream.')
-    type: Optional[StreamTypes] = Field(
-        None, description='A string encoding the type of the stream.'
-    )
+    stream_properties: Optional[Union[FisheyeCamera, PinholeCamera, Dict[str, Any]]] = Field(None, description='Properties of the stream.')
+    type: Optional[StreamTypes] = Field(None, description='A string encoding the type of the stream.')
     uri: Optional[str] = Field(
         None,
-        description='A string encoding the URI, for example, a URL, or file name, for example, a video file name, the stream corresponds to.',
+        description=
+        'A string encoding the URI, for example, a URL, or file name, for example, a video file name, the stream corresponds to.',
     )
 
 
@@ -287,18 +269,18 @@ class SyncItem1(BaseModel):
 
 
 class Sync(BaseModel):
-    __root__: Union[SyncItem, SyncItem1] = Field(
-        ..., description='This is the sync information for this stream.'
-    )
+    __root__: Union[SyncItem, SyncItem1] = Field(..., description='This is the sync information for this stream.')
 
 
 class MatrixTransform(BaseModel):
+
     class Config:
         extra = Extra.forbid
 
     matrix4x4: List[float] = Field(
         ...,
-        description='Flattened list of 16 entries encoding a 4x4 homogeneous matrix to enable transform 3D column homogeneous vectors 4x1 using right-multiplication of matrices: X_dst = matrix_4x4 * X_src.',
+        description=
+        'Flattened list of 16 entries encoding a 4x4 homogeneous matrix to enable transform 3D column homogeneous vectors 4x1 using right-multiplication of matrices: X_dst = matrix_4x4 * X_src.',
     )
 
 
@@ -340,7 +322,8 @@ class EulerTransform(BaseModel):
     )
     sequence: Optional[str] = Field(
         None,
-        description='The sequence as a string of 3 characters defining the axis of the Euler angles and their order of application, for example, "ZYX". The default is "ZYX".',
+        description=
+        'The sequence as a string of 3 characters defining the axis of the Euler angles and their order of application, for example, "ZYX". The default is "ZYX".',
     )
     translation: List[float] = Field(
         ...,
@@ -351,9 +334,8 @@ class EulerTransform(BaseModel):
 
 
 class TransformData(BaseModel):
-    __root__: Union[MatrixTransform, QuaternionTransform, EulerTransform] = Field(
-        ..., description='JSON object containing the transform data.'
-    )
+    __root__: Union[MatrixTransform, QuaternionTransform,
+                    EulerTransform] = Field(..., description='JSON object containing the transform data.')
 
 
 class VecTypes(Enum):
@@ -373,9 +355,7 @@ class CoordinateSystem(BaseModel):
     class Config:
         extra = Extra.allow
 
-    children: Optional[List[str]] = Field(
-        None, description='List of children of this coordinate system.'
-    )
+    children: Optional[List[str]] = Field(None, description='List of children of this coordinate system.')
     parent: str = Field(
         ...,
         description='This is the string UID of the parent coordinate system this coordinate system is referring to.',
@@ -394,15 +374,14 @@ class ElementDataPointer(BaseModel):
 
     attribute_pointers: Optional[Dict[constr(regex=r'^'), AttributePointers]] = Field(
         None,
-        description='This is a JSON object which contains pointers to the attributes of the element data pointed by this pointer. The attributes pointer keys shall be the "name" of the attribute of the element data this pointer points to.',
+        description=
+        'This is a JSON object which contains pointers to the attributes of the element data pointed by this pointer. The attributes pointer keys shall be the "name" of the attribute of the element data this pointer points to.',
     )
     frame_intervals: List[FrameInterval] = Field(
         ...,
         description='List of frame intervals of the element data pointed by this pointer.',
     )
-    type: Optional[DataTypes] = Field(
-        None, description='Type of the element data pointed by this pointer.'
-    )
+    type: Optional[DataTypes] = Field(None, description='Type of the element data pointed by this pointer.')
 
 
 class Relation(BaseModel):
@@ -425,12 +404,8 @@ class Relation(BaseModel):
         None,
         description='This is the UID of the ontology where the type of this relation is defined.',
     )
-    rdf_objects: List[RdfAgent] = Field(
-        ..., description='This is the list of RDF semantic objects of this relation.'
-    )
-    rdf_subjects: List[RdfAgent] = Field(
-        ..., description='This is the list of RDF semantic subjects of this relation.'
-    )
+    rdf_objects: List[RdfAgent] = Field(..., description='This is the list of RDF semantic objects of this relation.')
+    rdf_subjects: List[RdfAgent] = Field(..., description='This is the list of RDF semantic subjects of this relation.')
     resource_uid: Optional[ResourceUid] = None
     type: str = Field(
         ...,
@@ -448,7 +423,8 @@ class Transform(BaseModel):
 
     dst: str = Field(
         ...,
-        description='The string UID, that is, the name, of the destination coordinate system for geometric data converted with this transform.',
+        description=
+        'The string UID, that is, the name, of the destination coordinate system for geometric data converted with this transform.',
     )
     src: str = Field(
         ...,
@@ -467,7 +443,8 @@ class FrameProperties(BaseModel):
 
     streams: Optional[Dict[constr(regex=r'^'), Stream]] = Field(
         None,
-        description='Streams is a JSON object which contains OpenLABEL streams with specific information for this frame. Stream keys can be any string, for example, a friendly stream name.',
+        description=
+        'Streams is a JSON object which contains OpenLABEL streams with specific information for this frame. Stream keys can be any string, for example, a friendly stream name.',
     )
     timestamp: Optional[Union[int, str]] = Field(
         None,
@@ -475,11 +452,13 @@ class FrameProperties(BaseModel):
     )
     transforms: Optional[Dict[constr(regex=r'^'), Transform]] = Field(
         None,
-        description='Transforms is a JSON object which contains OpenLABEL transforms specific for this frame. Transform keys can be any string, for example, a friendly name of a transform.',
+        description=
+        'Transforms is a JSON object which contains OpenLABEL transforms specific for this frame. Transform keys can be any string, for example, a friendly name of a transform.',
     )
 
 
 class OpenLabelAnnotation(BaseModel):
+
     class Config:
         extra = Extra.forbid
 
@@ -495,11 +474,10 @@ class Action(BaseModel):
         extra = Extra.forbid
 
     action_data: Optional[ActionData] = None
-    action_data_pointers: Optional[
-        Dict[constr(regex=r'^'), ElementDataPointer]
-    ] = Field(
+    action_data_pointers: Optional[Dict[constr(regex=r'^'), ElementDataPointer]] = Field(
         None,
-        description='This is a JSON object which contains OpenLABEL element data pointers. Element data pointer keys shall be the "name" of the element data this pointer points to.',
+        description=
+        'This is a JSON object which contains OpenLABEL element data pointers. Element data pointer keys shall be the "name" of the element data this pointer points to.',
     )
     frame_intervals: Optional[List[FrameInterval]] = Field(
         None,
@@ -528,18 +506,10 @@ class ActionData(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    boolean: Optional[List[Boolean]] = Field(
-        None, description='List of "boolean" that describe this action.'
-    )
-    num: Optional[List[Num]] = Field(
-        None, description='List of "num" that describe this action.'
-    )
-    text: Optional[List[Text]] = Field(
-        None, description='List of "text" that describe this action.'
-    )
-    vec: Optional[List[Vec]] = Field(
-        None, description='List of "vec" that describe this action.'
-    )
+    boolean: Optional[List[Boolean]] = Field(None, description='List of "boolean" that describe this action.')
+    num: Optional[List[Num]] = Field(None, description='List of "num" that describe this action.')
+    text: Optional[List[Text]] = Field(None, description='List of "text" that describe this action.')
+    vec: Optional[List[Vec]] = Field(None, description='List of "vec" that describe this action.')
 
 
 class AreaReference(BaseModel):
@@ -553,7 +523,8 @@ class AreaReference(BaseModel):
     attributes: Optional[Attributes] = None
     name: Optional[str] = Field(
         None,
-        description='This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
+        description=
+        'This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
     )
     reference_type: Optional[str] = Field(
         None,
@@ -594,7 +565,8 @@ class Bbox(BaseModel):
     )
     name: str = Field(
         ...,
-        description='This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
+        description=
+        'This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
     )
     val: List[float] = Field(
         ...,
@@ -627,11 +599,10 @@ class Binary(BaseModel):
     )
     name: str = Field(
         ...,
-        description='This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
+        description=
+        'This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
     )
-    val: str = Field(
-        ..., description='A string with the encoded bytes of this binary payload.'
-    )
+    val: str = Field(..., description='A string with the encoded bytes of this binary payload.')
 
 
 class Boolean(BaseModel):
@@ -649,7 +620,8 @@ class Boolean(BaseModel):
     )
     name: Optional[str] = Field(
         None,
-        description='This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
+        description=
+        'This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
     )
     type: Optional[Type] = Field(
         None,
@@ -667,11 +639,10 @@ class Context(BaseModel):
         extra = Extra.forbid
 
     context_data: Optional[ContextData] = None
-    context_data_pointers: Optional[
-        Dict[constr(regex=r'^'), ElementDataPointer]
-    ] = Field(
+    context_data_pointers: Optional[Dict[constr(regex=r'^'), ElementDataPointer]] = Field(
         None,
-        description='This is a JSON object which contains OpenLABEL element data pointers. Element data pointer keys shall be the "name" of the element data this pointer points to.',
+        description=
+        'This is a JSON object which contains OpenLABEL element data pointers. Element data pointer keys shall be the "name" of the element data this pointer points to.',
     )
     frame_intervals: Optional[List[FrameInterval]] = Field(
         None,
@@ -700,18 +671,10 @@ class ContextData(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    boolean: Optional[List[Boolean]] = Field(
-        None, description='List of "boolean" that describe this context.'
-    )
-    num: Optional[List[Num]] = Field(
-        None, description='List of "num" that describe this context.'
-    )
-    text: Optional[List[Text]] = Field(
-        None, description='List of "text" that describe this context.'
-    )
-    vec: Optional[List[Vec]] = Field(
-        None, description='List of "vec" that describe this context.'
-    )
+    boolean: Optional[List[Boolean]] = Field(None, description='List of "boolean" that describe this context.')
+    num: Optional[List[Num]] = Field(None, description='List of "num" that describe this context.')
+    text: Optional[List[Text]] = Field(None, description='List of "text" that describe this context.')
+    vec: Optional[List[Vec]] = Field(None, description='List of "vec" that describe this context.')
 
 
 class Cuboid(BaseModel):
@@ -729,11 +692,13 @@ class Cuboid(BaseModel):
     )
     name: str = Field(
         ...,
-        description='This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
+        description=
+        'This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
     )
     val: Optional[List[float]] = Field(
         ...,
-        description='List of values encoding the position, rotation and dimensions. Two options are supported, using 9 or 10 values. If 9 values are used, the format is (x, y, z, rx, ry, rz, sx, sy, sz), where (x, y, z) encodes the position, (rx, ry, rz) encodes the Euler angles that encode the rotation, and (sx, sy, sz) are the dimensions of the cuboid in its object coordinate system. If 10 values are used, then the format is (x, y, z, qx, qy, qz, qw, sx, sy, sz) with the only difference of the rotation values which are the 4 values of a quaternion.',
+        description=
+        'List of values encoding the position, rotation and dimensions. Two options are supported, using 9 or 10 values. If 9 values are used, the format is (x, y, z, rx, ry, rz, sx, sy, sz), where (x, y, z) encodes the position, (rx, ry, rz) encodes the Euler angles that encode the rotation, and (sx, sy, sz) are the dimensions of the cuboid in its object coordinate system. If 10 values are used, then the format is (x, y, z, qx, qy, qz, qw, sx, sy, sz) with the only difference of the rotation values which are the 4 values of a quaternion.',
     )
 
 
@@ -748,11 +713,13 @@ class Event(BaseModel):
     event_data: Optional[EventData] = None
     event_data_pointers: Optional[Dict[constr(regex=r'^'), ElementDataPointer]] = Field(
         None,
-        description='This is a JSON object which contains OpenLABEL element data pointers. Element data pointer keys shall be the "name" of the element data this pointer points to.',
+        description=
+        'This is a JSON object which contains OpenLABEL element data pointers. Element data pointer keys shall be the "name" of the element data this pointer points to.',
     )
     frame_intervals: Optional[List[FrameInterval]] = Field(
         None,
-        description='The array of frame intervals where this event exists or is defined. Note that events are thought to be instantaneous. That means, they are defined for a single frame interval where the starting and ending frames are the same.',
+        description=
+        'The array of frame intervals where this event exists or is defined. Note that events are thought to be instantaneous. That means, they are defined for a single frame interval where the starting and ending frames are the same.',
     )
     name: str = Field(
         ...,
@@ -777,21 +744,14 @@ class EventData(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    boolean: Optional[List[Boolean]] = Field(
-        None, description='List of "boolean" that describe this event.'
-    )
-    num: Optional[List[Num]] = Field(
-        None, description='List of "num" that describe this event.'
-    )
-    text: Optional[List[Text]] = Field(
-        None, description='List of "text" that describe this event.'
-    )
-    vec: Optional[List[Vec]] = Field(
-        None, description='List of "vec" that describe this event.'
-    )
+    boolean: Optional[List[Boolean]] = Field(None, description='List of "boolean" that describe this event.')
+    num: Optional[List[Num]] = Field(None, description='List of "num" that describe this event.')
+    text: Optional[List[Text]] = Field(None, description='List of "text" that describe this event.')
+    vec: Optional[List[Vec]] = Field(None, description='List of "vec" that describe this event.')
 
 
 class Actions(BaseModel):
+
     class Config:
         extra = Extra.forbid
 
@@ -799,6 +759,7 @@ class Actions(BaseModel):
 
 
 class Contexts(BaseModel):
+
     class Config:
         extra = Extra.forbid
 
@@ -806,6 +767,7 @@ class Contexts(BaseModel):
 
 
 class Events(BaseModel):
+
     class Config:
         extra = Extra.forbid
 
@@ -813,6 +775,7 @@ class Events(BaseModel):
 
 
 class Objects(BaseModel):
+
     class Config:
         extra = Extra.forbid
 
@@ -828,63 +791,43 @@ class Frame(BaseModel):
         extra = Extra.forbid
 
     actions: Optional[
-        Dict[
-            constr(
-                regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'
-            ),
-            Actions,
-        ]
+        Dict[constr(regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'), Actions, ]
     ] = Field(
         None,
-        description='This is a JSON object that contains dynamic information on OpenLABEL actions. Action keys are strings containing numerical UIDs or 32 bytes UUIDs. Action values may contain an "action_data" JSON object.',
+        description=
+        'This is a JSON object that contains dynamic information on OpenLABEL actions. Action keys are strings containing numerical UIDs or 32 bytes UUIDs. Action values may contain an "action_data" JSON object.',
     )
     contexts: Optional[
-        Dict[
-            constr(
-                regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'
-            ),
-            Contexts,
-        ]
+        Dict[constr(regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'), Contexts, ]
     ] = Field(
         None,
-        description='This is a JSON object that contains dynamic information on OpenLABEL contexts. Context keys are strings containing numerical UIDs or 32 bytes UUIDs. Context values may contain a "context_data" JSON object.',
+        description=
+        'This is a JSON object that contains dynamic information on OpenLABEL contexts. Context keys are strings containing numerical UIDs or 32 bytes UUIDs. Context values may contain a "context_data" JSON object.',
     )
     events: Optional[
-        Dict[
-            constr(
-                regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'
-            ),
-            Events,
-        ]
+        Dict[constr(regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'), Events, ]
     ] = Field(
         None,
-        description='This is a JSON object that contains dynamic information on OpenLABEL events. Event keys are strings containing numerical UIDs or 32 bytes UUIDs. Event values may contain an "event_data" JSON object.',
+        description=
+        'This is a JSON object that contains dynamic information on OpenLABEL events. Event keys are strings containing numerical UIDs or 32 bytes UUIDs. Event values may contain an "event_data" JSON object.',
     )
     frame_properties: Optional[FrameProperties] = Field(
         None,
         description='This is a JSON object which contains information about this frame.',
     )
     objects: Optional[
-        Dict[
-            constr(
-                regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'
-            ),
-            Objects,
-        ]
+        Dict[constr(regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'), Objects, ]
     ] = Field(
         None,
-        description='This is a JSON object that contains dynamic information on OpenLABEL objects. Object keys are strings containing numerical UIDs or 32 bytes UUIDs. Object values may contain an "object_data" JSON object.',
+        description=
+        'This is a JSON object that contains dynamic information on OpenLABEL objects. Object keys are strings containing numerical UIDs or 32 bytes UUIDs. Object values may contain an "object_data" JSON object.',
     )
     relations: Optional[
-        Dict[
-            constr(
-                regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'
-            ),
-            Any,
-        ]
+        Dict[constr(regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'), Any, ]
     ] = Field(
         None,
-        description='This is a JSON object that contains dynamic information of OpenLABEL relations. Relation keys are strings containing numerical UIDs or 32 bytes UUIDs. Relation values are empty. The presence of a key-value relation pair indicates the specified relation exists in this frame.',
+        description=
+        'This is a JSON object that contains dynamic information of OpenLABEL relations. Relation keys are strings containing numerical UIDs or 32 bytes UUIDs. Relation values are empty. The presence of a key-value relation pair indicates the specified relation exists in this frame.',
     )
 
 
@@ -907,11 +850,13 @@ class Image(BaseModel):
     )
     mime_type: str = Field(
         ...,
-        description='This is a string that declares the MIME (multipurpose internet mail extensions) of the image, for example, "image/gif".',
+        description=
+        'This is a string that declares the MIME (multipurpose internet mail extensions) of the image, for example, "image/gif".',
     )
     name: str = Field(
         ...,
-        description='This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
+        description=
+        'This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
     )
     val: str = Field(..., description='A string with the encoded bytes of this image.')
 
@@ -927,7 +872,8 @@ class LineReference(BaseModel):
     attributes: Optional[Attributes] = None
     name: Optional[str] = Field(
         None,
-        description='This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
+        description=
+        'This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
     )
     reference_type: Optional[str] = Field(
         None,
@@ -959,17 +905,14 @@ class Mat(BaseModel):
         ...,
         description='This is a string that declares the type of the numerical values of the matrix, for example, "float".',
     )
-    height: float = Field(
-        ..., description='Height of the matrix. Expressed in number of rows.'
-    )
+    height: float = Field(..., description='Height of the matrix. Expressed in number of rows.')
     name: str = Field(
         ...,
-        description='This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
+        description=
+        'This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
     )
     val: List[float] = Field(..., description='Flattened list of values of the matrix.')
-    width: float = Field(
-        ..., description='Width of the matrix. Expressed in number of columns.'
-    )
+    width: float = Field(..., description='Width of the matrix. Expressed in number of columns.')
 
 
 class Mesh(BaseModel):
@@ -990,11 +933,13 @@ class Mesh(BaseModel):
     )
     line_reference: Optional[Dict[constr(regex=r'^[0-9]+$'), LineReference]] = Field(
         None,
-        description='This is the JSON object for the 3D lines defined for this mesh. Line reference keys are strings containing numerical UIDs.',
+        description=
+        'This is the JSON object for the 3D lines defined for this mesh. Line reference keys are strings containing numerical UIDs.',
     )
     name: Optional[str] = Field(
         None,
-        description='This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
+        description=
+        'This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
     )
     point3d: Optional[Dict[constr(regex=r'^[0-9]+$'), Point3d]] = Field(
         None,
@@ -1017,7 +962,8 @@ class Num(BaseModel):
     )
     name: Optional[str] = Field(
         None,
-        description='This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
+        description=
+        'This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
     )
     type: Optional[NumTypes] = Field(
         None,
@@ -1047,11 +993,10 @@ class Object(BaseModel):
         description='Name of the object. It is a friendly name and not used for indexing.',
     )
     object_data: Optional[ObjectData] = None
-    object_data_pointers: Optional[
-        Dict[constr(regex=r'^'), ElementDataPointer]
-    ] = Field(
+    object_data_pointers: Optional[Dict[constr(regex=r'^'), ElementDataPointer]] = Field(
         None,
-        description='This is a JSON object which contains OpenLABEL element data pointers. Element data pointer keys shall be the "name" of the element data this pointer points to.',
+        description=
+        'This is a JSON object which contains OpenLABEL element data pointers. Element data pointer keys shall be the "name" of the element data this pointer points to.',
     )
     ontology_uid: Optional[str] = Field(
         None,
@@ -1072,57 +1017,23 @@ class ObjectData(BaseModel):
     class Config:
         extra = Extra.forbid
 
-    area_reference: Optional[List[AreaReference]] = Field(
-        None, description='List of "area_reference" that describe this object.'
-    )
-    bbox: Optional[List[Bbox]] = Field(
-        None, description='List of "bbox" that describe this object.'
-    )
-    binary: Optional[List[Binary]] = Field(
-        None, description='List of "binary" that describe this object.'
-    )
-    boolean: Optional[List[Boolean]] = Field(
-        None, description='List of "boolean" that describe this object.'
-    )
-    cuboid: Optional[List[Cuboid]] = Field(
-        None, description='List of "cuboid" that describe this object.'
-    )
-    image: Optional[List[Image]] = Field(
-        None, description='List of "image" that describe this object.'
-    )
-    line_reference: Optional[List[LineReference]] = Field(
-        None, description='List of "line_reference" that describe this object.'
-    )
-    mat: Optional[List[Mat]] = Field(
-        None, description='List of "mat" that describe this object.'
-    )
-    mesh: Optional[List[Mesh]] = Field(
-        None, description='List of "mesh" that describe this object.'
-    )
-    num: Optional[List[Num]] = Field(
-        None, description='List of "num" that describe this object.'
-    )
-    point2d: Optional[List[Point2d]] = Field(
-        None, description='List of "point2d" that describe this object.'
-    )
-    point3d: Optional[List[Point3d]] = Field(
-        None, description='List of "point3d" that describe this object.'
-    )
-    poly2d: Optional[List[Poly2d]] = Field(
-        None, description='List of "poly2d" that describe this object.'
-    )
-    poly3d: Optional[List[Poly3d]] = Field(
-        None, description='List of "poly3d" that describe this object.'
-    )
-    rbbox: Optional[List[Rbbox]] = Field(
-        None, description='List of "rbbox" that describe this object.'
-    )
-    text: Optional[List[Text]] = Field(
-        None, description='List of "text" that describe this object.'
-    )
-    vec: Optional[List[Vec]] = Field(
-        None, description='List of "vec" that describe this object.'
-    )
+    area_reference: Optional[List[AreaReference]] = Field(None, description='List of "area_reference" that describe this object.')
+    bbox: Optional[List[Bbox]] = Field(None, description='List of "bbox" that describe this object.')
+    binary: Optional[List[Binary]] = Field(None, description='List of "binary" that describe this object.')
+    boolean: Optional[List[Boolean]] = Field(None, description='List of "boolean" that describe this object.')
+    cuboid: Optional[List[Cuboid]] = Field(None, description='List of "cuboid" that describe this object.')
+    image: Optional[List[Image]] = Field(None, description='List of "image" that describe this object.')
+    line_reference: Optional[List[LineReference]] = Field(None, description='List of "line_reference" that describe this object.')
+    mat: Optional[List[Mat]] = Field(None, description='List of "mat" that describe this object.')
+    mesh: Optional[List[Mesh]] = Field(None, description='List of "mesh" that describe this object.')
+    num: Optional[List[Num]] = Field(None, description='List of "num" that describe this object.')
+    point2d: Optional[List[Point2d]] = Field(None, description='List of "point2d" that describe this object.')
+    point3d: Optional[List[Point3d]] = Field(None, description='List of "point3d" that describe this object.')
+    poly2d: Optional[List[Poly2d]] = Field(None, description='List of "poly2d" that describe this object.')
+    poly3d: Optional[List[Poly3d]] = Field(None, description='List of "poly3d" that describe this object.')
+    rbbox: Optional[List[Rbbox]] = Field(None, description='List of "rbbox" that describe this object.')
+    text: Optional[List[Text]] = Field(None, description='List of "text" that describe this object.')
+    vec: Optional[List[Vec]] = Field(None, description='List of "vec" that describe this object.')
 
 
 class Openlabel(BaseModel):
@@ -1134,106 +1045,65 @@ class Openlabel(BaseModel):
         extra = Extra.forbid
 
     actions: Optional[
-        Dict[
-            constr(
-                regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'
-            ),
-            Action,
-        ]
+        Dict[constr(regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'), Action, ]
     ] = Field(
         None,
         description='This is the JSON object of OpenLABEL actions. Action keys are strings containing numerical UIDs or 32 bytes UUIDs.',
     )
     contexts: Optional[
-        Dict[
-            constr(
-                regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'
-            ),
-            Context,
-        ]
+        Dict[constr(regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'), Context, ]
     ] = Field(
         None,
         description='This is the JSON object of OpenLABEL contexts. Context keys are strings containing numerical UIDs or 32 bytes UUIDs.',
     )
     coordinate_systems: Optional[Dict[constr(regex=r'^'), CoordinateSystem]] = Field(
         None,
-        description='This is a JSON object which contains OpenLABEL  coordinate systems. Coordinate system keys can be any string, for  example. a friendly coordinate system name.',
+        description=
+        'This is a JSON object which contains OpenLABEL  coordinate systems. Coordinate system keys can be any string, for  example. a friendly coordinate system name.',
     )
-    events: Optional[
-        Dict[
-            constr(
-                regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'
-            ),
-            Event,
-        ]
-    ] = Field(
-        None,
-        description='This is the JSON object of OpenLABEL events. Event keys are strings containing numerical UIDs or 32 bytes UUIDs.',
-    )
-    frame_intervals: Optional[List] = Field(
-        None, description='This is an array of frame intervals.'
-    )
+    events: Optional[Dict[
+        constr(regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'), Event, ]] = Field(
+            None,
+            description='This is the JSON object of OpenLABEL events. Event keys are strings containing numerical UIDs or 32 bytes UUIDs.',
+        )
+    frame_intervals: Optional[List] = Field(None, description='This is an array of frame intervals.')
     frames: Optional[Dict[constr(regex=r'^[0-9]+$'), Frame]] = Field(
         None,
-        description='This is the JSON object of frames that contain the dynamic, timewise, annotations. Keys are strings containing numerical frame identifiers, which are denoted as master frame numbers.',
+        description=
+        'This is the JSON object of frames that contain the dynamic, timewise, annotations. Keys are strings containing numerical frame identifiers, which are denoted as master frame numbers.',
     )
     metadata: Metadata
     objects: Optional[
-        Dict[
-            constr(
-                regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'
-            ),
-            Object,
-        ]
+        Dict[constr(regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'), Object, ]
     ] = Field(
         None,
         description='This is the JSON object of OpenLABEL objects. Object keys are strings containing numerical UIDs or 32 bytes UUIDs.',
     )
     ontologies: Optional[
-        Dict[
-            constr(
-                regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'
-            ),
-            Ontology,
-        ]
+        Dict[constr(regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'), Ontology, ]
     ] = Field(
         None,
-        description='This is the JSON object of OpenLABEL ontologies. Ontology keys are strings containing numerical UIDs or 32 bytes UUIDs. Ontology values may be strings, for example, encoding a URI. JSON objects containing a URI string and optional lists of included and excluded terms.',
+        description=
+        'This is the JSON object of OpenLABEL ontologies. Ontology keys are strings containing numerical UIDs or 32 bytes UUIDs. Ontology values may be strings, for example, encoding a URI. JSON objects containing a URI string and optional lists of included and excluded terms.',
     )
     relations: Optional[
-        Dict[
-            constr(
-                regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'
-            ),
-            Relation,
-        ]
+        Dict[constr(regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'), Relation, ]
     ] = Field(
         None,
         description='This is the JSON object of OpenLABEL relations. Relation keys are strings containing numerical UIDs or 32 bytes UUIDs.',
     )
-    resources: Optional[
-        Dict[
-            constr(
-                regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'
-            ),
-            Resource,
-        ]
-    ] = None
+    resources: Optional[Dict[constr(regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'),
+                             Resource, ]] = None
     streams: Optional[Dict[constr(regex=r'^'), Stream]] = Field(
         None,
-        description='This is a JSON object which contains OpenLABEL streams.  Stream keys can be any string, for example, a friendly stream name.',
+        description=
+        'This is a JSON object which contains OpenLABEL streams.  Stream keys can be any string, for example, a friendly stream name.',
     )
-    tags: Optional[
-        Dict[
-            constr(
-                regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'
-            ),
-            Tag,
-        ]
-    ] = Field(
-        None,
-        description='This is the JSON object of tags. Tag keys are strings containing numerical UIDs or 32 bytes UUIDs.',
-    )
+    tags: Optional[Dict[constr(regex=r'^(-?[0-9]+|[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12})$'), Tag, ]
+                   ] = Field(
+                       None,
+                       description='This is the JSON object of tags. Tag keys are strings containing numerical UIDs or 32 bytes UUIDs.',
+                   )
 
 
 class Point2d(BaseModel):
@@ -1255,7 +1125,8 @@ class Point2d(BaseModel):
     )
     name: str = Field(
         ...,
-        description='This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
+        description=
+        'This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
     )
     val: List[float] = Field(
         ...,
@@ -1284,7 +1155,8 @@ class Point3d(BaseModel):
     )
     name: str = Field(
         ...,
-        description='This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
+        description=
+        'This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
     )
     val: List[float] = Field(
         ...,
@@ -1305,7 +1177,8 @@ class Poly2d(BaseModel):
     attributes: Optional[Attributes] = None
     closed: bool = Field(
         ...,
-        description='A boolean that defines whether the polyline is closed or not. In case it is closed, it is assumed that the last point of the sequence is connected with the first one.',
+        description=
+        'A boolean that defines whether the polyline is closed or not. In case it is closed, it is assumed that the last point of the sequence is connected with the first one.',
     )
     coordinate_system: Optional[str] = Field(
         None,
@@ -1319,11 +1192,13 @@ class Poly2d(BaseModel):
     )
     mode: str = Field(
         ...,
-        description='Mode of the polyline list of values: "MODE_POLY2D_ABSOLUTE" determines that the poly2d list contains the sequence of (x, y) values of all points of the polyline. "MODE_POLY2D_RELATIVE" specifies that only the first point of the sequence is defined with its (x, y) values, while all the rest are defined relative to it. "MODE_POLY2D_SRF6DCC" specifies that SRF6DCC chain code method is used. "MODE_POLY2D_RS6FCC" specifies that the RS6FCC method is used.',
+        description=
+        'Mode of the polyline list of values: "MODE_POLY2D_ABSOLUTE" determines that the poly2d list contains the sequence of (x, y) values of all points of the polyline. "MODE_POLY2D_RELATIVE" specifies that only the first point of the sequence is defined with its (x, y) values, while all the rest are defined relative to it. "MODE_POLY2D_SRF6DCC" specifies that SRF6DCC chain code method is used. "MODE_POLY2D_RS6FCC" specifies that the RS6FCC method is used.',
     )
     name: str = Field(
         ...,
-        description='This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
+        description=
+        'This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
     )
     val: Union[List[float], List[str]] = Field(
         ...,
@@ -1342,7 +1217,8 @@ class Poly3d(BaseModel):
     attributes: Optional[Attributes] = None
     closed: bool = Field(
         ...,
-        description='A boolean that defines whether the polyline is closed or not. In case it is closed, it is assumed that the last point of the sequence is connected with the first one.',
+        description=
+        'A boolean that defines whether the polyline is closed or not. In case it is closed, it is assumed that the last point of the sequence is connected with the first one.',
     )
     coordinate_system: Optional[str] = Field(
         None,
@@ -1350,7 +1226,8 @@ class Poly3d(BaseModel):
     )
     name: str = Field(
         ...,
-        description='This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
+        description=
+        'This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
     )
     val: List[float] = Field(
         ...,
@@ -1373,7 +1250,8 @@ class Rbbox(BaseModel):
     )
     name: str = Field(
         ...,
-        description='This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
+        description=
+        'This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
     )
     val: List[float] = Field(
         ...,
@@ -1397,27 +1275,18 @@ class Tag(BaseModel):
     )
     resource_uid: Optional[ResourceUid] = None
     tag_data: Optional[TagData] = None
-    type: str = Field(
-        ..., description='The type of a tag defines the class the tag corresponds to.'
-    )
+    type: str = Field(..., description='The type of a tag defines the class the tag corresponds to.')
 
 
 class TagDatum(BaseModel):
+
     class Config:
         extra = Extra.forbid
 
-    boolean: Optional[List[Boolean]] = Field(
-        None, description='List of "boolean" that describe this tag.'
-    )
-    num: Optional[List[Num]] = Field(
-        None, description='List of "num" that describe this tag.'
-    )
-    text: Optional[List[Text]] = Field(
-        None, description='List of "text" that describe this tag.'
-    )
-    vec: Optional[List[Vec]] = Field(
-        None, description='List of "vec" that describe this tag.'
-    )
+    boolean: Optional[List[Boolean]] = Field(None, description='List of "boolean" that describe this tag.')
+    num: Optional[List[Num]] = Field(None, description='List of "num" that describe this tag.')
+    text: Optional[List[Text]] = Field(None, description='List of "text" that describe this tag.')
+    vec: Optional[List[Vec]] = Field(None, description='List of "vec" that describe this tag.')
 
 
 class TagData(BaseModel):
@@ -1442,7 +1311,8 @@ class Text(BaseModel):
     )
     name: Optional[str] = Field(
         None,
-        description='This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
+        description=
+        'This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
     )
     type: Optional[Type] = Field(
         None,
@@ -1466,15 +1336,15 @@ class Vec(BaseModel):
     )
     name: Optional[str] = Field(
         None,
-        description='This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
+        description=
+        'This is a string encoding the name of this object data. It is used as index inside the corresponding object data pointers.',
     )
     type: Optional[VecTypes] = Field(
         None,
-        description='This attribute specifies whether the vector shall be considered as a descriptor of individual values or as a definition of a range.',
+        description=
+        'This attribute specifies whether the vector shall be considered as a descriptor of individual values or as a definition of a range.',
     )
-    val: List[Union[float, str]] = Field(
-        ..., description='The numerical values of the vector (list) of numbers.'
-    )
+    val: List[Union[float, str]] = Field(..., description='The numerical values of the vector (list) of numbers.')
 
 
 OpenLabelAnnotation.update_forward_refs()

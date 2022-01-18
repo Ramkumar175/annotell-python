@@ -11,12 +11,14 @@ log = logging.getLogger(__name__)
 class Lidars(CreateableInputAPIResource):
     path = 'lidars'
 
-    def create(self,
-               lidars: model.Lidars,
-               project: Optional[str] = None,
-               batch: Optional[str] = None,
-               annotation_types: Optional[List[str]] = None,
-               dryrun: bool = False) -> Optional[CreateInputResponse]:
+    def create(
+        self,
+        lidars: model.Lidars,
+        project: Optional[str] = None,
+        batch: Optional[str] = None,
+        annotation_types: Optional[List[str]] = None,
+        dryrun: bool = False
+    ) -> Optional[CreateInputResponse]:
         """
         Upload files and create an input of type ``Lidars``.
 
@@ -30,15 +32,12 @@ class Lidars(CreateableInputAPIResource):
 
         payload = lidars.to_dict()
 
-        response = self._post_input_request(self.path, payload,
-                                            project=project,
-                                            batch=batch,
-                                            annotation_types=annotation_types,
-                                            dryrun=dryrun)
+        response = self._post_input_request(
+            self.path, payload, project=project, batch=batch, annotation_types=annotation_types, dryrun=dryrun
+        )
 
         if dryrun:
             return None
 
-        log.info(
-            f"Created inputs for files with uuid={response.input_uuid}")
+        log.info(f"Created inputs for files with uuid={response.input_uuid}")
         return CreateInputResponse.from_input_job_response(response)

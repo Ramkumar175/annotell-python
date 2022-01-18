@@ -30,7 +30,6 @@ class TestProject:
 
         assert project_batch.status == "open"
 
-
     def test_publish_batch(self, client: IAC.InputApiClient):
         projects = get_projects(client=client)
         project = self.filter_batch_project(projects)

@@ -19,7 +19,9 @@ def create_sensor_calibration(external_id, lidar_sources: List[str] = None, came
         camera_sources = []
 
     # Create calibration for the scene
-    camera_calibrations = [unity_camera_calibration(), unity_kannala_calibration(), unity_pinhole_calibration(), unity_fisheye_calibration()]
+    camera_calibrations = [
+        unity_camera_calibration(), unity_kannala_calibration(), unity_pinhole_calibration(), unity_fisheye_calibration()
+    ]
     calibration_dict = {
         **{lidar_source: unity_lidar_calibration() for lidar_source in lidar_sources},
         **{camera_source: camera_calibrations.pop() for camera_source in camera_sources}

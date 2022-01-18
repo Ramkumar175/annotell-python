@@ -11,12 +11,14 @@ class LidarsAndCamerasSequence(CreateableInputAPIResource):
 
     path = 'lidars-and-cameras-sequence'
 
-    def create(self,
-               lidars_and_cameras_sequence: InputModel.LidarsAndCamerasSequence,
-               project: Optional[str] = None,
-               batch: Optional[str] = None,
-               annotation_types: Optional[List[str]] = None,
-               dryrun: bool = False) -> Optional[InputModel.CreateInputResponse]:
+    def create(
+        self,
+        lidars_and_cameras_sequence: InputModel.LidarsAndCamerasSequence,
+        project: Optional[str] = None,
+        batch: Optional[str] = None,
+        annotation_types: Optional[List[str]] = None,
+        dryrun: bool = False
+    ) -> Optional[InputModel.CreateInputResponse]:
         """
         Upload files and create an input of type ``LidarsAndCamerasSequence``.
 
@@ -30,11 +32,9 @@ class LidarsAndCamerasSequence(CreateableInputAPIResource):
 
         payload = lidars_and_cameras_sequence.to_dict()
 
-        response = self._post_input_request(self.path, payload,
-                                            project=project,
-                                            batch=batch,
-                                            annotation_types=annotation_types,
-                                            dryrun=dryrun)
+        response = self._post_input_request(
+            self.path, payload, project=project, batch=batch, annotation_types=annotation_types, dryrun=dryrun
+        )
 
         if dryrun:
             return None

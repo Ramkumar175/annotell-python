@@ -9,7 +9,9 @@ import annotell.input_api.input_api_client as IAC
 from tests.utils import TestProjects
 import examples.download_annotations as download_annotations_example
 
+
 class TestDownloadAnnotations:
+
     @staticmethod
     def filter_cameras_project(projects: List[IAM.Project]):
         return [p for p in projects if p.project == TestProjects.CamerasProject]

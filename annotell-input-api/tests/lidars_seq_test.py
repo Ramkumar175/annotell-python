@@ -26,7 +26,7 @@ class TestLidarsSeq:
         project = self.filter_lidar_seq_project(projects)[0].project
         resp = lidars_seq_example.run(client=client, project=project)
         assert resp is None
-    
+
     def test_create_lidars_seq_input(self, client: IAC.InputApiClient):
         projects = client.project.get_projects()
         project = self.filter_lidar_seq_project(projects)[0].project

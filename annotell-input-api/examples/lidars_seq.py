@@ -11,11 +11,7 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
     print("Creating Lidar Sequence Input...")
 
     lidar_sensor1 = "lidar"
-    metadata = {
-        "location-lat": 27.986065,
-        "location-long": 86.922623,
-        "vehicle_id": "abg"
-    }
+    metadata = {"location-lat": 27.986065, "location-long": 86.922623, "vehicle_id": "abg"}
 
     lidars_seq = LSM.LidarsSequence(
         external_id="input1",
@@ -40,9 +36,7 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
         metadata=metadata
     )
     # Add input
-    return client.lidars_sequence.create(lidars_seq,
-                                         project=project,
-                                         dryrun=dryrun)
+    return client.lidars_sequence.create(lidars_seq, project=project, dryrun=dryrun)
 
 
 if __name__ == '__main__':

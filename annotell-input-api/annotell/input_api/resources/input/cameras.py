@@ -10,12 +10,14 @@ log = logging.getLogger(__name__)
 class Cameras(CreateableInputAPIResource):
     path = 'cameras'
 
-    def create(self,
-               cameras: InputModel.Cameras,
-               project: Optional[str] = None,
-               batch: Optional[str] = None,
-               annotation_types: Optional[List[str]] = None,
-               dryrun: bool = False) -> Optional[InputModel.CreateInputResponse]:
+    def create(
+        self,
+        cameras: InputModel.Cameras,
+        project: Optional[str] = None,
+        batch: Optional[str] = None,
+        annotation_types: Optional[List[str]] = None,
+        dryrun: bool = False
+    ) -> Optional[InputModel.CreateInputResponse]:
         """
         Upload files and create an input of type ``cameras``.
 
@@ -29,11 +31,9 @@ class Cameras(CreateableInputAPIResource):
 
         payload = cameras.to_dict()
 
-        response = self._post_input_request(self.path, payload,
-                                            project=project,
-                                            batch=batch,
-                                            annotation_types=annotation_types,
-                                            dryrun=dryrun)
+        response = self._post_input_request(
+            self.path, payload, project=project, batch=batch, annotation_types=annotation_types, dryrun=dryrun
+        )
 
         if dryrun:
             return None

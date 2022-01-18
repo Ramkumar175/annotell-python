@@ -5,6 +5,7 @@ import annotell.input_api.model.input as InputModel
 from annotell.input_api.logger import setup_logging
 from typing import Optional
 
+
 def run(client: IAC.InputApiClient, project: str):
 
     inputs = client.input.get_inputs(project=project)
