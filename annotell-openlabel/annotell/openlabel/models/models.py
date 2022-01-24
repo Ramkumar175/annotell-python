@@ -10,7 +10,7 @@ from typing import Any, Dict, List, Optional, Union
 from pydantic import BaseModel, Extra, Field, constr
 
 
-class Type(Enum):
+class Type(str, Enum):
     """
     This attribute specifies how the boolean shall be considered. In this schema the only possible option is as a value.
     """
@@ -18,7 +18,7 @@ class Type(Enum):
     value = 'value'
 
 
-class AttributePointers(Enum):
+class AttributePointers(str, Enum):
     """
     The attribute pointer values are strings which define the type of the attribute.
     """
@@ -29,7 +29,7 @@ class AttributePointers(Enum):
     vec = 'vec'
 
 
-class DataTypes(Enum):
+class DataTypes(str, Enum):
     """
     Type of the element data pointed by this pointer.
     """
@@ -65,7 +65,7 @@ class FrameInterval(BaseModel):
     frame_start: Optional[int] = Field(None, description='Initial frame number of the interval.')
 
 
-class SchemaVersion(Enum):
+class SchemaVersion(str, Enum):
     """
     Version number of the OpenLABEL schema this annotation JSON object follows.
     """
@@ -98,7 +98,7 @@ class Metadata(BaseModel):
     tagged_file: Optional[str] = Field(None, description='File name or URI of the data file being tagged.')
 
 
-class NumTypes(Enum):
+class NumTypes(str, Enum):
     """
     This attribute specifies whether the number shall be considered as a value, a minimum, or a maximum in its context.
     """
@@ -108,7 +108,7 @@ class NumTypes(Enum):
     max = 'max'
 
 
-class BoundaryMode(Enum):
+class BoundaryMode(str, Enum):
     include = 'include'
     exclude = 'exclude'
 
@@ -131,7 +131,7 @@ class Ontology(BaseModel):
     )
 
 
-class RdfTypes(Enum):
+class RdfTypes(str, Enum):
     """
     The OpenLABEL type of element.
     """
@@ -220,7 +220,7 @@ class PinholeCamera(BaseModel):
     width_px: Optional[int] = None
 
 
-class StreamTypes(Enum):
+class StreamTypes(str, Enum):
     """
     A string encoding the type of the stream.
     """
@@ -338,7 +338,7 @@ class TransformData(BaseModel):
                     EulerTransform] = Field(..., description='JSON object containing the transform data.')
 
 
-class VecTypes(Enum):
+class VecTypes(str, Enum):
     """
     This attribute specifies whether the vector shall be considered as a descriptor of individual values or as a definition of a range.
     """

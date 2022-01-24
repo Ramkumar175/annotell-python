@@ -37,6 +37,8 @@ dict_data = openlabel_annotation.dict(exclude_none=True)
 https://www.asam.net/project-detail/asam-openlabel-v100/
 
 # Changelog
+## [0.1.4] - 2022-01-24
+- Improved serializability for enum classes
 
 ## [0.1.3] - 2022-01-04
 - Fixed issues with version 0.1.2
