@@ -25,6 +25,7 @@ class TestGetAnnotations:
         annotations = get_project_annotations_example.run(client=client, project=project, annotation_type="signs")
         annotation_list = list(annotations)
         assert len(annotation_list) > 0
+        assert annotation_list.pop().content is not None
 
     def test_get_project_annotations_incorrect_at(self, client: IAC.InputApiClient):
         with pytest.raises(Exception) as exception_info:
