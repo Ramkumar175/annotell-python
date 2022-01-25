@@ -1,6 +1,7 @@
+from typing import Dict
+
 from humps import camel
 from pydantic import BaseModel
-from typing import Dict
 
 
 def to_camel_case(string: str) -> str:
@@ -18,4 +19,5 @@ class BaseSerializer(BaseModel):
 
     class Config:
         alias_generator = to_camel_case
+        orm_mode = True
         allow_population_by_field_name = True
