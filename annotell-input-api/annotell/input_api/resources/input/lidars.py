@@ -30,10 +30,11 @@ class Lidars(CreateableInputAPIResource):
         :returns CreateInputResponse: Class containing id of the created input job, or `None` if dryrun.
         """
 
+        imu_data = lidars.imu_data
         payload = lidars.to_dict()
 
         response = self._post_input_request(
-            self.path, payload, project=project, batch=batch, annotation_types=annotation_types, dryrun=dryrun
+            self.path, payload, project=project, batch=batch, annotation_types=annotation_types, imu_data=imu_data, dryrun=dryrun
         )
 
         if dryrun:

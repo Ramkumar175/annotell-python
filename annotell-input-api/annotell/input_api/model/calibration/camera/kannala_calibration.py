@@ -1,5 +1,6 @@
 from annotell.input_api.model.calibration.camera.common import BaseCameraCalibration
-from annotell.input_api.model.calibration.common import CalibrationType, BaseSerializer
+from annotell.input_api.model.calibration.common import CalibrationType
+from annotell.input_api.model.base_serializer import BaseSerializer
 
 
 class KannalaDistortionCoefficients(BaseSerializer):

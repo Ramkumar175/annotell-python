@@ -29,7 +29,10 @@ class UploadHandler:
         """
         Upload the file to GCS, retries if the upload fails with some specific status codes.
         """
-        log.info(f"Uploading file={file.name}")
+        if hasattr(file, "name"):
+            log.info(f"Uploading file={file.name}")
+        else:
+            log.info(f"Uploading in memory data")
         resp = requests.put(upload_url, data=file, headers=headers, timeout=self.timeout)
         try:
             resp.raise_for_status()
@@ -63,3 +66,12 @@ class UploadHandler:
                 content_type = get_content_type(filename)
                 headers = {"Content-Type": content_type}
                 self._upload_file(upload_url, file, headers, self.max_num_retries)
+
+    def upload_file(self, file: BinaryIO, url: str) -> None:
+        """
+
+        :param file:
+        :param url:
+        """
+        headers = {"Content-Type": "application/json"}
+        self._upload_file(url, file, headers, self.max_num_retries)

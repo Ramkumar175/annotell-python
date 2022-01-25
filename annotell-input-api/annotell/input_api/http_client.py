@@ -1,5 +1,6 @@
 """Client for communicating with the Annotell platform."""
 import logging
+from typing import Optional
 
 import requests
 from annotell.auth.authsession import FaultTolerantAuthRequestSession
@@ -78,7 +79,7 @@ class HttpClient:
         resp = self.session.get(f"{self.host}/{endpoint}", **kwargs)
         return self._unwrap_enveloped_json(self._raise_on_error(resp).json())
 
-    def post(self, endpoint, data=None, json=None, dryrun=False, discard_response=False, **kwargs) -> dict:
+    def post(self, endpoint, data=None, json=None, dryrun=False, discard_response=False, **kwargs) -> Optional[dict]:
         r"""Sends a POST request. Returns :class:`dict` object.
 
         :param endpoint: endpoint to be appended to `client.host`.

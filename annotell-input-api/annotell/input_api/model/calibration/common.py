@@ -1,7 +1,6 @@
 from enum import Enum
-from typing import Dict
 
-from pydantic import BaseModel
+from annotell.input_api.model.base_serializer import BaseSerializer
 
 
 class CalibrationType(str, Enum):
@@ -9,16 +8,6 @@ class CalibrationType(str, Enum):
     FISHEYE = "fisheye"
     KANNALA = "kannala"
     LIDAR = "lidar"
-
-
-class BaseSerializer(BaseModel):
-
-    @classmethod
-    def from_json(cls, js: Dict):
-        return cls.parse_obj(js)
-
-    def to_dict(self) -> Dict:
-        return self.dict(exclude_none=True)
 
 
 class RotationQuaternion(BaseSerializer):

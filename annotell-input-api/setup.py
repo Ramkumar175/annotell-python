@@ -43,6 +43,7 @@ setup(
         'python-dateutil',
         "dataclasses;python_version<'3.7'",
         "pydantic",
+        "humps",
         "Deprecated"
     ],
     python_requires='>=3.6',

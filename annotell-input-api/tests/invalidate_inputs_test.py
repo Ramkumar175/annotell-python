@@ -33,13 +33,14 @@ class TestCameras:
             inputs = get_inputs_example.run(client=client, input_uuids=[input_uuid])
 
             if len(inputs) == 1 and inputs[0].status == 'created':
+                print("Input created")
                 break
 
             time.sleep(1)
 
         assert isinstance(inputs, list)
         assert len(inputs) == 1
-        assert inputs[0].status == "created"
+        assert inputs[0].status == "created", f"Input has not been created, has status {inputs[0].status}"
 
         invalidate_inputs_example.run(client=client, input_uuid=input_uuid, invalidated_reason=InvalidatedReasonInput.BAD_CONTENT)
 

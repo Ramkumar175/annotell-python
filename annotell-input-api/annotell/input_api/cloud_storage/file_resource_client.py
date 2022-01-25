@@ -1,7 +1,7 @@
 """Client for communicating with the Annotell platform."""
 import logging
 from pathlib import Path
-from typing import Dict, Mapping, Optional
+from typing import Dict, Mapping, Optional, BinaryIO
 
 from annotell.input_api.cloud_storage.download_handler import DownloadHandler
 from annotell.input_api.cloud_storage.upload_handler import UploadHandler
@@ -27,6 +27,15 @@ class FileResourceClient:
         :param folder: Optional base path, will join folder and each filename in map if provided
         """
         self._upload_handler.upload_files(url_map=url_map, folder=folder)
+
+    def upload_json(self, file: BinaryIO, url: str) -> None:
+        """
+        Upload a single file to storage, using the specified url
+        :param file: A binary representation of the file
+        :param url: The url ot upload to file to
+        """
+
+        self._upload_handler.upload_file(file, url)
 
     def get_json(self, url: str) -> Dict:
         """

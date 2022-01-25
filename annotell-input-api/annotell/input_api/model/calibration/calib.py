@@ -18,7 +18,7 @@ class SensorCalibration:
     calibration: Dict[str, Union[BaseCalibration, CM.CameraCalibration]]
 
     def to_dict(self):
-        return {'externalId': self.external_id, 'calibration': {k: v.to_dict() for (k, v) in self.calibration.items()}}
+        return {'externalId': self.external_id, 'calibration': {k: v.to_dict(by_alias=False) for (k, v) in self.calibration.items()}}
 
 
 @dataclass
