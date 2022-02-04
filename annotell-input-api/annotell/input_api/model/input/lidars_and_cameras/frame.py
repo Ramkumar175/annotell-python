@@ -10,7 +10,7 @@ from annotell.input_api.model.input.resources.point_cloud import PointCloud
 class Frame:
     point_clouds: List[PointCloud] = field(default_factory=list)
     images: List[Image] = field(default_factory=list)
-    unix_timestamp: Optional[float] = None
+    unix_timestamp: Optional[UnixTimestampNs] = None
 
     def to_dict(self) -> dict:
         return dict(
