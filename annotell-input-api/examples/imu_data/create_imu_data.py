@@ -6,7 +6,7 @@ from annotell.input_api.model import IMUData
 from annotell.input_api.model.calibration.common import Position, RotationQuaternion
 
 
-def create_imu_data(start_timestamp: float = 123, end_timestamp: float = 130) -> List[IMUData]:
+def create_dummy_imu_data(start_timestamp: float = 123, end_timestamp: float = 130) -> List[IMUData]:
 
     def randfloat():
         return random.uniform(0, 1)

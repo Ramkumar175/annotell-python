@@ -5,7 +5,7 @@ import annotell.input_api.model.input as InputModel
 import annotell.input_api.model.input.resources as ResourceModel
 import annotell.input_api.model.input.lidars as lidar_model
 from annotell.input_api.logger import setup_logging
-from examples.imu_data.create_imu_data import create_imu_data
+from examples.imu_data.create_imu_data import create_dummy_imu_data
 
 
 def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputModel.CreateInputResponse:
@@ -13,12 +13,13 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
 
     lidar_sensor1 = "lidar"
     metadata = {"location-lat": 27.986065, "location-long": 86.922623, "vehicle_id": "abg"}
-    imu_data = create_imu_data()
+    imu_data = create_dummy_imu_data()
 
     lidars = lidar_model.Lidars(
         external_id="input1",
         frame=lidar_model.Frame(
-            point_clouds=[ResourceModel.PointCloud("./examples/resources/point_cloud_RFL01.las", sensor_name=lidar_sensor1)]
+            point_clouds=[ResourceModel.PointCloud("./examples/resources/point_cloud_RFL01.las", sensor_name=lidar_sensor1)],
+            unix_timestamp=1644223851 * 1e9
         ),
         metadata=metadata,
         imu_data=imu_data
