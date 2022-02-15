@@ -23,7 +23,7 @@ DATA ascii
 We validate `VERSION`, `FIELDS`, `SIZE`, `TYPE` and `COUNT` rows of this header. All other formats will result in an error and the conversion will fail.
 
 ## CSV
-We currently only support the following exact header and separation character (where `intensity` is uint8 and `ts_gps`, `x`, `y`, `z` are all float32):
+We currently only support the following exact header and separation character (where `intensity` is uint8,`ts_gps` is an uint64 and `x`, `y`, `z` are all float32):
 ```
 ts_gps,x,y,z,intensity
 ```
