@@ -5,6 +5,7 @@ import annotell.input_api.input_api_client as IAC
 import annotell.input_api.model.input as InputModel
 import annotell.input_api.model.input.cameras_sequence as CamerasSeqModel
 from annotell.input_api.logger import setup_logging
+from annotell.input_api.model.input.metadata.metadata import MetaData
 
 
 def run(client: IAC.InputApiClient, project: str, annotation_types: Optional[List[str]] = None, dryrun: bool = True):
@@ -12,7 +13,7 @@ def run(client: IAC.InputApiClient, project: str, annotation_types: Optional[Lis
 
     sensor1 = "RFC01"
     sensor2 = "RFC02"
-    metadata = {"location-lat": 27.986065, "location-long": 86.922623, "vehicle_id": "abg"}
+    metadata = MetaData.parse_obj({"location-lat": 27.986065, "location-long": 86.922623, "vehicle_id": "abg"})
 
     cameras_sequence = CamerasSeqModel.CamerasSequence(
         external_id="camera_sequence_images_example_input",

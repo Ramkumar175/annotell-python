@@ -11,6 +11,12 @@ Documentation about how to use the library can found [here](https://annotell.git
 # Changelog
 
 All notable changes to this project will be documented in this file.
+## [1.1.X] - 2022-02-17
+
+### Added
+
+- MetaDataContainer added with reserved keyword `region`. 
+
 ## [1.1.3] - 2022-01-05
 
 ### Bugfix

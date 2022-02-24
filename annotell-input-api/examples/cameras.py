@@ -3,6 +3,7 @@ from __future__ import absolute_import
 import annotell.input_api.input_api_client as IAC
 import annotell.input_api.model.input as InputModel
 import annotell.input_api.model.input.cameras as CamerasModel
+from annotell.input_api.model.input.metadata.metadata import MetaData
 from annotell.input_api.logger import setup_logging
 from typing import List, Optional
 from pathlib import Path
@@ -19,7 +20,7 @@ def run(client: IAC.InputApiClient,
 
     sensor1 = "RFC01"
     sensor2 = "RFC02"
-    metadata = {"location-lat": 27.986065, "location-long": 86.922623, "vehicle_id": "abg"}
+    metadata = MetaData.parse_obj({"location-lat": 27.986065, "location-long": 86.922623, "vehicle_id": "abg"})
 
     cameras = CamerasModel.Cameras(
         external_id="input1",

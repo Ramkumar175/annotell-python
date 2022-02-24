@@ -5,6 +5,7 @@ import annotell.input_api.model.input as InputModel
 import annotell.input_api.model.input.resources as ResourceModel
 import annotell.input_api.model.input.lidars as lidar_model
 from annotell.input_api.logger import setup_logging
+from annotell.input_api.model.input.metadata.metadata import MetaData
 from examples.imu_data.create_imu_data import create_dummy_imu_data
 
 
@@ -12,7 +13,7 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
     print("Creating Lidars Input...")
 
     lidar_sensor1 = "lidar"
-    metadata = {"location-lat": 27.986065, "location-long": 86.922623, "vehicle_id": "abg"}
+    metadata = MetaData.parse_obj({"location-lat": 27.986065, "location-long": 86.922623, "vehicle_id": "abg"})
     imu_data = create_dummy_imu_data()
 
     lidars = lidar_model.Lidars(

@@ -5,13 +5,14 @@ import annotell.input_api.model.input as InputModel
 import annotell.input_api.model.input.lidars_sequence as LSM
 import annotell.input_api.model.input.resources as ResourceModel
 from annotell.input_api.logger import setup_logging
+from annotell.input_api.model.input.metadata.metadata import MetaData
 
 
 def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputModel.CreateInputResponse:
     print("Creating Lidar Sequence Input...")
 
     lidar_sensor1 = "lidar"
-    metadata = {"location-lat": 27.986065, "location-long": 86.922623, "vehicle_id": "abg"}
+    metadata = MetaData.parse_obj({"location-lat": 27.986065, "location-long": 86.922623, "vehicle_id": "abg"})
 
     lidars_seq = LSM.LidarsSequence(
         external_id="input1",

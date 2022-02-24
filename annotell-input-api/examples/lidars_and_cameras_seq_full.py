@@ -10,6 +10,7 @@ import annotell.input_api.model.input.resources as ResourceModel
 from annotell.input_api.logger import setup_logging
 from annotell.input_api.model.calibration import Position, RotationQuaternion
 from annotell.input_api.model.ego import EgoVehiclePose
+from annotell.input_api.model.input.metadata.metadata import MetaData
 from examples.calibration.calibration import create_sensor_calibration
 
 
@@ -26,7 +27,7 @@ def run(
     cam_sensor1 = "RFC01"
     cam_sensor2 = "RFC02"
     cam_sensor3 = "RFC03"
-    metadata = {"location-lat": 27.986065, "location-long": 86.922623, "vehicleId": "abg"}
+    metadata = MetaData.parse_obj({"location-lat": 27.986065, "location-long": 86.922623, "vehicle_id": "abg"})
 
     # Create calibration
     calibration_spec = create_sensor_calibration(f"Collection {datetime.now()}", [lidar_sensor1], [cam_sensor1, cam_sensor2, cam_sensor3])

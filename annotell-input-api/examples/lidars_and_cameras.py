@@ -3,6 +3,7 @@ from __future__ import absolute_import
 from typing import List, Optional
 from datetime import datetime
 
+from annotell.input_api.model.input.metadata.metadata import MetaData
 from examples.calibration.calibration import create_sensor_calibration
 import annotell.input_api.input_api_client as IAC
 import annotell.input_api.model.input as InputModel
@@ -25,7 +26,7 @@ def run(
     cam_sensor1 = "RFC01"
     cam_sensor2 = "RFC02"
     cam_sensor3 = "RFC03"
-    metadata = {"location-lat": 27.986065, "location-long": 86.922623, "vehicle_id": "abg"}
+    metadata = MetaData.parse_obj({"location-lat": 27.986065, "location-long": 86.922623, "vehicle_id": "abg"})
 
     # Create calibration
     calibration_spec = create_sensor_calibration(f"Collection {datetime.now()}", [lidar_sensor1], [cam_sensor1, cam_sensor2, cam_sensor3])
