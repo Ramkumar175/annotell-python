@@ -6,9 +6,11 @@ from annotell.input_api.util import filter_none
 
 camera_sensor_default = "CAM"
 
+
 @dataclass
 class VideoTS(ABC):
     video_timestamp: int
+
 
 @dataclass
 class VideoFrame(Resource, VideoTS):
@@ -18,9 +20,11 @@ class VideoFrame(Resource, VideoTS):
     video_timestamp: int
 
     def to_dict(self) -> dict:
-        return filter_none({
-            "filename": self.filename,
-            "videoTimestamp": self.video_timestamp,
-            "sensorName": self.sensor_name,
-            "resourceId": self.resolve_resource_id()
-        })
+        return filter_none(
+            {
+                "filename": self.filename,
+                "videoTimestamp": self.video_timestamp,
+                "sensorName": self.sensor_name,
+                "resourceId": self.resolve_resource_id()
+            }
+        )

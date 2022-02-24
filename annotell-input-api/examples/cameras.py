@@ -5,6 +5,9 @@ import annotell.input_api.model.input as InputModel
 import annotell.input_api.model.input.cameras as CamerasModel
 from annotell.input_api.logger import setup_logging
 from typing import List, Optional
+from pathlib import Path
+
+base_dir = Path(__file__).parent.absolute()
 
 
 def run(client: IAC.InputApiClient,
@@ -16,20 +19,14 @@ def run(client: IAC.InputApiClient,
 
     sensor1 = "RFC01"
     sensor2 = "RFC02"
-    metadata = {
-        "location-lat": 27.986065,
-        "location-long": 86.922623,
-        "vehicle_id": "abg"
-    }
+    metadata = {"location-lat": 27.986065, "location-long": 86.922623, "vehicle_id": "abg"}
 
     cameras = CamerasModel.Cameras(
         external_id="input1",
         frame=CamerasModel.Frame(
             images=[
-                InputModel.Image(
-                    "./examples/resources/img_RFC01.jpg", sensor_name=sensor1),
-                InputModel.Image(
-                    "./examples/resources/img_RFC02.jpg", sensor_name=sensor2),
+                InputModel.Image(str(base_dir) + "/resources/img_RFC01.jpg", sensor_name=sensor1),
+                InputModel.Image(str(base_dir) + "/resources/img_RFC02.jpg", sensor_name=sensor2),
             ]
         ),
         metadata=metadata

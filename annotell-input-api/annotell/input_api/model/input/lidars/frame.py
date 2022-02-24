@@ -8,6 +8,4 @@ class Frame:
     point_clouds: List[PointCloud] = field(default_factory=list)
 
     def to_dict(self) -> dict:
-        return dict(
-            pointClouds=[pc.to_dict() for pc in self.point_clouds] if self.point_clouds else None
-        )
+        return dict(pointClouds=[pc.to_dict() for pc in self.point_clouds] if self.point_clouds else None)

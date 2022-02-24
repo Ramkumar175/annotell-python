@@ -12,11 +12,7 @@ def run(client: IAC.InputApiClient, project: str, annotation_types: Optional[Lis
 
     sensor1 = "RFC01"
     sensor2 = "RFC02"
-    metadata = {
-        "location-lat": 27.986065,
-        "location-long": 86.922623,
-        "vehicle_id": "abg"
-    }
+    metadata = {"location-lat": 27.986065, "location-long": 86.922623, "vehicle_id": "abg"}
 
     cameras_sequence = CamerasSeqModel.CamerasSequence(
         external_id="camera_sequence_images_example_input",
@@ -25,12 +21,8 @@ def run(client: IAC.InputApiClient, project: str, annotation_types: Optional[Lis
                 frame_id="1",
                 relative_timestamp=0,
                 images=[
-                    InputModel.Image(
-                        filename="./examples/resources/img_RFC01.jpg",
-                        sensor_name=sensor1),
-                    InputModel.Image(
-                        filename="./examples/resources/img_RFC02.jpg",
-                        sensor_name=sensor2),
+                    InputModel.Image(filename="./examples/resources/img_RFC01.jpg", sensor_name=sensor1),
+                    InputModel.Image(filename="./examples/resources/img_RFC02.jpg", sensor_name=sensor2),
                 ],
                 metadata={'dut_status': 'active'}
             ),
@@ -38,12 +30,8 @@ def run(client: IAC.InputApiClient, project: str, annotation_types: Optional[Lis
                 frame_id="2",
                 relative_timestamp=500,
                 images=[
-                    InputModel.Image(
-                        filename="./examples/resources/img_RFC11.jpg",
-                        sensor_name=sensor1),
-                    InputModel.Image(
-                        filename="./examples/resources/img_RFC12.jpg",
-                        sensor_name=sensor2),
+                    InputModel.Image(filename="./examples/resources/img_RFC11.jpg", sensor_name=sensor1),
+                    InputModel.Image(filename="./examples/resources/img_RFC12.jpg", sensor_name=sensor2),
                 ],
                 metadata={'dut_status': 'active'}
             )
@@ -52,10 +40,7 @@ def run(client: IAC.InputApiClient, project: str, annotation_types: Optional[Lis
     )
 
     # Add input
-    return client.cameras_sequence.create(cameras_sequence,
-                                          project=project,
-                                          annotation_types=annotation_types,
-                                          dryrun=dryrun)
+    return client.cameras_sequence.create(cameras_sequence, project=project, annotation_types=annotation_types, dryrun=dryrun)
 
 
 if __name__ == '__main__':
@@ -68,4 +53,3 @@ if __name__ == '__main__':
 
     client = IAC.InputApiClient()
     run(client, project, annotation_types)
-

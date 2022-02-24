@@ -1,13 +1,13 @@
 from __future__ import absolute_import
 
+from datetime import datetime
+
 import annotell.input_api.input_api_client as IAC
 import annotell.input_api.model.input as InputModel
 import annotell.input_api.model.input.lidars_and_cameras_sequence as LCSM
 import annotell.input_api.model.input.resources as ResourceModel
 from annotell.input_api.logger import setup_logging
-from datetime import datetime
-
-from examples.calibration import create_sensor_calibration
+from examples.calibration.calibration import create_sensor_calibration
 
 
 def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputModel.CreateInputResponse:
@@ -17,11 +17,7 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
     cam_sensor1 = "RFC01"
     cam_sensor2 = "RFC02"
     cam_sensor3 = "RFC03"
-    metadata = {
-        "location-lat": 27.986065,
-        "location-long": 86.922623,
-        "vehicle_id": "abg"
-    }
+    metadata = {"location-lat": 27.986065, "location-long": 86.922623, "vehicle_id": "abg"}
 
     # Create calibration
     calibration_spec = create_sensor_calibration(f"Collection {datetime.now()}", [lidar_sensor1], [cam_sensor1, cam_sensor2, cam_sensor3])
@@ -59,9 +55,7 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
         metadata=metadata
     )
     # Add input
-    return client.lidars_and_cameras_sequence.create(lidars_and_cameras_seq,
-                                                     project=project,
-                                                     dryrun=dryrun)
+    return client.lidars_and_cameras_sequence.create(lidars_and_cameras_seq, project=project, dryrun=dryrun)
 
 
 if __name__ == '__main__':

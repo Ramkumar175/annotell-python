@@ -13,12 +13,8 @@ class Project(Response):
     status: str
     project: str
 
-    @ staticmethod
+    @staticmethod
     def from_json(js: dict):
         return Project(
-            created=ts_to_dt(js["created"]),
-            title=js["title"],
-            description=js["description"],
-            status=js["status"],
-            project=js["project"]
+            created=ts_to_dt(js["created"]), title=js["title"], description=js["description"], status=js["status"], project=js["project"]
         )

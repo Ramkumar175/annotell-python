@@ -10,4 +10,5 @@ class TestProjects(str, Enum):
     LidarsProject = "lidars-project"
     LidarsSequenceProject = "lidars_sequence-project"
 
+
 TestProjects.__test__ = False

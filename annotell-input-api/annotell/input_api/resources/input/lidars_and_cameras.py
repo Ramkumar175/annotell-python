@@ -12,12 +12,14 @@ class LidarsAndCameras(CreateableInputAPIResource):
 
     path = 'lidars-and-cameras'
 
-    def create(self,
-               lidars_and_cameras: lc_model.LidarsAndCameras,
-               project: Optional[str] = None,
-               batch: Optional[str] = None,
-               annotation_types: Optional[List[str]] = None,
-               dryrun: bool = False) -> Optional[input_model.CreateInputResponse]:
+    def create(
+        self,
+        lidars_and_cameras: lc_model.LidarsAndCameras,
+        project: Optional[str] = None,
+        batch: Optional[str] = None,
+        annotation_types: Optional[List[str]] = None,
+        dryrun: bool = False
+    ) -> Optional[input_model.CreateInputResponse]:
         """
         Upload files and create an input of type ``LidarsAndCameras``.
 
@@ -29,17 +31,15 @@ class LidarsAndCameras(CreateableInputAPIResource):
         :returns InputJobCreated: Class containing id of the created input job, or `None` if dryrun.
         """
 
+        imu_data = lidars_and_cameras.imu_data
         payload = lidars_and_cameras.to_dict()
 
-        response = self._post_input_request(self.path, payload,
-                                            project=project,
-                                            batch=batch,
-                                            annotation_types=annotation_types,
-                                            dryrun=dryrun)
+        response = self._post_input_request(
+            self.path, payload, project=project, batch=batch, annotation_types=annotation_types, imu_data=imu_data, dryrun=dryrun
+        )
 
         if dryrun:
             return None
 
-        log.info(
-            f"Created inputs for files with uuid={response.input_uuid}")
+        log.info(f"Created inputs for files with uuid={response.input_uuid}")
         return input_model.CreateInputResponse.from_input_job_response(response)

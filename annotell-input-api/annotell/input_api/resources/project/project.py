@@ -28,8 +28,7 @@ class ProjectResource(InputAPIResource):
         json_resp = self._client.get(f"v1/projects/{project}/batches")
         return [ProjectModel.ProjectBatch.from_json(js) for js in json_resp]
 
-    def create_batch(self, project: str, batch: str,
-                     publish_previous_batches: bool = False) -> ProjectModel.ProjectBatch:
+    def create_batch(self, project: str, batch: str, publish_previous_batches: bool = False) -> ProjectModel.ProjectBatch:
         """
         Create new `batch` for the `project`. Publishes the previous batch if it is still open.
 
@@ -38,9 +37,7 @@ class ProjectResource(InputAPIResource):
         :param publish_previous_batches set to true to publish previous batches, setting them to a Ready status
         :return ProjectBatch: The newly created batch
         """
-        json_resp = self._client.post(f"v1/projects/{project}/batches/{batch}", json={
-            "publishPreviousBatches": publish_previous_batches
-        })
+        json_resp = self._client.post(f"v1/projects/{project}/batches/{batch}", json={"publishPreviousBatches": publish_previous_batches})
         return ProjectModel.ProjectBatch.from_json(json_resp)
 
     def publish_batch(self, project: str, batch: str) -> ProjectModel.ProjectBatch:

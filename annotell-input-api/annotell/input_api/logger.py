@@ -7,6 +7,7 @@ annotell_logger = None
 
 TEXT_FORMAT = '%(asctime)-15s %(levelname)-s [%(name)-25s] %(message)s'
 
+
 def setup_logging(level: str):
     global _setup
     if _setup:

@@ -8,4 +8,3 @@ from .lidars_and_cameras import *
 from .lidars_and_cameras_sequence import *
 from .resources import *
 from .sensor_specification import *
-

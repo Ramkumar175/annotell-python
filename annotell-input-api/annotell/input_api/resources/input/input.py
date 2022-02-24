@@ -14,11 +14,7 @@ class InputResource(InputAPIResource):
     Class exposing Annotell Inputs
     """
 
-    def invalidate_inputs(
-        self,
-        input_uuids: List[str],
-        invalidated_reason: InputModel.InvalidatedReasonInput
-    ) -> None:
+    def invalidate_inputs(self, input_uuids: List[str], invalidated_reason: InputModel.InvalidatedReasonInput) -> None:
         """
         Invalidates inputs, and removes them from all input lists
 
@@ -46,12 +42,12 @@ class InputResource(InputAPIResource):
         """
 
         external_id_query_param = ",".join(external_ids) if external_ids else None
-        json_resp = self._client.get("v1/inputs", params=filter_none({
-            "project": project,
-            "batch": batch,
-            "invalidated": include_invalidated,
-            "externalIds": external_id_query_param
-        }))
+        json_resp = self._client.get(
+            "v1/inputs",
+            params=filter_none(
+                {"project": project, "batch": batch, "invalidated": include_invalidated, "externalIds": external_id_query_param}
+            )
+        )
         return [InputModel.Input.from_json(js) for js in json_resp]
 
     def add_annotation_type(self, input_uuid: str, annotation_type: str) -> None:
@@ -62,10 +58,7 @@ class InputResource(InputAPIResource):
         of the input (use method `get_annotation_types` to check).
         """
 
-        self._client.post(
-            f"v1/inputs/{input_uuid}/actions/add-annotation-type/{annotation_type}",
-            discard_response=True
-        )
+        self._client.post(f"v1/inputs/{input_uuid}/actions/add-annotation-type/{annotation_type}", discard_response=True)
 
     def get_inputs_by_uuids(self, input_uuids: List[str]) -> List[Input]:
         """

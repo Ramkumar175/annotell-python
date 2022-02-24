@@ -21,9 +21,9 @@ def _tabulate(body, headers, title=None):
         roof = "=" * spacing
         floor = "=" * spacing
 
-        left_multi = spacing // 2 - title_len // 2 - 1
+        left_multi = spacing//2 - title_len//2 - 1
 
-        title_text_left = " " * left_multi + title
+        title_text_left = " "*left_multi + title
         title_text = title_text_left
 
         title_house = roof + '\n' + title_text + '\n' + floor
@@ -86,32 +86,18 @@ def inputs(obj, project, batch, external_ids, include_invalidated, view, uuids):
         body = []
         headers = ["uuid", "view_link"]
         for uuid, link in view_dict.items():
-            body.append([
-                uuid, link
-            ])
+            body.append([uuid, link])
         tab = _tabulate(body, headers, title="VIEW LINKS FOR INPUTS")
         print(tab)
     elif uuids is not None:
         uuids = uuids.split(",")
         inputs = client.input.get_inputs_by_uuids(uuids)
-        headers = ["uuid",
-            "external_id",
-            "batch",
-            "input_type",
-            "status",
-            "view_link",
-            "error_message"]
+        headers = ["uuid", "external_id", "batch", "input_type", "status", "view_link", "error_message"]
         tab = _get_table(inputs, headers, "INPUTS")
         print(tab)
     else:
         inputs = client.input.get_inputs(project, batch, include_invalidated=include_invalidated)
-        headers = ["uuid",
-                   "external_id",
-                   "batch",
-                   "input_type",
-                   "status",
-                   "view_link",
-                   "error_message"]
+        headers = ["uuid", "external_id", "batch", "input_type", "status", "view_link", "error_message"]
         tab = _get_table(inputs, headers, "INPUTS")
         print(tab)
 
@@ -127,6 +113,7 @@ def view(obj, input_uuid):
     headers = ["uuid", "view_link"]
     tab = _tabulate(body, headers, title="VIEW LINK")
     print(tab)
+
 
 @click.command()
 @click.option('--id', nargs=1, default=None, required=False, type=str)
@@ -166,13 +153,10 @@ def main():
     env = os.getenv("ANNOTELL_CLIENT_ORGANIZATION_ID", None)
     if env:
         org_id = int(env)
-        print("<" * 25,  f" Acting on behalf of organization {org_id}", 25 * ">")
+        print("<" * 25, f" Acting on behalf of organization {org_id}", 25 * ">")
     else:
         org_id = None
 
-    client = InputApiClient(
-        auth=None,
-        client_organization_id=org_id
-    )
+    client = InputApiClient(auth=None, client_organization_id=org_id)
 
     cli(obj={'client': client}, prog_name="annoutil")

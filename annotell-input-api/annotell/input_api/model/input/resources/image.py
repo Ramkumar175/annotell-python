@@ -14,8 +14,4 @@ class Image(Resource):
     sensor_name: str = camera_sensor_default
 
     def to_dict(self) -> dict:
-        return filter_none({
-            "filename": self.filename,
-            "resourceId": self.resolve_resource_id(),
-            "sensorName": self.sensor_name
-        })
+        return filter_none({"filename": self.filename, "resourceId": self.resolve_resource_id(), "sensorName": self.sensor_name})

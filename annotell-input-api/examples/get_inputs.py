@@ -3,9 +3,7 @@ from annotell.input_api import model as IAM
 import annotell.input_api.input_api_client as IAC
 
 
-def run(client: IAC.InputApiClient,
-        project: str,
-        include_invalidated: bool = False) -> List[IAM.Input]:
+def run(client: IAC.InputApiClient, project: str, include_invalidated: bool = False) -> List[IAM.Input]:
 
     print("Listing inputs...")
     return client.input.get_inputs(project=project, include_invalidated=include_invalidated)

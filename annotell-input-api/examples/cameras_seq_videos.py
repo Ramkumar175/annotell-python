@@ -11,11 +11,7 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
 
     sensor1 = "RFC01"
     sensor2 = "RFC02"
-    metadata = {
-        "location-lat": 27.986065,
-        "location-long": 86.922623,
-        "vehicle_id": "abg"
-    }
+    metadata = {"location-lat": 27.986065, "location-long": 86.922623, "vehicle_id": "abg"}
 
     cameras_sequence = CamerasSeqModel.CamerasSequence(
         external_id="camera_sequence_videos_example_input",
@@ -24,28 +20,16 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
                 frame_id="1",
                 relative_timestamp=0,
                 video_frames=[
-                    InputModel.VideoFrame(
-                        filename="./examples/resources/video_RFC01.mp4",
-                        sensor_name=sensor1,
-                        video_timestamp=0),
-                    InputModel.VideoFrame(
-                        filename="./examples/resources/video_RFC02.mp4",
-                        sensor_name=sensor2,
-                        video_timestamp=0),
+                    InputModel.VideoFrame(filename="./examples/resources/video_RFC01.mp4", sensor_name=sensor1, video_timestamp=0),
+                    InputModel.VideoFrame(filename="./examples/resources/video_RFC02.mp4", sensor_name=sensor2, video_timestamp=0),
                 ]
             ),
             CamerasSeqModel.Frame(
                 frame_id="2",
                 relative_timestamp=500,
                 video_frames=[
-                    InputModel.VideoFrame(
-                        filename="./examples/resources/video_RFC01.mp4",
-                        sensor_name=sensor1,
-                        video_timestamp=100),
-                    InputModel.VideoFrame(
-                        filename="./examples/resources/video_RFC02.mp4",
-                        sensor_name=sensor2,
-                        video_timestamp=100),
+                    InputModel.VideoFrame(filename="./examples/resources/video_RFC01.mp4", sensor_name=sensor1, video_timestamp=100),
+                    InputModel.VideoFrame(filename="./examples/resources/video_RFC02.mp4", sensor_name=sensor2, video_timestamp=100),
                 ],
                 metadata={'dut_status': 'active'}
             )
@@ -54,9 +38,7 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True):
     )
 
     # Add input
-    return client.cameras_sequence.create(cameras_sequence,
-                                          project=project,
-                                          dryrun=dryrun)
+    return client.cameras_sequence.create(cameras_sequence, project=project, dryrun=dryrun)
 
 
 if __name__ == '__main__':
@@ -67,4 +49,3 @@ if __name__ == '__main__':
 
     client = IAC.InputApiClient()
     run(client, project)
-

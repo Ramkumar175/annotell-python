@@ -12,4 +12,5 @@ class Frame:
     def to_dict(self) -> dict:
         return dict(
             pointClouds=[pc.to_dict() for pc in self.point_clouds] if self.point_clouds else None,
-            images=[image.to_dict() for image in self.images] if self.images else None)
+            images=[image.to_dict() for image in self.images] if self.images else None
+        )

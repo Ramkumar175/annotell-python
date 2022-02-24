@@ -10,7 +10,4 @@ class ExportAnnotation(Response):
 
     @staticmethod
     def from_json(js: dict):
-        return ExportAnnotation(
-            annotation_id=int(js["annotationId"]),
-            export_content=js["exportContent"]
-        )
+        return ExportAnnotation(annotation_id=int(js["annotationId"]), export_content=js["exportContent"])

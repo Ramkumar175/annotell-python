@@ -10,10 +10,7 @@ class CameraSettings:
     height: int
 
     def to_dict(self):
-        return filter_none({
-            "width": self.width,
-            "height": self.height
-        })
+        return filter_none({"width": self.width, "height": self.height})
 
 
 @dataclass
