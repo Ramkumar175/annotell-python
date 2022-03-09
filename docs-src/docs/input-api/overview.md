@@ -94,8 +94,12 @@ Inputs without a lidar sensor do not require a calibration.
 
 ### Metadata
 Metadata can be added to inputs via the `metadata` field. It consists of _flat_ key-value pairs, which means that nested data structures are not allowed. Metadata can be used to include additional information about an input.
+Nothing specified in the metadata can be seen by the annotators, but there are some reserved keywords which can alter the annotation tools behaviour, and can be found here:
 
-Metadata is not used during the process of producing annotations, i.e. annotators do not have access to the metadata.
+```python reference
+https://github.com/annotell/annotell-python/blob/master/annotell-input-api/annotell/input_api/model/input/metadata/metadata.py
+```
+
 
 ### Frame (non-sequential inputs)
 The Frame object specifies the binary data to be annotated (.jpg, .png, .las etc) as well as which sensor the data originated from.
