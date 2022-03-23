@@ -31,3 +31,11 @@ https://github.com/annotell/annotell-python/blob/master/annotell-input-api/examp
 :::note Coordinate Systems
 Note that both `position` and `rotation` for ego vehicle pose are with respect to the *local* coordinate system.
 :::
+
+## Shutter timings
+
+Shutter timings are optional metadata that may be provided when creating an `Image` within a `Frame`. Timings are two values: shutter start and end timestamp in nanoseconds since unix epoch and are specified for each image in each frame.
+
+```python reference
+https://github.com/annotell/annotell-python/blob/master/annotell-input-api/examples/lidars_and_cameras_seq_with_shutter_times.py
+```
