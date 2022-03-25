@@ -1,7 +1,8 @@
 from __future__ import absolute_import
 
-from typing import List, Optional
+import os.path
 from datetime import datetime
+from typing import List, Optional
 
 import annotell.input_api.input_api_client as IAC
 import annotell.input_api.model.input as InputModel
@@ -26,6 +27,7 @@ def run(
     cam_sensor1 = "RFC01"
     cam_sensor2 = "RFC02"
     metadata = {"location-lat": 27.986065, "location-long": 86.922623, "vehicleId": "abg"}
+    examples_path = os.path.dirname(__file__)
 
     # Create calibration
     calibration_spec = create_sensor_calibration(f"Collection {datetime.now()}", [lidar_sensor1, lidar_sensor2], [cam_sensor1, cam_sensor2])
@@ -41,15 +43,15 @@ def run(
                 frame_id="1",
                 relative_timestamp=0,
                 point_clouds=[
-                    ResourceModel.PointCloud("./examples/resources/point_cloud_RFL01.csv", sensor_name=lidar_sensor1),
-                    ResourceModel.PointCloud("./examples/resources/point_cloud_RFL02.csv", sensor_name=lidar_sensor2),
+                    ResourceModel.PointCloud(examples_path + "/resources/point_cloud_RFL01.csv", sensor_name=lidar_sensor1),
+                    ResourceModel.PointCloud(examples_path + "/resources/point_cloud_RFL02.csv", sensor_name=lidar_sensor2),
                 ],
                 images=[
-                    ResourceModel.Image("./examples/resources/img_RFC01.jpg", sensor_name=cam_sensor1,
+                    ResourceModel.Image(examples_path + "/resources/img_RFC01.jpg", sensor_name=cam_sensor1,
                                         metadata=ResourceModel.ImageMetadata(
                                             shutter_time_start_ns=1648200141997004000,
                                             shutter_time_end_ns=1648200142013674000)),
-                    ResourceModel.Image("./examples/resources/img_RFC02.jpg", sensor_name=cam_sensor2,
+                    ResourceModel.Image(examples_path + "/resources/img_RFC02.jpg", sensor_name=cam_sensor2,
                                         metadata=ResourceModel.ImageMetadata(
                                             shutter_time_start_ns=1648200141997004000,
                                             shutter_time_end_ns=1648200142013674000))
@@ -59,15 +61,15 @@ def run(
                 frame_id="2",
                 relative_timestamp=1000000000,
                 point_clouds=[
-                    ResourceModel.PointCloud("./examples/resources/point_cloud_RFL11.csv", sensor_name=lidar_sensor1),
-                    ResourceModel.PointCloud("./examples/resources/point_cloud_RFL12.csv", sensor_name=lidar_sensor2),
+                    ResourceModel.PointCloud(examples_path + "/resources/point_cloud_RFL11.csv", sensor_name=lidar_sensor1),
+                    ResourceModel.PointCloud(examples_path + "/resources/point_cloud_RFL12.csv", sensor_name=lidar_sensor2),
                 ],
                 images=[
-                    ResourceModel.Image("./examples/resources/img_RFC11.jpg", sensor_name=cam_sensor1,
+                    ResourceModel.Image(examples_path + "/resources/img_RFC11.jpg", sensor_name=cam_sensor1,
                                         metadata=ResourceModel.ImageMetadata(
                                             shutter_time_start_ns=1648200142997005000,
                                             shutter_time_end_ns=1648200143013675000)),
-                    ResourceModel.Image("./examples/resources/img_RFC12.jpg", sensor_name=cam_sensor2,
+                    ResourceModel.Image(examples_path + "/resources/img_RFC12.jpg", sensor_name=cam_sensor2,
                                         metadata=ResourceModel.ImageMetadata(
                                             shutter_time_start_ns=1648200142997005000,
                                             shutter_time_end_ns=1648200143013675000))
