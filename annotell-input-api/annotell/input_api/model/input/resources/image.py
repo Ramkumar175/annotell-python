@@ -9,8 +9,8 @@ camera_sensor_default = "CAM"
 
 
 class ImageMetadata(BaseSerializer):
-    shuttertime_start_ns: int
-    shuttertime_end_ns: int
+    shutter_time_start_ns: int
+    shutter_time_end_ns: int
 
 
 @dataclass
