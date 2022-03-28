@@ -77,7 +77,8 @@ def run(
             ),
         ],
         calibration_id=created_calibration.id,
-        metadata=metadata
+        metadata=metadata,
+        imu_data=imu_data
     )
     # Add input
     return client.lidars_and_cameras_sequence.create(
