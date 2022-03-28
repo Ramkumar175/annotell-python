@@ -41,6 +41,7 @@ def run(
         frames=[
             LCSM.Frame(
                 frame_id="1",
+                unix_timestamp=1648200141000000000,
                 relative_timestamp=0,
                 point_clouds=[
                     ResourceModel.PointCloud(examples_path + "/resources/point_cloud_RFL01.csv", sensor_name=lidar_sensor1),
@@ -59,6 +60,7 @@ def run(
             ),
             LCSM.Frame(
                 frame_id="2",
+                unix_timestamp=1648200142000000000,
                 relative_timestamp=1000000000,
                 point_clouds=[
                     ResourceModel.PointCloud(examples_path + "/resources/point_cloud_RFL11.csv", sensor_name=lidar_sensor1),
