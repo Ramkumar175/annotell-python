@@ -34,14 +34,17 @@ def run(
     created_calibration = client.calibration.create_calibration(calibration_spec)
 
     # Generate IMU data
-    imu_data = create_dummy_imu_data(start_timestamp=1648200140000000000, end_timestamp=1648200150000000000, samples_per_sec=10)
+    MILLI = 1000000 # nanos
+    start_ts = 1648200140000000000
+    end_ts = start_ts + 10 * MILLI
+    imu_data = create_dummy_imu_data(start_timestamp=start_ts, end_timestamp=end_ts, samples_per_sec=1000)
 
     lidars_and_cameras_seq = LCSM.LidarsAndCamerasSequence(
         external_id="input1",
         frames=[
             LCSM.Frame(
                 frame_id="1",
-                unix_timestamp=1648200141000000000,
+                unix_timestamp=start_ts + MILLI,
                 relative_timestamp=0,
                 point_clouds=[
                     ResourceModel.PointCloud(examples_path + "/resources/point_cloud_RFL01.csv", sensor_name=lidar_sensor1),
@@ -50,18 +53,18 @@ def run(
                 images=[
                     ResourceModel.Image(examples_path + "/resources/img_RFC01.jpg", sensor_name=cam_sensor1,
                                         metadata=ResourceModel.ImageMetadata(
-                                            shutter_time_start_ns=1648200141997004000,
-                                            shutter_time_end_ns=1648200142013674000)),
+                                            shutter_time_start_ns=start_ts + 0.5 * MILLI,
+                                            shutter_time_end_ns=start_ts + 1.5 * MILLI)),
                     ResourceModel.Image(examples_path + "/resources/img_RFC02.jpg", sensor_name=cam_sensor2,
                                         metadata=ResourceModel.ImageMetadata(
-                                            shutter_time_start_ns=1648200141997004000,
-                                            shutter_time_end_ns=1648200142013674000))
+                                            shutter_time_start_ns=start_ts + 0.5 * MILLI,
+                                            shutter_time_end_ns=start_ts + 1.5 * MILLI))
                 ],
             ),
             LCSM.Frame(
                 frame_id="2",
-                unix_timestamp=1648200142000000000,
-                relative_timestamp=1000000000,
+                unix_timestamp=start_ts + 5 * MILLI,
+                relative_timestamp=4 * MILLI,
                 point_clouds=[
                     ResourceModel.PointCloud(examples_path + "/resources/point_cloud_RFL11.csv", sensor_name=lidar_sensor1),
                     ResourceModel.PointCloud(examples_path + "/resources/point_cloud_RFL12.csv", sensor_name=lidar_sensor2),
@@ -69,13 +72,13 @@ def run(
                 images=[
                     ResourceModel.Image(examples_path + "/resources/img_RFC11.jpg", sensor_name=cam_sensor1,
                                         metadata=ResourceModel.ImageMetadata(
-                                            shutter_time_start_ns=1648200142997005000,
-                                            shutter_time_end_ns=1648200143013675000)),
+                                            shutter_time_start_ns=start_ts + 4.5 * MILLI,
+                                            shutter_time_end_ns=start_ts + 5.5 * MILLI)),
                     ResourceModel.Image(examples_path + "/resources/img_RFC12.jpg", sensor_name=cam_sensor2,
                                         metadata=ResourceModel.ImageMetadata(
-                                            shutter_time_start_ns=1648200142997005000,
-                                            shutter_time_end_ns=1648200143013675000))
-                ],
+                                            shutter_time_start_ns=start_ts + 4.5 * MILLI,
+                                            shutter_time_end_ns=start_ts + 5.5 * MILLI)),
+                ]
             ),
         ],
         calibration_id=created_calibration.id,

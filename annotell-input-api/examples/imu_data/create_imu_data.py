@@ -9,7 +9,7 @@ def create_dummy_imu_data(start_timestamp: int = 123000000000, end_timestamp: in
     def randfloat():
         return random.uniform(0, 1)
 
-    sample_ns = 1000000000 // samples_per_sec
+    sample_ns = 1_000_000_000 // int(samples_per_sec)
 
     imu_datas = []
     for idx in range(start_timestamp, end_timestamp+1, sample_ns):
