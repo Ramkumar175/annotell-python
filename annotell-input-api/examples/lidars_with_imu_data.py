@@ -1,5 +1,7 @@
 from __future__ import absolute_import
 
+import os.path
+
 import annotell.input_api.input_api_client as IAC
 import annotell.input_api.model.input as InputModel
 import annotell.input_api.model.input.resources as ResourceModel
@@ -15,11 +17,11 @@ def run(client: IAC.InputApiClient, project: str, dryrun: bool = True) -> InputM
     lidar_sensor1 = "lidar"
     metadata = MetaData.parse_obj({"location-lat": 27.986065, "location-long": 86.922623, "vehicle_id": "abg"})
     imu_data = create_dummy_imu_data()
-
+    examples_path = os.path.dirname(__file__)
     lidars = lidar_model.Lidars(
         external_id="input1",
         frame=lidar_model.Frame(
-            point_clouds=[ResourceModel.PointCloud("./examples/resources/point_cloud_RFL01.las", sensor_name=lidar_sensor1)],
+            point_clouds=[ResourceModel.PointCloud(examples_path + "/resources/point_cloud_RFL01.las", sensor_name=lidar_sensor1)],
             unix_timestamp=1644223851 * 1e9
         ),
         metadata=metadata,
