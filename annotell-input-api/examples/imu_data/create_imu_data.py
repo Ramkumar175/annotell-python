@@ -1,22 +1,18 @@
 from typing import List
 import random
 
-from datetime import datetime
 from annotell.input_api.model import IMUData
 from annotell.input_api.model.calibration.common import Position, RotationQuaternion
 
-
-def create_dummy_imu_data(start_timestamp: float = 123, end_timestamp: float = 130) -> List[IMUData]:
+def create_dummy_imu_data(start_timestamp: int = 123000000000, end_timestamp: int = 130000000000, samples_per_sec: int = 1) -> List[IMUData]:
 
     def randfloat():
         return random.uniform(0, 1)
 
-    start_date = datetime.fromtimestamp(start_timestamp)
-    end_date = datetime.fromtimestamp(end_timestamp)
+    sample_ns = 1_000_000_000 // int(samples_per_sec)
 
-    delta = (end_date - start_date).seconds + 1
     imu_datas = []
-    for idx in range(delta):
+    for idx in range(start_timestamp, end_timestamp+1, sample_ns):
         pos = Position(x=randfloat(), y=randfloat(), z=randfloat())
         rotation = RotationQuaternion(x=randfloat(), y=randfloat(), z=randfloat(), w=randfloat())
         imu_datas.append(IMUData(position=pos, rotation_quaternion=rotation, timestamp=idx))
