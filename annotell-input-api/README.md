@@ -12,7 +12,12 @@ Documentation about how to use the library can found [here](https://annotell.git
 
 All notable changes to this project will be documented in this file.
 
-## [1.1.X] - 2022-02-17
+## [1.1.5] - 2022-03-29
+
+### Bugfix
+- Added 'archived' as ProjectBatchStatus
+
+## [1.1.4] - 2022-02-17
 
 ### Added
 

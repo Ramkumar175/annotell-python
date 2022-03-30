@@ -1,8 +1,9 @@
 from dataclasses import dataclass
 from datetime import datetime
 from enum import Enum
-from annotell.input_api.util import ts_to_dt
+
 from annotell.input_api.model.abstract.abstract_models import Response
+from annotell.input_api.util import ts_to_dt
 
 
 class ProjectBatchStatus(str, Enum):
@@ -11,6 +12,7 @@ class ProjectBatchStatus(str, Enum):
     READY = 'ready'
     INPROGESS = 'in-progress'
     COMPLETED = 'completed'
+    ARCHIVED = 'archived'
 
 
 @dataclass
