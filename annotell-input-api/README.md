@@ -12,6 +12,11 @@ Documentation about how to use the library can found [here](https://annotell.git
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.6] - TBD
+
+### Added
+- Include `annotation_types` in `Input`
+
 ## [1.1.5] - 2022-03-29
 
 ### Bugfix
