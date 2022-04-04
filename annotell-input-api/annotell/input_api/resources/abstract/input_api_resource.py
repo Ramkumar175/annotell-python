@@ -1,5 +1,5 @@
-from annotell.input_api.cloud_storage import FileResourceClient
-from annotell.input_api.http_client import HttpClient
+from annotell.base_clients.cloud_storage import FileResourceClient
+from annotell.base_clients.http_client import HttpClient
 
 
 class InputAPIResource:

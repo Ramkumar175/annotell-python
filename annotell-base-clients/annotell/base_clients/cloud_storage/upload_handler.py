@@ -7,7 +7,7 @@ import requests
 from requests.exceptions import HTTPError, ConnectionError
 from requests.models import Response
 
-from annotell.input_api.util import RETRYABLE_STATUS_CODES, get_content_type, get_wait_time
+from annotell.base_clients.util import RETRYABLE_STATUS_CODES, get_content_type, get_wait_time
 
 log = logging.getLogger(__name__)
 

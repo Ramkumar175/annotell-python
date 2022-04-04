@@ -4,9 +4,9 @@ from typing import Optional
 
 import requests
 from annotell.auth.authsession import FaultTolerantAuthRequestSession
-from annotell.input_api.util import filter_none
+from annotell.base_clients.util import filter_none
 
-from annotell.input_api import __version__
+from annotell.base_clients import __version__
 
 log = logging.getLogger(__name__)
 

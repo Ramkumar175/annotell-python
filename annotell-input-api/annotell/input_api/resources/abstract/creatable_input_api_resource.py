@@ -4,8 +4,8 @@ import logging
 from typing import Dict, List, Optional, Tuple
 
 import annotell.input_api.model as IAM
-from annotell.input_api.cloud_storage import FileResourceClient
-from annotell.input_api.http_client import HttpClient
+from annotell.base_clients.cloud_storage import FileResourceClient
+from annotell.base_clients.http_client import HttpClient
 from annotell.input_api.model import IMUData
 from annotell.input_api.model.ego.validated_imu_data import ValidatedIMUData, ValidateIMUDataRequest
 from annotell.input_api.model.input.initialized_input import InitializedInput

@@ -3,8 +3,8 @@ import logging
 from pathlib import Path
 from typing import Dict, Mapping, Optional, BinaryIO
 
-from annotell.input_api.cloud_storage.download_handler import DownloadHandler
-from annotell.input_api.cloud_storage.upload_handler import UploadHandler
+from annotell.base_clients.cloud_storage.download_handler import DownloadHandler
+from annotell.base_clients.cloud_storage.upload_handler import UploadHandler
 
 log = logging.getLogger(__name__)
 

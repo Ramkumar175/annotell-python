@@ -14,6 +14,10 @@ All notable changes to this project will be documented in this file.
 
 ## [1.1.6] - TBD
 
+
+### Changed
+- Use annotell-base-clients for http and file resource upload
+
 ### Added
 - Include `annotation_types` in `Input`
 
