@@ -1,11 +1,11 @@
 from typing import Dict
 
-from humps import camel
+from humps import camelize
 from pydantic import BaseModel
 
 
 def to_camel_case(string: str) -> str:
-    return camel.case(string)
+    return camelize(string)
 
 
 class BaseSerializer(BaseModel):
