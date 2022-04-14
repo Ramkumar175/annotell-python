@@ -1,1 +1,1 @@
-UnixTimestampNs = float  # A unix timestamp measured in nano seconds
+UnixTimestampNs = int  # A unix timestamp measured in nano seconds
