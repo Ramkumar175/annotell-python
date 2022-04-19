@@ -14,9 +14,8 @@ All notable changes to this project will be documented in this file.
 
 ## [1.1.6] - TBD
 
-
 ### Changed
-- Use annotell-base-clients for http and file resource upload
+- annotell-base-clients is now a dependency for annotell-input-api, used for http requests and file uploads
 
 ### Added
 - Include `annotation_types` in `Input`
