@@ -2,7 +2,8 @@ from typing import Optional, List, Mapping, Union
 import requests
 import logging
 
-from annotell.auth.authsession import DEFAULT_HOST as DEFAULT_AUTH_HOST, FaultTolerantAuthRequestSession
+from annotell.auth import DEFAULT_HOST as DEFAULT_AUTH_HOST
+from annotell.auth.requests.auth_session import RequestsAuthSession
 
 from . import __version__
 from .query_model import QueryResponse, StreamingQueryResponse, QueryException
@@ -34,7 +35,7 @@ class QueryApiClient:
         self.judgements_query_url = "%s/v1/search/judgements/query" % self.host
         self.kpi_query_url = "%s/v1/search/kpi/query" % self.host
 
-        self._auth_req_session = FaultTolerantAuthRequestSession(auth=auth, host=auth_host)
+        self._auth_req_session = RequestsAuthSession(auth=auth, host=auth_host)
 
         self.headers = {
             "Accept-Encoding": "gzip",
