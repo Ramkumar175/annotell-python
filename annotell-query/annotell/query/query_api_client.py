@@ -45,7 +45,7 @@ class QueryApiClient:
 
     @property
     def session(self):
-        return self._auth_req_session
+        return self._auth_req_session.session
 
     def _create_request_body(self, *,
                              query_filter: Optional[str] = None,
