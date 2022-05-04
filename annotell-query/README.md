@@ -18,7 +18,7 @@ for item in resp.items():
 
 ## Change log
 
-### 2.4.0
+### 2.4.1
 - Use `annotell-auth[requests]>=2.0.0`
 
 ### 2.3.0
