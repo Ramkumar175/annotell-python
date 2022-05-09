@@ -1,6 +1,7 @@
 """Client for communicating with the Annotell platform."""
 import logging
-from typing import Optional
+import urllib.parse
+from typing import Optional, Union
 
 import requests
 from annotell.auth.authsession import FaultTolerantAuthRequestSession
@@ -76,7 +77,8 @@ class HttpClient:
 
         kwargs.setdefault("headers", self.headers)
         kwargs.setdefault("timeout", self.timeout)
-        resp = self.session.get(f"{self.host}/{endpoint}", **kwargs)
+        url = urllib.parse.urljoin(self.host, endpoint)
+        resp = self.session.get(url, **kwargs)
         return self._unwrap_enveloped_json(self._raise_on_error(resp).json())
 
     def post(self, endpoint, data=None, json=None, dryrun=False, discard_response=False, **kwargs) -> Optional[dict]:
