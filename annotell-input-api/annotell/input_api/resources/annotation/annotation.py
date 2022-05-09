@@ -1,9 +1,11 @@
 from typing import List, Dict, Optional, Generator
+
 from deprecated import deprecated
+
 from annotell.input_api.model.annotation import ExportAnnotation
 from annotell.input_api.model.annotation.client_annotation import Annotation, PartialAnnotation
-from annotell.input_api.util import filter_none
 from annotell.input_api.resources.abstract import InputAPIResource
+from annotell.input_api.util import filter_none
 
 
 class AnnotationResource(InputAPIResource):
@@ -33,15 +35,22 @@ class AnnotationResource(InputAPIResource):
         if batch:
             url += f"batch/{batch}/"
 
-        url += f"annotation-type/{annotation_type}"
+        url += f"annotation-type/{annotation_type}/search"
 
-        annotations = self._client.get(url)
-        for js in annotations:
+        for js in self._paginate(url):
             partial_annotation = PartialAnnotation.from_json(js)
             content = self._file_client.get_json(partial_annotation.uri)
             yield partial_annotation.to_annotation(content)
+
+    def _paginate(self, url: str) -> Generator[dict, None, None]:
+        page = self._client.get(url)
+        for annotation in page.data:
+            yield annotation
+        if page.links.next is not None:
+            yield from self._paginate(page.links.next)
 
     def get_annotation(self, input_uuid: str, annotation_type: str) -> Annotation:
         json_resp = self._client.get(f"v1/annotations/inputs/{input_uuid}/annotation-type/{annotation_type}")
         annotation = Annotation.from_json(json_resp)
         return annotation
+
