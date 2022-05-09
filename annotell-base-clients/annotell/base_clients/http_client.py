@@ -5,9 +5,9 @@ from typing import Optional, Union
 
 import requests
 from annotell.auth.authsession import FaultTolerantAuthRequestSession
-from annotell.base_clients.util import filter_none
-
 from annotell.base_clients import __version__
+from annotell.base_clients.models import PaginatedResponse
+from annotell.base_clients.util import filter_none
 
 log = logging.getLogger(__name__)
 
@@ -60,9 +60,11 @@ class HttpClient:
         return resp
 
     @staticmethod
-    def _unwrap_enveloped_json(js: dict) -> dict:
+    def _unwrap_enveloped_json(js: dict) -> Union[dict, list, PaginatedResponse]:
         if isinstance(js, list):
             return js
+        elif js is not None and js.get('links') is not None:
+            return PaginatedResponse(**js)
         elif js is not None and js.get(ENVELOPED_JSON_TAG) is not None:
             return js[ENVELOPED_JSON_TAG]
         return js
