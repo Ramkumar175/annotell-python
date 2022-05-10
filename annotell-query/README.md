@@ -18,6 +18,9 @@ for item in resp.items():
 
 ## Change log
 
+### 2.5.0
+- A new base Query client that can be inherrited for other applications 
+
 ### 2.4.1
 - Use `annotell-auth[requests]>=2.0.0`
 
