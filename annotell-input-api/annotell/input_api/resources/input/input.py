@@ -60,6 +60,18 @@ class InputResource(InputAPIResource):
 
         self._client.post(f"v1/inputs/{input_uuid}/actions/add-annotation-type/{annotation_type}", discard_response=True)
 
+    def remove_annotation_types(self, input_uuid: str, annotation_types: List[str]) -> None:
+        """
+        Removes annotation types from the input, which informs the Annotell Platform
+        that a corresponding annotation should not be produced for the annotation types. Only
+        possible if the annotation type is available for the input (use method `get_inputs_by_uuids` to check).
+        Note: If multiple annotation types are configured to be annotated at the same time, i.e. on the same request,
+        all of these annotation types need to be provided.
+        """
+        body = dict(annotationTypes=annotation_types)
+        self._client.post(f"v1/inputs/{input_uuid}/annotation-types/actions/remove", json=body, discard_response=True)
+
+
     def get_inputs_by_uuids(self, input_uuids: List[str]) -> List[Input]:
         """
         Gets inputs using input uuids

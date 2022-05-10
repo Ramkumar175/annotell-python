@@ -19,6 +19,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 - Include `annotation_types` in `Input`
+- Method to remove annotation types from an input: `remove_annotation_types`
 
 ## [1.1.5] - 2022-03-29
 
