@@ -6,7 +6,7 @@ from annotell.input_api.model.annotation import ExportAnnotation
 from annotell.input_api.model.annotation.client_annotation import Annotation, PartialAnnotation
 from annotell.input_api.resources.abstract import InputAPIResource
 from annotell.input_api.util import filter_none
-
+import urllib
 
 class AnnotationResource(InputAPIResource):
 
@@ -42,15 +42,15 @@ class AnnotationResource(InputAPIResource):
             content = self._file_client.get_json(partial_annotation.uri)
             yield partial_annotation.to_annotation(content)
 
-    def _paginate(self, url: str) -> Generator[dict, None, None]:
-        page = self._client.get(url)
+    def _paginate(self, base_url: str, next_cursor_id: Optional[int] = None) -> Generator[dict, None, None]:
+        next_page_url = urllib.parse.urljoin(base_url, f"?cursorId={next_cursor_id}") if next_cursor_id is not None else base_url
+        page = self._client.get(next_page_url)
         for annotation in page.data:
             yield annotation
-        if page.links.next is not None:
-            yield from self._paginate(page.links.next)
+        if page.metadata.next_cursor_id is not None:
+            yield from self._paginate(base_url, page.metadata.next_cursor_id)
 
     def get_annotation(self, input_uuid: str, annotation_type: str) -> Annotation:
         json_resp = self._client.get(f"v1/annotations/inputs/{input_uuid}/annotation-type/{annotation_type}")
         annotation = Annotation.from_json(json_resp)
         return annotation
-

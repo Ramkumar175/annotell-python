@@ -1,12 +1,12 @@
 from typing import Union, Optional
 
-from pydantic import BaseModel
+from annotell.input_api.model.base_serializer import BaseSerializer
 
 
-class Links(BaseModel):
-    next: Optional[str]
+class PageMetadata(BaseSerializer):
+    next_cursor_id: Optional[int]
 
 
-class PaginatedResponse(BaseModel):
+class PaginatedResponse(BaseSerializer):
     data: Union[dict, list]
-    links: Links
+    metadata: PageMetadata

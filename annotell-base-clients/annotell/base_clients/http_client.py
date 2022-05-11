@@ -63,8 +63,8 @@ class HttpClient:
     def _unwrap_enveloped_json(js: dict) -> Union[dict, list, PaginatedResponse]:
         if isinstance(js, list):
             return js
-        elif js is not None and js.get('links') is not None:
-            return PaginatedResponse(**js)
+        elif js is not None and js.get('metadata') is not None:
+            return PaginatedResponse.from_json(js)
         elif js is not None and js.get(ENVELOPED_JSON_TAG) is not None:
             return js[ENVELOPED_JSON_TAG]
         return js
