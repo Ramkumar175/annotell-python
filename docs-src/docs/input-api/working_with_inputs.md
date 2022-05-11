@@ -78,7 +78,8 @@ Once an input has been created, it might be preprocessed before being made avail
 
 | Status                          | Description                                                                                                             |
 | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| processing                      | Input has been received and currently processed by Annotell Platform, potentially performing conversion of file formats |
+| pending                         | Input has been validated but the server is waiting for the associated data to be uploaded                               |
+| processing                      | Associated data has been uploaded and is currently being processed by the Annotell Platform, potentially performing conversion of file formats |
 | created                         | Input is created and available for annotation                                                                           |
 | failed                          | Conversion of input failed                                                                                              |
 | invalidated:broken-input        | Input was invalidated since it did not load                                                                             |
@@ -87,12 +88,26 @@ Once an input has been created, it might be preprocessed before being made avail
 
 ## List Inputs
 
+
+
+Inputs can be retrieved from the input API in two ways:
+1. Filtering on a project using the `get_inputs` method. Additional filter parameters are also available 
+   (see table below) for querying inputs.
+2. Providing the input uuids of the inputs to be retrieved using the `get_inputs_by_uuids` method
+
 ```python
-project = "project-identifier"
-client.input.get_inputs(project=project)
+# List all inputs for a project
+client.input.get_inputs(project="project-identifier")
+
+# List all inputs for a project and a batch
+client.input.get_inputs(project="project-identifier", batch="batch-identifier") 
+
+# List all inputs for specific input uuids
+input_uuids = ['cca60a67-cb68-4645-8bae-00c6e6415555', 'cc8776d0-f537-4094-8b11-8c2111741e2f', ...]
+client.input.get_inputs_by_uuids(input_uuids=input_uuids)
 ```
 
-Inputs can be retrieved via the API by specifying project. Additional filter parameters are also available (see below) for querying inputs.
+Additional filter parameters for querying inputs using `get_inputs` are listed below.
 
 | Parameter           | Description                                               |
 | ------------------- | --------------------------------------------------------- |
@@ -113,8 +128,12 @@ The response is a list of `Input` objects containing the following properties
 | input_type    | Type of input (see [Input Types](../key_concepts.md))               |
 | status        | Input status (see [Input Statuses](#input-status))                  |
 | error_message | If there is an error during input creation the error message will be included, otherwise it's `None` |
+| annotation_types | List of annotation types for the input (new in version 1.1.6)    |
 
 ## Invalidate Inputs
+
+Invalidation of an input means that it will be removed for all annotation types. See [Annotation Types](annotation_types.md)
+on how to remove a specific annotation types for an input.
 
 ```python
 invalid_ids = ["0edb8f59-a8ea-4c9b-aebb-a3caaa6f2ba3", "37d9dda4-3a29-4fcb-8a71-6bf16d5a9c36"]

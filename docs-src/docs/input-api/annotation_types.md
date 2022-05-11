@@ -88,3 +88,29 @@ error if e.g. `static_objects` was missing from the specified batch.
 In order to get the best possible validation it is recommended that you always
 specify annotation types when you create inputs.
 :::
+
+### Add/remove annotation types for an input
+
+Adding an annotation type to an input means that an annotation will be produced for that input with the specified
+annotation type. In the same way, removing annotation types (new in version 1.1.6) from an input means that annotations will **not** be
+produced for that input with the specified annotation types. 
+
+In the case when multiple annotation types are annotated in the same task, it is enough to specify
+one annotation type when adding but **all** annotation types must be specified when removing. 
+
+Note that it is currently not possible to add an annotation type that has already been removed from an input.
+
+```python
+from annotell.input_api.input_api_client import InputApiClient
+
+client = InputApiClient()
+input_uuid = 'cca60a67-cb68-4645-8bae-00c6e6415555'
+
+# Add an annotation type to an input
+client.input.add_annotation_type(input_uuid=input_uuid, annotation_type="annotation-type")
+
+# Remove annotation types from an input (new in version 1.1.6)
+annotation_types = ["annotation-type-1", "annotation-type-2", ...]
+client.input.remove_annotation_types(input_uuid=input_uuid, annotation_type=annotation_types)
+
+```
