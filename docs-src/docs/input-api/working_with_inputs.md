@@ -119,16 +119,16 @@ Additional filter parameters for querying inputs using `get_inputs` are listed b
 ### Response
 The response is a list of `Input` objects containing the following properties
 
-| Property      | Description                                                         |
-| --------------|---------------------------------------------------------------------|
-| uuid          | ID used to identify the input within the Annotell Platform          |
-| external_id   | External ID supplied during input creation                          |
-| batch         | Which batch does the input belong to                                |
-| view_link     | A url to view the input in the Annotell Platform                    |
-| input_type    | Type of input (see [Input Types](../key_concepts.md))               |
-| status        | Input status (see [Input Statuses](#input-status))                  |
+| Property      | Description                                                                                          |
+| --------------|------------------------------------------------------------------------------------------------------|
+| uuid          | ID used to identify the input within the Annotell Platform                                           |
+| external_id   | External ID supplied during input creation                                                           |
+| batch         | Which batch does the input belong to                                                                 |
+| view_link     | A url to view the input in the Annotell Platform                                                     |
+| input_type    | Type of input (see [Input Types](../key_concepts.md))                                                |
+| status        | Input status (see [Input Statuses](#input-status))                                                   |
 | error_message | If there is an error during input creation the error message will be included, otherwise it's `None` |
-| annotation_types | List of annotation types for the input (new in version 1.1.6)    |
+| annotation_types | List of annotation types for the input (new in version 1.2.0)                                        |
 
 ## Invalidate Inputs
 
