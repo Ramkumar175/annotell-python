@@ -12,10 +12,10 @@ Documentation about how to use the library can found [here](https://annotell.git
 
 All notable changes to this project will be documented in this file.
 
-## [1.1.6] - TBD
+## [1.2.0] - 2022-05-05
 
 ### Changed
-- annotell-base-clients is now a dependency for annotell-input-api, used for http requests and file uploads
+- `annotell-base-clients` is now a dependency for `annotell-input-api`, used for http requests and file uploads
 
 ### Added
 - Include `annotation_types` in `Input`
