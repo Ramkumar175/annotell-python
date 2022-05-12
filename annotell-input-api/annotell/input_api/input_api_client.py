@@ -1,7 +1,7 @@
 """Client for communicating with the Annotell platform."""
 import logging
 
-from annotell.auth.authsession import DEFAULT_HOST as DEFAULT_AUTH_HOST
+from annotell.auth import DEFAULT_HOST as DEFAULT_AUTH_HOST
 
 from annotell.base_clients.cloud_storage import FileResourceClient
 from annotell.base_clients.http_client import HttpClient

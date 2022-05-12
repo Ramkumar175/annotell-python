@@ -4,7 +4,8 @@ import urllib.parse
 from typing import Optional, Union
 
 import requests
-from annotell.auth.authsession import FaultTolerantAuthRequestSession
+from annotell.auth.requests.auth_session import RequestsAuthSession
+
 from annotell.base_clients import __version__
 from annotell.base_clients.models import PaginatedResponse
 from annotell.base_clients.util import filter_none
@@ -28,7 +29,7 @@ class HttpClient:
         """
 
         self.host = host
-        self._auth_req_session = FaultTolerantAuthRequestSession(host=auth_host, auth=auth)
+        self._auth_req_session = RequestsAuthSession(host=auth_host, auth=auth)
         self.headers = {"Accept-Encoding": "gzip", "Accept": "application/json", "User-Agent": "annotell-input-api/%s" % __version__}
         self.dryrun_header = {"X-Dryrun": ""}
         self.timeout = 60
@@ -42,7 +43,7 @@ class HttpClient:
 
     @property
     def session(self):
-        return self._auth_req_session
+        return self._auth_req_session.session
 
     @staticmethod
     def _raise_on_error(resp: requests.Response) -> requests.Response:

@@ -37,7 +37,7 @@ setup(
     download_url='%s/tarball/%s' % (URL, version),
     keywords=['API', 'Annotell'],
     install_requires=[
-        'annotell-auth>=1.5.0,<2',
+        'annotell-auth>=2.0.1<3',
         'requests>=2.23.0',
         'pydantic',
     ],
