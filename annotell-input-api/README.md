@@ -6,7 +6,7 @@ To install with pip run `pip install annotell-input-api`
 
 # Documentation & Getting Started Guide
 
-Documentation about how to use the library can found [here](https://annotell.github.io/annotell-python/)
+Documentation about how to use the library can be found [here](https://annotell.github.io/annotell-python/)
 
 # Changelog
 
@@ -16,6 +16,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 - `annotell-base-clients` is now a dependency for `annotell-input-api`, used for http requests and file uploads
+- The generator produced by `client.annotation.get_project_annotations` will now reliably iterate projects with thousands of annotations
 
 ### Added
 - Include `annotation_types` in `Input`

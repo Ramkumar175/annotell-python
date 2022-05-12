@@ -39,6 +39,7 @@ setup(
     install_requires=[
         'annotell-auth>=2.0.1<3',
         'requests>=2.23.0',
+        'pydantic',
     ],
     python_requires='~=3.6',
     include_package_data=True,
