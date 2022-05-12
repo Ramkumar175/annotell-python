@@ -18,19 +18,25 @@ for item in resp.items():
 
 ## Change log
 
+### 2.5.0
+- A new base Query client that can be inherrited for other applications 
+
+### 2.4.1
+- Use `annotell-auth[requests]>=2.0.0`
+
 ### 2.3.0
-- Use annotell-auth>=1.6
+- Use `annotell-auth>=1.6`
 - Remove metadata queries
 
 ### 2.2.0
-- Use annotell-auth>=1.5 with fault tolerant auth request session
+- Use `annotell-auth>=1.5` with fault tolerant auth request session
 
 ### 2.1.0
 - Use server default query limits 
 
 ### 2.0.0
-- Rename library to annotell-query
-- Rename QueryApi to QueryApiClient
+- Rename library to `annotell-query`
+- Rename `QueryApi` to `QueryApiClient`
 - Add KPI query method
 
 ### 1.3.0

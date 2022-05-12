@@ -2,7 +2,8 @@ from typing import Optional, List, Mapping, Union
 import requests
 import logging
 
-from annotell.auth.authsession import DEFAULT_HOST as DEFAULT_AUTH_HOST, FaultTolerantAuthRequestSession
+from annotell.auth import DEFAULT_HOST as DEFAULT_AUTH_HOST
+from annotell.auth.requests.auth_session import RequestsAuthSession
 
 from . import __version__
 from .query_model import QueryResponse, StreamingQueryResponse, QueryException
@@ -19,11 +20,9 @@ AGGREGATES_TYPE = Optional[Mapping[str, dict]]
 log = logging.getLogger(__name__)
 
 
-class QueryApiClient:
-    def __init__(self, *,
-                 auth=None,
-                 host=DEFAULT_HOST,
-                 auth_host=DEFAULT_AUTH_HOST):
+class BaseQueryClient:
+    def __init__(self, *, auth, host, auth_host=DEFAULT_AUTH_HOST):
+
         """
         :param auth: Annotell authentication credentials,
         see https://github.com/annotell/annotell-python/tree/master/annotell-auth
@@ -31,10 +30,8 @@ class QueryApiClient:
         :param auth_host: authentication server host
         """
         self.host = host
-        self.judgements_query_url = "%s/v1/search/judgements/query" % self.host
-        self.kpi_query_url = "%s/v1/search/kpi/query" % self.host
 
-        self._auth_req_session = FaultTolerantAuthRequestSession(auth=auth, host=auth_host)
+        self._auth_req_session = RequestsAuthSession(auth=auth, host=auth_host)
 
         self.headers = {
             "Accept-Encoding": "gzip",
@@ -44,7 +41,7 @@ class QueryApiClient:
 
     @property
     def session(self):
-        return self._auth_req_session
+        return self._auth_req_session.session
 
     def _create_request_body(self, *,
                              query_filter: Optional[str] = None,
@@ -111,6 +108,16 @@ class QueryApiClient:
         )
         r = self._return_request_resp(resp)
         return StreamingQueryResponse(r) if stream else QueryResponse(r)
+
+
+class QueryApiClient(BaseQueryClient):
+    def __init__(self, *,
+                 auth=None,
+                 host=DEFAULT_HOST,
+                 auth_host=DEFAULT_AUTH_HOST):
+        super().__init__(auth=auth, host=host, auth_host=auth_host)
+        self.judgements_query_url = "%s/v1/search/judgements/query" % self.host
+        self.kpi_query_url = "%s/v1/search/kpi/query" % self.host
 
     def query_kpi_data_entries(self,
                                query_filter: Optional[str] = None,
