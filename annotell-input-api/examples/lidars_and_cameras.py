@@ -14,7 +14,7 @@ from annotell.input_api.logger import setup_logging
 
 def run(
     client: IAC.InputApiClient,
-    project: str,
+    project: Optional[str],
     annotation_types: Optional[List[str]] = None,
     dryrun: bool = True
 ) -> InputModel.CreateInputResponse:

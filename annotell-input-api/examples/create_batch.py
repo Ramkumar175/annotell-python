@@ -1,6 +1,4 @@
 from annotell.input_api.model.projects.project_batch import ProjectBatch
-from annotell.input_api import model as IAM
-from typing import List, Optional
 import annotell.input_api.input_api_client as IAC
 
 
