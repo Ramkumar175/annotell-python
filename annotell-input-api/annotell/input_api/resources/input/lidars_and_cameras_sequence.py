@@ -1,5 +1,7 @@
 import logging
-from typing import Optional, List
+from typing import List, Optional
+
+from annotell.openlabel.models import OpenLabelAnnotation
 
 import annotell.input_api.model.input as InputModel
 from annotell.input_api.resources.abstract import CreateableInputAPIResource

@@ -12,6 +12,12 @@ Documentation about how to use the library can be found [here](https://annotell.
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.1] - 2022-06-08
+
+### Added
+- Ability to create inputs from a scene
+- Ability to create pre-annotations (limited support)
+
 ## [1.2.0] - 2022-05-05
 
 ### Changed

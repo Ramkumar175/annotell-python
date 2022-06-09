@@ -3,12 +3,14 @@ import json
 import logging
 from typing import Dict, List, Optional, Tuple
 
-import annotell.input_api.model as IAM
 from annotell.base_clients.cloud_storage import FileResourceClient
 from annotell.base_clients.http_client import HttpClient
+
+import annotell.input_api.model as IAM
 from annotell.input_api.model import IMUData
 from annotell.input_api.model.ego.validated_imu_data import ValidatedIMUData, ValidateIMUDataRequest
 from annotell.input_api.model.input.initialized_input import InitializedInput
+from annotell.input_api.model.input.input_from_scene_request import InputFromSceneRequest
 
 log = logging.getLogger(__name__)
 
@@ -125,3 +127,27 @@ class CreateableInputAPIResource:
         url += resource_path
 
         return url
+
+    def create_from_scene(
+        self,
+        scene_uuid: str,
+        project: str,
+        batch: Optional[str] = None,
+        annotation_types: Optional[List[str]] = None,
+        dryrun: bool = False
+    ):
+        """
+        Create inputs from a scene. Note that, if a pre-annotation has been added for the scene, it will be included for
+        all inputs.
+
+        :param scene_uuid: uuid of the scene to create inputs from
+        :param project: the project to add the inputs to
+        :param batch: the batch to add the inputs to. Will default to the latest open batch if 'None'.
+        :param annotation_types: list of annotation types to add inputs for. Will default to all annotation types for
+            the project and batch if 'None' or empty
+        :param dryrun: whether to do a dry-run or not
+        """
+        if annotation_types is None:
+            annotation_types = []
+        create_request = InputFromSceneRequest(scene_uuid=scene_uuid, annotation_types=annotation_types, project=project, batch=batch)
+        return self._client.post(INPUTS_ROUTE, json=create_request.to_dict(), dryrun=dryrun, discard_response=True)

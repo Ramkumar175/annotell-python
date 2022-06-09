@@ -1,5 +1,6 @@
-from setuptools import setup, find_namespace_packages
 import re
+
+from setuptools import find_namespace_packages, setup
 
 URL = 'https://github.com/annotell/annotell-python'
 
@@ -36,7 +37,9 @@ setup(
     keywords=['API', 'Annotell'],
     install_requires=[
         'annotell-auth>=2.0.1,<3',
+        'annotell-openlabel',
         'annotell-base-clients>=0.1.0',
+        "annotell-openlabel",
         'click>=7.1.1',
         'Pillow>=7.0.0',
         'requests>=2.23.0',

@@ -1,19 +1,22 @@
 """Client for communicating with the Annotell platform."""
 import logging
+from typing import Optional
 
 from annotell.auth import DEFAULT_HOST as DEFAULT_AUTH_HOST
 
 from annotell.base_clients.cloud_storage import FileResourceClient
 from annotell.base_clients.http_client import HttpClient
+
 from annotell.input_api.resources.annotation.annotation import AnnotationResource
 from annotell.input_api.resources.calibration.calibration import CalibrationResource
 from annotell.input_api.resources.input.cameras import Cameras
 from annotell.input_api.resources.input.cameras_sequence import CamerasSequence
 from annotell.input_api.resources.input.input import InputResource
+from annotell.input_api.resources.input.lidars import Lidars
 from annotell.input_api.resources.input.lidars_and_cameras import LidarsAndCameras
 from annotell.input_api.resources.input.lidars_and_cameras_sequence import LidarsAndCamerasSequence
-from annotell.input_api.resources.input.lidars import Lidars
 from annotell.input_api.resources.input.lidars_sequence import LidarsSequence
+from annotell.input_api.resources.input.pre_annotation import PreAnnotationResource
 from annotell.input_api.resources.project.project import ProjectResource
 
 DEFAULT_HOST = "https://input.annotell.com"
@@ -30,7 +33,7 @@ class InputApiClient:
         auth=None,
         host: str = DEFAULT_HOST,
         auth_host: str = DEFAULT_AUTH_HOST,
-        client_organization_id: int = None,
+        client_organization_id: Optional[int] = None,
         max_retry_attempts: int = 23,
         max_retry_wait_time: int = 60,
         timeout: int = 60
@@ -44,15 +47,24 @@ class InputApiClient:
         :param max_upload_retry_wait_time:  Max with time before retrying an upload to GCS.
         """
 
-        self._client = HttpClient(auth=auth, host=host, auth_host=auth_host, client_organization_id=client_organization_id, timeout=timeout)
+        self._client = HttpClient(
+            auth=auth,
+            host=host,
+            auth_host=auth_host,
+            client_organization_id=client_organization_id,
+            timeout=timeout,
+        )
         self._file_client = FileResourceClient(
-            max_retry_attempts=max_retry_attempts, max_retry_wait_time=max_retry_wait_time, timeout=timeout
+            max_retry_attempts=max_retry_attempts,
+            max_retry_wait_time=max_retry_wait_time,
+            timeout=timeout,
         )
 
         self.calibration = CalibrationResource(self._client, self._file_client)
         self.project = ProjectResource(self._client, self._file_client)
         self.annotation = AnnotationResource(self._client, self._file_client)
         self.input = InputResource(self._client, self._file_client)
+        self.pre_annotation = PreAnnotationResource(self._client, self._file_client)
 
         self.lidar_and_cameras = LidarsAndCameras(self._client, self._file_client)
         self.lidars_and_cameras_sequence = LidarsAndCamerasSequence(self._client, self._file_client)

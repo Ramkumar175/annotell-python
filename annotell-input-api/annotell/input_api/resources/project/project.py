@@ -1,7 +1,6 @@
 from typing import List, Optional
 
 import annotell.input_api.model.projects as ProjectModel
-import annotell.input_api.model.annotation as AnnotationModel
 from annotell.input_api.resources.abstract import InputAPIResource
 
 
