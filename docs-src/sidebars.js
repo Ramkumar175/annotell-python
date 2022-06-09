@@ -16,6 +16,7 @@ module.exports = {
           "input-api/inputs/lidars_and_cameras_seq"
         ]},
         "input-api/working_with_inputs",
+        "input-api/pre_annotations",
         "input-api/inputs/lidars_with_imu_data",
       ]},
       "input-api/annotations",
