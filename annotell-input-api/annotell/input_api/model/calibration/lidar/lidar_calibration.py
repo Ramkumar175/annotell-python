@@ -6,7 +6,7 @@ from annotell.input_api.model.calibration.common import BaseCalibration, Calibra
 
 class LidarFieldOfView(BaseSerializer):
     start_angle: float
-    end_angle: float
+    stop_angle: float
 
 
 class LidarCalibration(BaseCalibration):
