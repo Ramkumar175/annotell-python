@@ -1,12 +1,12 @@
 ---
 title: Calibration
 ---
-Inputs including both a 2D and 3D representation such as **lidars_and_cameras** require a calibration relating the camera sensors with the
-lidar sensors in terms of location and rotation. The calibration should also contain the required information for projecting 3D points into
+Inputs including both a 2D and 3D representation such as `lidars_and_cameras` require a calibration relating the camera sensors with the
+LIDAR sensors in terms of location and rotation. The calibration should also contain the required information for projecting 3D points into
 the image plane of the camera.
 
 A Calibration object consists of a set of key-value pairs where the key is the name of the sensor (i.e. sensor name) and the value is either
-a _LidarCalibration_ object or any of the different camera calibrations.
+a `LidarCalibration` object or any of the different camera calibrations.
 
 :::tip reuse calibration
 Note that you can, and should, reuse the same calibration for multiple inputs if possible.
@@ -14,18 +14,18 @@ Note that you can, and should, reuse the same calibration for multiple inputs if
 
 # Lidar
 
-| Key                 | Value                                | Parameters                                               |
-|:--------------------|:-------------------------------------|:---------------------------------------------------------|
-| rotation_quaternion | A RotationQuaternion object          | `w, x, y, z`                                             |
-| position            | A Position object                    | `x, y, z`                                                |
-| field_of_view       | A LidarFieldOfView object (optional) | `start_angle_deg, stop_angle_deg` and optionally `depth` | 
+| Key                        | Value                         | Parameters                                                 |
+|:---------------------------|:------------------------------|:-----------------------------------------------------------|
+| `rotation_quaternion`      | A `RotationQuaternion` object | `w`, `x`, `y`, `z`                                         |
+| `position`                 | A `Position` object           | `x`, `y`, `z`                                              |
+| `field_of_view` (optional) | A `LidarFieldOfView` object   | `start_angle_deg`, `stop_angle_deg` and optionally `depth` | 
 
-A lidar calibration is represented as a _LidarCalibration_ object and consists of a position expressed with three coordinates and a rotation
+A LIDAR calibration is represented as a `LidarCalibration` object and consists of a position expressed with three coordinates and a rotation
 in the form of a [Quaternion](https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation). Optionally, the sensor's field of view may be
 specified by providing an object that has a sweep start angle and sweep stop angle. The field of view may also optionally include the depth
 to which the field extends.
 
-See the code example below for creating a base _LidarCalibration_ object.
+See the code example below for creating a base `LidarCalibration` object.
 
 ```python reference
 https://github.com/annotell/annotell-python/blob/master/annotell-input-api/examples/calibration/create_lidar_calibration.py
@@ -42,15 +42,15 @@ supported: `PINHOLE`, `FISHEYE` and `KANNALA`.
 
 The `PINHOLE` camera model consists of the following attributes
 
-| Key                       | Value                             | Parameters             |
-| :------------------------ | :---------------------------------|:-----------------------|
-| rotation_quaternion       | A RotationQuaternion object       | `w, x, y, z`           |
-| position                  | A Position object                 | `x, y, z`              |
-| camera_matrix             | A CameraMatrix object             | `fx, fy, cx, cy`       |
-| distortion_coefficients   | A DistortionCoefficients object.  | `k1, k2, p1, p2, k3`   |
-| image_height              | Integer                           | NA                     |
-| image_width               | Integer                           | NA                     |
-| field_of_view             | Float                             | NA                     |
+| Key                       | Value                             | Parameters                   |
+|:--------------------------|:----------------------------------|:-----------------------------|
+| `rotation_quaternion`     | A `RotationQuaternion` object     | `w`, `x`, `y, `z`            |
+| `position`                | A `Position` object               | `x`, `y`, `z`                |
+| `camera_matrix`           | A `CameraMatrix` object           | `fx`, `fy`, `cx`, `cy`       |
+| `distortion_coefficients` | A `DistortionCoefficients` object | `k1`, `k2`, `p1`, `p2`, `k3` |
+| `image_height`            | Integer                           | NA                           |
+| `image_width`             | Integer                           | NA                           |
+| `field_of_view`           | Float                             | NA                           |
 
 ```python reference
 https://github.com/annotell/annotell-python/blob/master/annotell-input-api/examples/calibration/create_pinhole_calibration.py
@@ -59,9 +59,9 @@ https://github.com/annotell/annotell-python/blob/master/annotell-input-api/examp
 ## Fisheye
 The Fisheye camera model expands the `PINHOLE` model with the following
 
-| Key                       | Value                             | Parameters             |
-| :------------------------ | :---------------------------------|:-----------------------|
-| xi                        | Float                             | NA                     |
+| Key  | Value | Parameters |
+|:-----|:------|:-----------|
+| `xi` | Float | NA         |
 
 ```python reference
 https://github.com/annotell/annotell-python/blob/master/annotell-input-api/examples/calibration/create_fisheye_calibration.py
@@ -71,10 +71,10 @@ https://github.com/annotell/annotell-python/blob/master/annotell-input-api/examp
 ## Kannala
 The `KANNALA` camera model changes and expands the `PINHOLE` with the following
 
-| Key                       | Value                             | Parameters             |
-| :------------------------ | :---------------------------------|:-----------------------|
-| distortion_coefficients   |A KannalaDistortionCoefficients object. <br/> Note that it is a subset of the DistortionCoefficients, omitting the `k3` parameter  | `k1, k2, p1, p2`   |
-| undistortion_coefficients |A UndistortionCoefficients object. | `l1, l2, l3, l4`   |
+| Key                         | Value                                                                                                                                 | Parameters       |
+|:----------------------------|:--------------------------------------------------------------------------------------------------------------------------------------|:-----------------|
+| `distortion_coefficients`   | A `KannalaDistortionCoefficients` object. <br/> Note that it is a subset of the `DistortionCoefficients`, omitting the `k3` parameter | `k1, k2, p1, p2` |
+| `undistortion_coefficients` | A `UndistortionCoefficients` object.                                                                                                  | `l1, l2, l3, l4` |
 
 ```python reference
 https://github.com/annotell/annotell-python/blob/master/annotell-input-api/examples/calibration/create_kannala_calibration.py
@@ -83,13 +83,11 @@ https://github.com/annotell/annotell-python/blob/master/annotell-input-api/examp
 ## Example: Creating a calibration
 
 The following example code shows how you can create a *unity* (i.e. we assume that all sensors are placed at origin and have no rotation)
-calibration for a lidar sensor and several camera sensors of type `PINHOLE`.
+calibration for a LIDAR sensor and several camera sensors of type `PINHOLE`.
 
 ```python reference
 https://github.com/annotell/annotell-python/blob/master/annotell-input-api/examples/calibration/calibration.py
 ```
-
-
 
 ### Listing existing calibrations
 
