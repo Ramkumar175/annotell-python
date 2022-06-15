@@ -14,14 +14,18 @@ Note that you can, and should, reuse the same calibration for multiple inputs if
 
 # Lidar
 
-| Key                       | Value                             | Parameters             |
-| :------------------------ | :---------------------------------|:-----------------------|
-| rotation_quaternion       | A RotationQuaternion object       | `w, x, y, z`           |
-| position                  | A Position object                 | `x, y, z`              |
-A lidar calibration is represented as a _LidarCalibration_ object and consists of a position expressed with three coordinates and a rotation
-in the form of a [Quaternion](https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation). See the code example below for creating a
-basic _LidarCalibration_ object.
+| Key                 | Value                                | Parameters                                               |
+|:--------------------|:-------------------------------------|:---------------------------------------------------------|
+| rotation_quaternion | A RotationQuaternion object          | `w, x, y, z`                                             |
+| position            | A Position object                    | `x, y, z`                                                |
+| field_of_view       | A LidarFieldOfView object (optional) | `start_angle_deg, stop_angle_deg` and optionally `depth` | 
 
+A lidar calibration is represented as a _LidarCalibration_ object and consists of a position expressed with three coordinates and a rotation
+in the form of a [Quaternion](https://en.wikipedia.org/wiki/Quaternions_and_spatial_rotation). Optionally, the sensor's field of view may be
+specified by providing an object that has a sweep start angle and sweep stop angle. The field of view may also optionally include the depth
+to which the field extends.
+
+See the code example below for creating a base _LidarCalibration_ object.
 
 ```python reference
 https://github.com/annotell/annotell-python/blob/master/annotell-input-api/examples/calibration/create_lidar_calibration.py
